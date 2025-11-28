@@ -2,23 +2,26 @@
 
 <div class="hero-slide position-relative">
     {% if value.image %}
-        {% image value.image fill-1920x800 as slide_img %}
-        <img src="{{ slide_img.url }}" class="d-block w-100" alt="{{ value.title }}">
+        {% image value.image fill-1920x1080 as slide_img %}
+        <img src="{{ slide_img.url }}" class="d-block w-100 h-100" alt="{{ value.title }}" loading="lazy">
     {% endif %}
-    <div class="carousel-caption d-none d-md-block">
+    <div class="carousel-caption text-center">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h1 class="display-4 fw-bold">{{ value.title }}</h1>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    <h1 class="display-3 fw-bold mb-4" data-aos="fade-up" data-aos-delay="200">{{ value.title }}</h1>
                     {% if value.subtitle %}
-                        <p class="lead">{{ value.subtitle }}</p>
+                        <p class="lead mb-4 fs-4" data-aos="fade-up" data-aos-delay="400">{{ value.subtitle }}</p>
                     {% endif %}
                     {% if value.cta_text and value.cta_link %}
-                        <a href="{{ value.cta_link }}" class="btn btn-primary btn-lg">{{ value.cta_text }}</a>
+                        <a href="{{ value.cta_link }}" class="btn btn-primary btn-lg px-5 py-3 hover-lift" data-aos="fade-up" data-aos-delay="600">
+                            {{ value.cta_text }}
+                            <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
-    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(45deg, rgba(0, 78, 137, 0.6), rgba(255, 107, 53, 0.4));"></div>
 </div>

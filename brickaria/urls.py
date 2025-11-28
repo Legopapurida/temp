@@ -2,6 +2,7 @@ from django.conf import settings
 from django.urls import path, include
 from django.contrib import admin
 from django.conf.urls.static import static
+from django.http import HttpResponse
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
@@ -14,6 +15,9 @@ urlpatterns = [
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
     path('search/', SearchView.as_view(), name='search'),
+    
+    # Chrome DevTools
+    path('.well-known/appspecific/com.chrome.devtools.json', lambda r: HttpResponse(status=204)),
     
     # App URLs
     path('games/', include('apps.games.urls')),

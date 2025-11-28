@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Email Management - Brickaria{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-gradient text-white text-center py-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <h3 class="mb-0"><i class="bi bi-envelope-fill me-2"></i>Email Management</h3>
+                    <p class="mb-0 mt-2 opacity-75">Manage your email addresses and notifications</p>
+                </div>
+                <div class="card-body p-4">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    {% if user.emailaddress_set.all %}
+                        <div class="mb-4">
+                            <h5 class="text-primary mb-3"><i class="bi bi-list-ul me-2"></i>Your Email Addresses</h5>
+                            <div class="list-group">
+                                {% for emailaddress in user.emailaddress_set.all %}
+                                    <div class="list-group-item border-0 shadow-sm mb-2 rounded">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <div class="me-3">
+                                                    <i class="bi bi-envelope-fill text-primary fs-4"></i>
+                                                </div>
+                                                <div>
+                                                    <strong class="d-block">{{ emailaddress.email }}</strong>
+                                                    <div class="mt-1">
+                                                        {% if emailaddress.primary %}
+                                                            <span class="badge bg-primary"><i class="bi bi-star-fill me-1"></i>Primary</span>
+                                                        {% endif %}
+                                                        {% if not emailaddress.verified %}
+                                                            <span class="badge bg-warning text-dark"><i class="bi bi-exclamation-triangle me-1"></i>Unverified</span>
+                                                        {% else %}
+                                                            <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Verified</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="btn-group" role="group">
+                                                {% if not emailaddress.verified %}
+                                                    <form method="post" action="{% url 'account_resend_confirmation' %}" class="d-inline">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="email" value="{{ emailaddress.email }}">
+                                                        <button type="submit" class="btn btn-sm btn-outline-primary" title="Resend Verification">
+                                                            <i class="bi bi-send"></i>
+                                                        </button>
+                                                    </form>
+                                                {% endif %}
+                                                {% if not emailaddress.primary and emailaddress.verified %}
+                                                    <form method="post" action="{% url 'account_set_primary' %}" class="d-inline">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="email" value="{{ emailaddress.email }}">
+                                                        <button type="submit" class="btn btn-sm btn-outline-success" title="Make Primary">
+                                                            <i class="bi bi-star"></i>
+                                                        </button>
+                                                    </form>
+                                                {% endif %}
+                                                {% if not emailaddress.primary %}
+                                                    <form method="post" action="{% url 'account_remove_email' %}" class="d-inline">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="email" value="{{ emailaddress.email }}">
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Remove Email" onclick="return confirm('Are you sure you want to remove this email?')">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="border-top pt-4">
+                        <h5 class="text-primary mb-3"><i class="bi bi-plus-circle me-2"></i>Add New Email Address</h5>
+                        <form method="post" action="{% url 'account_email' %}">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <div class="d-grid mt-3">
+                                <button type="submit" name="action_add" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-plus-circle me-2"></i>Add Email Address
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <hr class="my-4">
+                    <div class="text-center">
+                        <a href="{% url 'accounts:profile' %}" class="btn btn-outline-secondary btn-lg">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,19 +1,48 @@
 /* Brickaria Gaming Website Styles */
 
 :root {
-    --primary-color: #007bff;
-    --secondary-color: #6c757d;
+    --bs-primary: #552583;
+    --bs-secondary: #FDB927;
+    --bs-success: #28a745;
+    --bs-warning: #ffc107;
+    --bs-danger: #dc3545;
+    --bs-info: #17a2b8;
+    --bs-light: #FFFFFF;
+    --bs-dark: #000000;
+    
+    --primary-color: #552583;
+    --secondary-color: #FDB927;
     --success-color: #28a745;
     --warning-color: #ffc107;
     --danger-color: #dc3545;
     --info-color: #17a2b8;
-    --light-color: #f8f9fa;
-    --dark-color: #343a40;
+    --light-color: #FFFFFF;
+    --dark-color: #000000;
     
-    --game-primary: #ff6b35;
-    --game-secondary: #004e89;
-    --game-accent: #ffd23f;
+    --game-primary: #552583;
+    --game-secondary: #FDB927;
+    --game-accent: #000000;
 }
+
+/* Bootstrap Color Overrides */
+.bg-primary { background-color: #552583 !important; }
+.text-primary { color: #552583 !important; }
+.btn-primary { background-color: #552583; border-color: #552583; }
+.btn-primary:hover { background-color: #441f69; border-color: #441f69; }
+.btn-primary:focus { box-shadow: 0 0 0 0.2rem rgba(85, 37, 131, 0.5); }
+.btn-outline-primary { color: #552583; border-color: #552583; }
+.btn-outline-primary:hover { background-color: #552583; border-color: #552583; }
+.navbar-dark .navbar-brand { color: #FFFFFF; }
+.navbar-dark .navbar-nav .nav-link { color: rgba(255, 255, 255, 0.75); }
+.navbar-dark .navbar-nav .nav-link:hover { color: #FDB927; }
+.navbar-dark .navbar-toggler { border-color: rgba(255, 255, 255, 0.1); }
+.dropdown-menu { background-color: #552583; }
+.dropdown-item { color: #FFFFFF; }
+.dropdown-item:hover { background-color: #FDB927; color: #000000; }
+.alert-primary { background-color: rgba(85, 37, 131, 0.1); border-color: #552583; color: #552583; }
+.border-primary { border-color: #552583 !important; }
+.link-primary { color: #552583; }
+.link-primary:hover { color: #441f69; }
 
 /* Global Styles */
 body {
@@ -42,12 +71,14 @@ body {
 /* Cards */
 .card {
     border: none;
-    border-radius: 12px;
-    transition: all 0.3s ease;
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 .card:hover {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 /* Game Cards */
@@ -80,6 +111,86 @@ body {
 .hero-section {
     background: linear-gradient(135deg, var(--game-primary), var(--game-secondary));
     color: white;
+}
+
+/* Carousel Enhancements */
+.carousel-fade .carousel-item {
+    opacity: 0;
+    transition-property: opacity;
+    transform: none;
+}
+
+.carousel-fade .carousel-item.active,
+.carousel-fade .carousel-item-next.carousel-item-start,
+.carousel-fade .carousel-item-prev.carousel-item-end {
+    z-index: 1;
+    opacity: 1;
+}
+
+.carousel-fade .active.carousel-item-start,
+.carousel-fade .active.carousel-item-end {
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0s 0.6s;
+}
+
+.carousel-item {
+    height: 100vh;
+    min-height: 500px;
+    position: relative;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    filter: brightness(0.7);
+    transition: filter 0.3s ease;
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 800px;
+    z-index: 10;
+}
+
+.carousel-caption h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 1rem;
+}
+
+.carousel-caption .lead {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
+}
+
+/* Modern hover effects */
+.hover-lift {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Card spacing utilities */
+.g-4 {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .g-4 {
+        --bs-gutter-x: 2rem;
+        --bs-gutter-y: 2rem;
+    }
 }
 
 /* Stats Section */
@@ -149,8 +260,12 @@ body {
 }
 
 .form-control:focus, .form-select:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    border-color: #552583;
+    box-shadow: 0 0 0 0.2rem rgba(85, 37, 131, 0.25);
+}
+.form-check-input:checked {
+    background-color: #552583;
+    border-color: #552583;
 }
 
 /* Footer */
@@ -199,22 +314,43 @@ footer a:hover {
     
     /* Mobile Hero Slider */
     .carousel-item {
-        height: 50vh !important;
-        min-height: 300px !important;
+        height: 70vh !important;
+        min-height: 400px !important;
     }
     
     .carousel-caption {
-        position: static !important;
-        padding: 2rem 1rem;
-        background: rgba(0, 0, 0, 0.7);
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 95% !important;
+        padding: 1.5rem !important;
+        background: rgba(0, 0, 0, 0.6) !important;
+        border-radius: 12px !important;
     }
     
     .carousel-caption h1 {
-        font-size: 1.8rem;
+        font-size: 2rem !important;
     }
     
     .carousel-caption .lead {
-        font-size: 1rem;
+        font-size: 1.1rem !important;
+    }
+    
+    /* Mobile card spacing */
+    .g-4 {
+        --bs-gutter-x: 1rem;
+        --bs-gutter-y: 1.5rem;
+    }
+    
+    /* Disable hover effects on mobile */
+    .card:hover {
+        transform: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+    
+    .hover-lift:hover {
+        transform: none;
     }
     
     /* Mobile buttons */
@@ -280,7 +416,13 @@ footer a:hover {
     }
     
     .carousel-item {
-        height: 60vh;
+        height: 80vh;
+        min-height: 600px;
+    }
+    
+    .g-4 {
+        --bs-gutter-x: 1.75rem;
+        --bs-gutter-y: 1.75rem;
     }
 }
 
@@ -290,7 +432,13 @@ footer a:hover {
     }
     
     .carousel-item {
-        height: 70vh;
+        height: 100vh;
+        min-height: 700px;
+    }
+    
+    .g-4 {
+        --bs-gutter-x: 2.5rem;
+        --bs-gutter-y: 2.5rem;
     }
 }
 
@@ -307,6 +455,23 @@ footer a:hover {
     
     .game-card:hover .card-img-top {
         transform: none;
+    }
+    
+    .hover-lift:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    /* Enhanced touch targets */
+    .btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 60px;
+        height: 60px;
     }
 }
 
@@ -339,7 +504,7 @@ footer a:hover {
 .spinner {
     width: 40px;
     height: 40px;
-    border: 4px solid #f3f3f3;
+    border: 4px solid #FFFFFF;
     border-top: 4px solid var(--primary-color);
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -348,4 +513,86 @@ footer a:hover {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* Enhanced typography */
+.display-5 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.display-6 {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+/* Input group enhancements */
+.input-group-lg .form-control {
+    border-radius: 12px 0 0 12px;
+    border: 2px solid #FFFFFF;
+    padding: 1rem 1.5rem;
+}
+
+.input-group-lg .btn {
+    border-radius: 0 12px 12px 0;
+    border: 2px solid var(--primary-color);
+    padding: 1rem 2rem;
+    font-weight: 600;
+}
+
+/* Modern gradients */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--game-primary) 0%, var(--game-secondary) 100%);
+}
+
+.bg-gradient-light {
+    background: linear-gradient(135deg, #FFFFFF 0%, #FDB927 100%);
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Section spacing */
+section {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Accessibility improvements */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* Focus states */
+.btn:focus,
+.form-control:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .carousel-fade .carousel-item {
+        transition: none;
+    }
+    
+    .card,
+    .btn,
+    .hover-lift {
+        transition: none;
+    }
+    
+    .fade-in-up {
+        animation: none;
+    }
 }

@@ -77,6 +77,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'apps.accounts.middleware.OTPRequiredMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -202,6 +203,10 @@ AXES_COOLOFF_TIME = 1
 
 # Email settings (configure for production)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Custom OTP settings
+OTP_EMAIL_SENDER = config('OTP_EMAIL_SENDER', default='noreply@brickaria.com')
+OTP_TOKEN_VALIDITY_MINUTES = 5
 
 # Security settings
 SECURE_BROWSER_XSS_FILTER = True
