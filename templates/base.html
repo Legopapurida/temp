@@ -21,7 +21,7 @@
     {% block extra_css %}{% endblock %}
 </head>
 
-<body class="{% block body_class %}{% endblock %}">
+<body class="{% block body_class %}{% endblock %} d-flex flex-column min-vh-100">
     {% include "includes/header.html" %}
 
     <!-- Messages -->
@@ -37,7 +37,7 @@
     {% endif %}
 
     <!-- Main Content -->
-    <main>
+    <main class="flex-grow-1">
         {% block content %}{% endblock %}
     </main>
 
@@ -51,23 +51,34 @@
                 </div>
                 <div class="col-md-2">
                     <h6>Games</h6>
-                    {% flat_menu 'footer-games' template='menus/flat_menu_bootstrap.html' %}
+                    <ul class="list-unstyled">
+                        {% for category in footer_game_categories %}
+                            <li><a href="{{ games_index_page.url }}?category={{ category.name }}" class="text-light-emphasis">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
                 <div class="col-md-2">
                     <h6>Shop</h6>
-                    {% flat_menu 'footer-shop' template='menus/flat_menu_bootstrap.html' %}
+                    <ul class="list-unstyled">
+                        {% for category in footer_product_categories %}
+                            <li><a href="{{ shop_index_page.url }}?category={{ category.name }}" class="text-light-emphasis">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
                 <div class="col-md-2">
                     <h6>Company</h6>
-                    {% flat_menu 'footer-company' template='menus/flat_menu_bootstrap.html' %}
+                    <ul class="list-unstyled">
+                        {% for brand in footer_brands %}
+                            <li><a href="{{ shop_index_page.url }}?brand={{ brand.name }}" class="text-light-emphasis">{{ brand.name }}</a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
                 <div class="col-md-2">
                     <h6>Follow Us</h6>
                     <div class="d-flex gap-2">
-                        <a href="#" class="text-light"><i class="bi bi-youtube"></i></a>
-                        <a href="#" class="text-light"><i class="bi bi-discord"></i></a>
-                        <a href="#" class="text-light"><i class="bi bi-twitch"></i></a>
-                        <a href="#" class="text-light"><i class="bi bi-twitter"></i></a>
+                        {% for social in social_links %}
+                            <a href="{{ social.url }}" class="text-light" title="{{ social.name }}"><i class="bi {{ social.icon_class }}"></i></a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -77,8 +88,12 @@
                     <p class="mb-0">&copy; 2024 Brickaria. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <a href="/privacy/" class="text-light-emphasis me-3">Privacy Policy</a>
-                    <a href="/terms/" class="text-light-emphasis">Terms of Service</a>
+                    {% if privacy_page %}
+                        <a href="{{ privacy_page.url }}" class="text-light-emphasis me-3">Privacy Policy</a>
+                    {% endif %}
+                    {% if terms_page %}
+                        <a href="{{ terms_page.url }}" class="text-light-emphasis">Terms of Service</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

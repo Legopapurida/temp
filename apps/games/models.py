@@ -48,6 +48,12 @@ class GamesIndexPage(Page):
     def get_context(self, request):
         context = super().get_context(request)
         games = self.get_children().live().order_by('-first_published_at')
+        
+        # Filter by category
+        category = request.GET.get('category')
+        if category:
+            games = games.filter(gamepage__categories__name__iexact=category)
+        
         context['games'] = games
         context['categories'] = GameCategory.objects.all()
         return context

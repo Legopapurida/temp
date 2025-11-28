@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Confirm Email - Brickaria{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3><i class="bi bi-envelope-check me-2"></i>Confirm Email</h3>
+                </div>
+                <div class="card-body text-center">
+                    {% if confirmation %}
+                        <p class="mb-4">Please confirm that <strong>{{ confirmation.email_address.email }}</strong> is an email address for user {{ confirmation.email_address.user }}.</p>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-check-circle me-2"></i>Confirm Email
+                                </button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <p class="text-danger">This email confirmation link expired or is invalid.</p>
+                        <a href="{% url 'account_email' %}" class="btn btn-primary">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Email Settings
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

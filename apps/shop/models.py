@@ -72,6 +72,11 @@ class ShopIndexPage(Page):
         if category:
             products = products.filter(productpage__categories__name__iexact=category)
         
+        # Filter by brand
+        brand = request.GET.get('brand')
+        if brand:
+            products = products.filter(productpage__brand__name__iexact=brand)
+        
         context['products'] = products
         context['categories'] = ProductCategory.objects.all()
         return context
