@@ -22,52 +22,7 @@
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="/">
-                <i class="bi bi-controller me-2"></i>Brickaria
-            </a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    {% main_menu %}
-                </ul>
-                
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'search' %}">
-                            <i class="bi bi-search"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'shop:cart' %}">
-                            <i class="bi bi-cart"></i>
-                        </a>
-                    </li>
-                    {% if user.is_authenticated %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                {{ user.username }}
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/accounts/profile/">Profile</a></li>
-                                <li><a class="dropdown-item" href="/accounts/logout/">Logout</a></li>
-                            </ul>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/accounts/login/">Login</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-    </nav>
+    {% include "includes/header.html" %}
 
     <!-- Messages -->
     {% if messages %}
@@ -96,27 +51,15 @@
                 </div>
                 <div class="col-md-2">
                     <h6>Games</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="/games/" class="text-light-emphasis">All Games</a></li>
-                        <li><a href="/games/category/action/" class="text-light-emphasis">Action</a></li>
-                        <li><a href="/games/category/puzzle/" class="text-light-emphasis">Puzzle</a></li>
-                    </ul>
+                    {% flat_menu 'footer-games' template='menus/flat_menu_bootstrap.html' %}
                 </div>
                 <div class="col-md-2">
                     <h6>Shop</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="/shop/" class="text-light-emphasis">All Products</a></li>
-                        <li><a href="/shop/category/toys/" class="text-light-emphasis">Toys</a></li>
-                        <li><a href="/shop/category/merch/" class="text-light-emphasis">Merch</a></li>
-                    </ul>
+                    {% flat_menu 'footer-shop' template='menus/flat_menu_bootstrap.html' %}
                 </div>
                 <div class="col-md-2">
                     <h6>Company</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="/about/" class="text-light-emphasis">About Us</a></li>
-                        <li><a href="/careers/" class="text-light-emphasis">Careers</a></li>
-                        <li><a href="/contact/" class="text-light-emphasis">Contact</a></li>
-                    </ul>
+                    {% flat_menu 'footer-company' template='menus/flat_menu_bootstrap.html' %}
                 </div>
                 <div class="col-md-2">
                     <h6>Follow Us</h6>

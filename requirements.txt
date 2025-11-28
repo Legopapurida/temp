@@ -13,6 +13,7 @@ wagtail-localize>=1.7.0
 # Authentication & Security
 django-allauth>=0.57.0
 django-axes>=6.1.0
+django-otp>=1.2.0
 
 # Forms & Contact
 django-crispy-forms>=2.0

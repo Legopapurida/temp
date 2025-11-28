@@ -27,24 +27,3 @@ class ProfileForm(forms.ModelForm):
         user.last_name = self.cleaned_data['last_name']
         user.save()
 
-class OTPVerificationForm(forms.Form):
-    token = forms.CharField(
-        max_length=6,
-        min_length=6,
-        widget=forms.TextInput(attrs={
-            'class': 'form-control text-center',
-            'placeholder': 'Enter 6-digit code',
-            'style': 'letter-spacing: 0.5em; font-size: 1.2em;'
-        })
-    )
-    
-    def clean_token(self):
-        token = self.cleaned_data.get('token')
-        if token and not token.isdigit():
-            raise forms.ValidationError('Token must contain only digits.')
-        return token
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.add_input(Submit('submit', 'Verify', css_class='btn btn-primary w-100'))

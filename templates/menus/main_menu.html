@@ -1,5 +1,16 @@
 {% for item in menu_items %}
-    <li class="nav-item">
-        <a class="nav-link{% if item.active %} active{% endif %}" href="{{ item.href }}">{{ item.text }}</a>
+    <li class="nav-item{% if item.has_children %} dropdown{% endif %}">
+        {% if item.has_children %}
+            <a class="nav-link dropdown-toggle{% if item.active %} active{% endif %}" href="{{ item.href }}" role="button" data-bs-toggle="dropdown">
+                {{ item.text }}
+            </a>
+            <ul class="dropdown-menu">
+                {% for child in item.children %}
+                    <li><a class="dropdown-item{% if child.active %} active{% endif %}" href="{{ child.href }}">{{ child.text }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <a class="nav-link{% if item.active %} active{% endif %}" href="{{ item.href }}">{{ item.text }}</a>
+        {% endif %}
     </li>
 {% endfor %}

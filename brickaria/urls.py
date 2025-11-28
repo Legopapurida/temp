@@ -32,6 +32,8 @@ urlpatterns = [
     # Authentication
     path('accounts/', include('allauth.urls')),
     
+
+    
     # Support/Helpdesk (commented out until helpdesk is properly configured)
     # path('helpdesk/', include('helpdesk.urls')),
     

@@ -37,6 +37,7 @@ WAGTAIL_APPS = [
     'wagtail.search',
     'wagtail.admin',
     'wagtail',
+
     'wagtail.contrib.settings',
     'wagtail.contrib.table_block',
     'modelcluster',
@@ -55,6 +56,9 @@ THIRD_PARTY_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'axes',
+    'django_otp',
+    'django_otp.plugins.otp_email',
+    'django_otp.plugins.otp_totp',
 ]
 
 LOCAL_APPS = [
@@ -77,7 +81,8 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'apps.accounts.middleware.OTPRequiredMiddleware',
+    'django_otp.middleware.OTPMiddleware',
+
     'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -204,9 +209,11 @@ AXES_COOLOFF_TIME = 1
 # Email settings (configure for production)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# Custom OTP settings
+# Django OTP settings
 OTP_EMAIL_SENDER = config('OTP_EMAIL_SENDER', default='noreply@brickaria.com')
-OTP_TOKEN_VALIDITY_MINUTES = 5
+OTP_EMAIL_SUBJECT = 'Brickaria - Your verification code'
+OTP_EMAIL_BODY_TEMPLATE = 'Your Brickaria verification code is: {token}\n\nThis code will expire in 5 minutes.'
+OTP_EMAIL_TOKEN_VALIDITY = 300  # 5 minutes in seconds
 
 # Security settings
 SECURE_BROWSER_XSS_FILTER = True
