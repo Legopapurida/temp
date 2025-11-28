@@ -1,0 +1,30 @@
+Django>=4.2,<5.0
+wagtail>=5.2
+psycopg2-binary>=2.9.0
+Pillow>=10.0.0
+django-extensions>=3.2.0
+django-debug-toolbar>=4.2.0
+
+# Wagtail plugins
+wagtail-seo>=2.4.0
+wagtailmenus>=3.1.0
+wagtail-localize>=1.7.0
+
+# Authentication & Security
+django-allauth>=0.57.0
+django-axes>=6.1.0
+
+# Forms & Contact
+django-crispy-forms>=2.0
+crispy-bootstrap5>=0.7
+
+# Search & Performance
+django-redis>=5.3.0
+
+# Support & Tickets
+django-helpdesk>=0.3.0
+
+# Development
+python-decouple>=3.8
+whitenoise>=6.5.0
+gunicorn>=21.2.0

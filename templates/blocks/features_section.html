@@ -1,0 +1,17 @@
+<section class="features-section py-5">
+    <div class="container">
+        <div class="row g-4">
+            {% for feature in value %}
+                <div class="col-md-4">
+                    <div class="feature-item text-center p-4">
+                        {% if feature.icon %}
+                            <i class="bi bi-{{ feature.icon }} text-primary mb-3" style="font-size: 3rem;"></i>
+                        {% endif %}
+                        <h4 class="fw-bold mb-3">{{ feature.title }}</h4>
+                        <p class="text-muted">{{ feature.description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,20 @@
+{% load wagtailimages_tags %}
+
+<div class="card game-card h-100 shadow-sm">
+    {% if value.image %}
+        {% image value.image fill-400x250 as game_img %}
+        <img src="{{ game_img.url }}" class="card-img-top" alt="{{ value.title }}">
+    {% endif %}
+    <div class="card-body">
+        <h5 class="card-title">{{ value.title }}</h5>
+        <p class="card-text">{{ value.description }}</p>
+        {% if value.release_date %}
+            <small class="text-muted">Release: {{ value.release_date }}</small>
+        {% endif %}
+    </div>
+    {% if value.game_link %}
+    <div class="card-footer">
+        <a href="{{ value.game_link }}" class="btn btn-primary">Play Now</a>
+    </div>
+    {% endif %}
+</div>

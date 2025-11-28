@@ -1,0 +1,18 @@
+{% load wagtailimages_tags %}
+
+<div class="card">
+    {% if value.image %}
+        {% image value.image fill-300x200 as game_img %}
+        <img src="{{ game_img.url }}" class="card-img-top" alt="{{ value.title }}">
+    {% endif %}
+    <div class="card-body">
+        <h5 class="card-title">{{ value.title }}</h5>
+        <p class="card-text">{{ value.description }}</p>
+        {% if value.release_date %}
+            <div class="d-flex align-items-center">
+                <i class="bi bi-calendar text-warning me-2"></i>
+                <small class="text-muted">Expected: {{ value.release_date }}</small>
+            </div>
+        {% endif %}
+    </div>
+</div>

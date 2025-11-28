@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-6">
+            {% if page.featured_image %}
+                {% image page.featured_image fill-600x600 as img %}
+                <img src="{{ img.url }}" class="img-fluid rounded" alt="{{ page.title }}">
+            {% endif %}
+        </div>
+        
+        <div class="col-lg-6">
+            <h1 class="display-5 mb-3">{{ page.title }}</h1>
+            <p class="lead">{{ page.short_description }}</p>
+            
+            <div class="mb-4">
+                {% if page.is_on_sale %}
+                    <div class="d-flex align-items-center gap-3 mb-2">
+                        <span class="h3 text-danger mb-0">${{ page.sale_price }}</span>
+                        <span class="text-decoration-line-through text-muted">${{ page.price }}</span>
+                        <span class="badge bg-danger">{{ page.discount_percentage }}% OFF</span>
+                    </div>
+                {% else %}
+                    <span class="h3">${{ page.price }}</span>
+                {% endif %}
+            </div>
+            
+            {% if page.stock_quantity > 0 %}
+                <div class="mb-3">
+                    <span class="badge bg-success">In Stock ({{ page.stock_quantity }} available)</span>
+                </div>
+                
+                <div class="d-grid gap-2 mb-4">
+                    <button class="btn btn-primary btn-lg">Add to Cart</button>
+                    <button class="btn btn-outline-secondary">Add to Wishlist</button>
+                </div>
+            {% else %}
+                <div class="mb-3">
+                    <span class="badge bg-danger">Out of Stock</span>
+                </div>
+            {% endif %}
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5>Product Details</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>SKU:</strong> {{ page.sku }}</p>
+                    {% if page.brand %}
+                        <p><strong>Brand:</strong> {{ page.brand.name }}</p>
+                    {% endif %}
+                    {% if page.weight %}
+                        <p><strong>Weight:</strong> {{ page.weight }} lbs</p>
+                    {% endif %}
+                    {% if page.dimensions %}
+                        <p><strong>Dimensions:</strong> {{ page.dimensions }}</p>
+                    {% endif %}
+                    {% if page.is_digital %}
+                        <p><span class="badge bg-info">Digital Product</span></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3>Description</h3>
+            <div class="mb-4">{{ page.description|richtext }}</div>
+            
+            {% if page.categories.all %}
+                <h5>Categories</h5>
+                <div class="mb-3">
+                    {% for category in page.categories.all %}
+                        <span class="badge bg-secondary me-1">{{ category.name }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

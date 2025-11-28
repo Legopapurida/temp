@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8">
+            {% if page.featured_image %}
+                {% image page.featured_image fill-800x400 as img %}
+                <img src="{{ img.url }}" class="img-fluid rounded mb-4" alt="{{ page.title }}">
+            {% endif %}
+            
+            <h1 class="display-4 mb-3">{{ page.title }}</h1>
+            <p class="lead">{{ page.short_description }}</p>
+            
+            {% if page.trailer_url %}
+                <div class="mb-4">
+                    <iframe width="100%" height="400" src="{{ page.trailer_url }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+            {% endif %}
+            
+            <div class="mb-4">{{ page.description|richtext }}</div>
+            
+            {% if page.gallery %}
+                <h3>Gallery</h3>
+                <div class="row mb-4">
+                    {% for block in page.gallery %}
+                        <div class="col-md-4 mb-3">
+                            {% if block.block_type == 'image' %}
+                                {% image block.value fill-300x200 as img %}
+                                <img src="{{ img.url }}" class="img-fluid rounded" alt="Gallery image">
+                            {% elif block.block_type == 'video_embed' %}
+                                <iframe width="100%" height="200" src="{{ block.value }}" frameborder="0"></iframe>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Game Details</h5>
+                </div>
+                <div class="card-body">
+                    {% if page.release_date %}
+                        <p><strong>Release Date:</strong> {{ page.release_date }}</p>
+                    {% endif %}
+                    {% if page.platforms %}
+                        <p><strong>Platforms:</strong> {{ page.platforms }}</p>
+                    {% endif %}
+                    {% if page.age_rating %}
+                        <p><strong>Age Rating:</strong> {{ page.age_rating }}</p>
+                    {% endif %}
+                    
+                    {% if page.demo_link or page.download_link %}
+                        <div class="d-grid gap-2 mt-3">
+                            {% if page.demo_link %}
+                                <a href="{{ page.demo_link }}" class="btn btn-outline-primary">Try Demo</a>
+                            {% endif %}
+                            {% if page.download_link %}
+                                <a href="{{ page.download_link }}" class="btn btn-primary">Download</a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% if page.categories.all %}
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h6>Categories</h6>
+                    </div>
+                    <div class="card-body">
+                        {% for category in page.categories.all %}
+                            <span class="badge bg-secondary me-1">{{ category.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

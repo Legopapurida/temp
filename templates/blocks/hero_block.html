@@ -1,0 +1,51 @@
+{% load wagtailimages_tags %}
+
+<section class="hero-block py-5 position-relative overflow-hidden">
+    {% if value.image %}
+        {% image value.image fill-1920x600 as hero_img %}
+        <div class="hero-bg" style="background-image: url('{{ hero_img.url }}');"></div>
+        <div class="hero-overlay"></div>
+    {% endif %}
+    
+    <div class="container position-relative">
+        <div class="row align-items-center min-vh-50">
+            <div class="col-lg-8">
+                <h2 class="display-4 fw-bold text-white mb-4">{{ value.title }}</h2>
+                {% if value.subtitle %}
+                    <p class="lead text-white mb-4">{{ value.subtitle }}</p>
+                {% endif %}
+                {% if value.cta_text and value.cta_link %}
+                    <a href="{{ value.cta_link }}" class="btn btn-primary btn-lg">
+                        {{ value.cta_text }}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.hero-block {
+    background: linear-gradient(135deg, #ff6b35, #004e89);
+    color: white;
+}
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+}
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+}
+</style>

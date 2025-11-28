@@ -1,0 +1,24 @@
+{% load wagtailimages_tags %}
+
+<div class="hero-slide position-relative">
+    {% if value.image %}
+        {% image value.image fill-1920x800 as slide_img %}
+        <img src="{{ slide_img.url }}" class="d-block w-100" alt="{{ value.title }}">
+    {% endif %}
+    <div class="carousel-caption d-none d-md-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold">{{ value.title }}</h1>
+                    {% if value.subtitle %}
+                        <p class="lead">{{ value.subtitle }}</p>
+                    {% endif %}
+                    {% if value.cta_text and value.cta_link %}
+                        <a href="{{ value.cta_link }}" class="btn btn-primary btn-lg">{{ value.cta_text }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+</div>

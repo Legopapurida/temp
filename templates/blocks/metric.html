@@ -1,0 +1,7 @@
+<div class="text-center">
+    {% if value.icon %}
+        <i class="{{ value.icon }} text-primary mb-3" style="font-size: 2.5rem;"></i>
+    {% endif %}
+    <h3 class="fw-bold text-primary">{{ value.value }}</h3>
+    <p class="text-muted">{{ value.label }}</p>
+</div>

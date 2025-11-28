@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}Search{% if search_query %} - {{ search_query }}{% endif %}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="mb-4">Search</h1>
+            
+            <!-- Search Form -->
+            <form method="get" class="mb-5">
+                <div class="input-group input-group-lg">
+                    <input type="text" name="query" class="form-control" placeholder="Search games, products, articles..." value="{{ search_query }}">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="bi bi-search"></i> Search
+                    </button>
+                </div>
+            </form>
+            
+            {% if search_query %}
+                <h2 class="h4 mb-4">Search results for "{{ search_query }}"</h2>
+                
+                {% if search_results %}
+                    <div class="row g-4">
+                        {% for result in search_results %}
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <a href="{% pageurl result %}" class="text-decoration-none">
+                                                {{ result.title }}
+                                            </a>
+                                        </h5>
+                                        {% if result.search_description %}
+                                            <p class="card-text">{{ result.search_description|truncatewords:25 }}</p>
+                                        {% endif %}
+                                        <small class="text-muted">{{ result.content_type.model|title }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="bi bi-search text-muted mb-3" style="font-size: 4rem;"></i>
+                        <h3>No results found</h3>
+                        <p class="text-muted">Try searching with different keywords.</p>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="bi bi-search text-muted mb-3" style="font-size: 4rem;"></i>
+                    <h3>Search our site</h3>
+                    <p class="text-muted">Find games, products, articles, and more.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

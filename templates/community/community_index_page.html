@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="display-4 mb-4">{{ page.title }}</h1>
+            {% if page.intro %}
+                <div class="lead mb-5">{{ page.intro|richtext }}</div>
+            {% endif %}
+            
+            <div class="row mb-5">
+                <div class="col-md-4 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="bi bi-people-fill display-4 text-primary mb-3"></i>
+                            <h5>Join Our Community</h5>
+                            <p>Connect with fellow gamers and builders</p>
+                            <a href="/accounts/register/" class="btn btn-primary">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="bi bi-camera-fill display-4 text-success mb-3"></i>
+                            <h5>Share Screenshots</h5>
+                            <p>Show off your amazing creations</p>
+                            <a href="#" class="btn btn-success">Upload</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="bi bi-discord display-4 text-info mb-3"></i>
+                            <h5>Discord Server</h5>
+                            <p>Chat with the community in real-time</p>
+                            <a href="#" class="btn btn-info">Join Discord</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Recent Community Posts</h3>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">Amazing Castle Build</h6>
+                            <p class="card-text">Check out this incredible medieval castle I built!</p>
+                            <small class="text-muted">by BuilderPro - 2 hours ago</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">Live Stream Tonight</h6>
+                            <p class="card-text">Join me for a building session at 8 PM EST!</p>
+                            <small class="text-muted">by StreamerGamer - 4 hours ago</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Community Stats</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Total Members:</span>
+                        <strong>15,432</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Posts Today:</span>
+                        <strong>127</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Screenshots:</span>
+                        <strong>8,901</strong>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Online Now:</span>
+                        <strong>234</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5>Top Contributors</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
+                            <i class="bi bi-person-fill text-white"></i>
+                        </div>
+                        <div>
+                            <strong>BuildMaster</strong><br>
+                            <small class="text-muted">1,234 posts</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
+                            <i class="bi bi-person-fill text-white"></i>
+                        </div>
+                        <div>
+                            <strong>CreativeGamer</strong><br>
+                            <small class="text-muted">987 posts</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

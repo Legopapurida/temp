@@ -1,0 +1,40 @@
+{% load wagtailimages_tags %}
+
+<section class="games-section py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="display-5 fw-bold">Featured Games</h2>
+                <p class="lead">Discover our amazing gaming experiences</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            {% for game in value %}
+                <div class="col-md-4">
+                    <div class="card game-card h-100 shadow-sm">
+                        {% if game.image %}
+                            {% image game.image fill-400x250 as game_img %}
+                            <img src="{{ game_img.url }}" class="card-img-top" alt="{{ game.title }}">
+                        {% else %}
+                            <div class="card-img-top bg-primary d-flex align-items-center justify-content-center" style="height: 250px;">
+                                <i class="bi bi-controller text-white" style="font-size: 3rem;"></i>
+                            </div>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ game.title }}</h5>
+                            <p class="card-text">{{ game.description|truncatewords:20 }}</p>
+                            <div class="d-flex flex-wrap gap-1 mb-3">
+                                {% for tag in game.tags %}
+                                    <span class="badge bg-secondary">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                            {% if game.game_link %}
+                                <a href="{{ game.game_link }}" class="btn btn-primary">Play Now</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

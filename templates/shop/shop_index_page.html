@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-9">
+            <h1 class="display-4 mb-4">{{ page.title }}</h1>
+            {% if page.intro %}
+                <div class="lead mb-5">{{ page.intro|richtext }}</div>
+            {% endif %}
+            
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            {% if product.specific.featured_image %}
+                                {% image product.specific.featured_image fill-300x250 as img %}
+                                <img src="{{ img.url }}" class="card-img-top" alt="{{ product.title }}">
+                            {% endif %}
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ product.title }}</h5>
+                                <p class="card-text flex-grow-1">{{ product.specific.short_description|truncatewords:15 }}</p>
+                                
+                                <div class="mt-auto">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        {% if product.specific.is_on_sale %}
+                                            <div>
+                                                <span class="text-decoration-line-through text-muted">${{ product.specific.price }}</span>
+                                                <span class="fw-bold text-danger">${{ product.specific.sale_price }}</span>
+                                                <span class="badge bg-danger">{{ product.specific.discount_percentage }}% OFF</span>
+                                            </div>
+                                        {% else %}
+                                            <span class="fw-bold">${{ product.specific.price }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="d-grid">
+                                        <a href="{{ product.url }}" class="btn btn-primary">View Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Categories</h5>
+                </div>
+                <div class="card-body">
+                    {% for category in categories %}
+                        <a href="?category={{ category.name }}" class="badge bg-secondary me-2 mb-2 text-decoration-none">
+                            {% if category.icon %}<i class="bi bi-{{ category.icon }} me-1"></i>{% endif %}
+                            {{ category.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

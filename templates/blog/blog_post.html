@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8">
+            {% if page.featured_image %}
+                {% image page.featured_image fill-800x400 as img %}
+                <img src="{{ img.url }}" class="img-fluid rounded mb-4" alt="{{ page.title }}">
+            {% endif %}
+            
+            <h1 class="display-4 mb-3">{{ page.title }}</h1>
+            
+            <div class="d-flex align-items-center mb-4">
+                {% if page.author %}
+                    <span class="text-muted me-3">By {{ page.author.get_full_name|default:page.author.username }}</span>
+                {% endif %}
+                <span class="text-muted">{{ page.date|date:"F d, Y" }}</span>
+            </div>
+            
+            {% if page.categories.all %}
+                <div class="mb-4">
+                    {% for category in page.categories.all %}
+                        <span class="badge me-1" style="background-color: {{ category.color }};">{{ category.name }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <div class="mb-5">{{ page.body|richtext }}</div>
+            
+            {% if related_posts %}
+                <h3>Related Posts</h3>
+                <div class="row">
+                    {% for post in related_posts %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                {% if post.featured_image %}
+                                    {% image post.featured_image fill-300x200 as img %}
+                                    <img src="{{ img.url }}" class="card-img-top" alt="{{ post.title }}">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h6 class="card-title">{{ post.title }}</h6>
+                                    <p class="card-text small">{{ post.excerpt|truncatewords:15 }}</p>
+                                    <a href="{{ post.url }}" class="btn btn-sm btn-outline-primary">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Share This Post</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex gap-2">
+                        <a href="#" class="btn btn-outline-primary btn-sm"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="btn btn-outline-primary btn-sm"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="btn btn-outline-primary btn-sm"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

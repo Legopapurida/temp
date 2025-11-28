@@ -1,0 +1,278 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}home-page{% endblock %}
+
+{% block content %}
+<!-- Hero Slider -->
+{% if page.hero_slides %}
+<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        {% for slide in page.hero_slides %}
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></button>
+        {% endfor %}
+    </div>
+    <div class="carousel-inner">
+        {% for slide in page.hero_slides %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            {% include_block slide %}
+        </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+{% endif %}
+
+<!-- Featured Games -->
+{% if page.featured_games %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Featured Games</h2>
+        <div class="row">
+            {% for game in page.featured_games %}
+            <div class="col-md-4 mb-4">
+                {% include_block game %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Company Achievements -->
+{% if page.achievements %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Achievements</h2>
+        <div class="row">
+            {% for achievement in page.achievements %}
+            <div class="col-md-4 mb-4">
+                {% include_block achievement %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Vision & Roadmap -->
+{% if page.vision_content %}
+<section class="py-5 bg-primary text-white">
+    <div class="container">
+        {% for vision in page.vision_content %}
+            {% include_block vision %}
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Community Metrics -->
+{% if page.community_metrics %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Community Stats</h2>
+        <div class="row text-center">
+            {% for metric in page.community_metrics %}
+            <div class="col-md-3 mb-4">
+                {% include_block metric %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- App Store Links -->
+{% if app_store_links %}
+<section class="py-5 bg-dark text-white">
+    <div class="container text-center">
+        <h2 class="mb-4">Download Our Games</h2>
+        <div class="row justify-content-center">
+            {% for link in app_store_links %}
+            <div class="col-auto mb-3">
+                <a href="{{ link.url }}" class="btn btn-outline-light btn-lg" target="_blank">
+                    <i class="{{ link.icon_class }} me-2"></i>{{ link.name }}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Newsletter -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <h2>{{ page.newsletter_title }}</h2>
+                {% if page.newsletter_description %}
+                    <p class="mb-4">{{ page.newsletter_description }}</p>
+                {% endif %}
+                <form class="d-flex" id="newsletterForm">
+                    <input type="email" class="form-control me-2" placeholder="Enter your email" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Coming Soon Games Modal -->
+{% if page.coming_soon_games %}
+<div class="modal fade" id="comingSoonModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Coming Soon</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    {% for game in page.coming_soon_games %}
+                    <div class="col-md-6 mb-3">
+                        {% include_block game %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Coming Soon Button -->
+<div class="position-fixed bottom-0 end-0 p-3">
+    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#comingSoonModal">
+        <i class="bi bi-clock"></i> Coming Soon
+    </button>
+</div>
+{% endif %}
+
+<!-- Cookie Settings -->
+<div id="cookieConsent" class="position-fixed bottom-0 start-0 p-3" style="z-index: 1050; display: none;">
+    <div class="alert alert-dark" role="alert">
+        <div class="d-flex justify-content-between align-items-center">
+            <span>We use cookies to enhance your experience. <a href="#" data-bs-toggle="modal" data-bs-target="#cookieModal">Cookie Settings</a></span>
+            <div>
+                <button class="btn btn-sm btn-outline-light me-2" onclick="acceptCookies()">Accept</button>
+                <button class="btn btn-sm btn-light" onclick="declineCookies()">Decline</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cookie Settings Modal -->
+<div class="modal fade" id="cookieModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cookie Settings</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="essentialCookies" checked disabled>
+                    <label class="form-check-label" for="essentialCookies">
+                        Essential Cookies (Required)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="analyticsCookies">
+                    <label class="form-check-label" for="analyticsCookies">
+                        Analytics Cookies
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="marketingCookies">
+                    <label class="form-check-label" for="marketingCookies">
+                        Marketing Cookies
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveCookieSettings()">Save Settings</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.carousel-item {
+    height: 70vh;
+    min-height: 400px;
+}
+.carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+.game-card {
+    transition: transform 0.3s ease;
+}
+.game-card:hover {
+    transform: translateY(-5px);
+}
+@media (max-width: 768px) {
+    .carousel-item {
+        height: 50vh;
+    }
+    .btn-lg {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+    .display-4 {
+        font-size: 2rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Cookie consent functionality
+function showCookieConsent() {
+    if (!localStorage.getItem('cookieConsent')) {
+        document.getElementById('cookieConsent').style.display = 'block';
+    }
+}
+
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'accepted');
+    document.getElementById('cookieConsent').style.display = 'none';
+}
+
+function declineCookies() {
+    localStorage.setItem('cookieConsent', 'declined');
+    document.getElementById('cookieConsent').style.display = 'none';
+}
+
+function saveCookieSettings() {
+    const settings = {
+        essential: true,
+        analytics: document.getElementById('analyticsCookies').checked,
+        marketing: document.getElementById('marketingCookies').checked
+    };
+    localStorage.setItem('cookieSettings', JSON.stringify(settings));
+    localStorage.setItem('cookieConsent', 'configured');
+    document.getElementById('cookieConsent').style.display = 'none';
+    bootstrap.Modal.getInstance(document.getElementById('cookieModal')).hide();
+}
+
+// Newsletter form
+document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Thank you for subscribing!');
+});
+
+// Show cookie consent on page load
+document.addEventListener('DOMContentLoaded', showCookieConsent);
+</script>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    {% if user.userprofile.avatar %}
+                        {% image user.userprofile.avatar fill-150x150 as avatar %}
+                        <img src="{{ avatar.url }}" class="rounded-circle mb-3" alt="Avatar">
+                    {% else %}
+                        <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 150px; height: 150px;">
+                            <i class="bi bi-person-fill text-white" style="font-size: 4rem;"></i>
+                        </div>
+                    {% endif %}
+                    <h4>{{ user.get_full_name|default:user.username }}</h4>
+                    <p class="text-muted">Member since {{ user.date_joined|date:"F Y" }}</p>
+                    
+                    {% if user.userprofile.bio %}
+                        <p>{{ user.userprofile.bio }}</p>
+                    {% endif %}
+                    
+                    <div class="d-grid">
+                        <a href="/accounts/profile/edit/" class="btn btn-primary">Edit Profile</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5>Social Links</h5>
+                </div>
+                <div class="card-body">
+                    {% if user.userprofile.discord_username %}
+                        <p><i class="bi bi-discord text-primary me-2"></i>{{ user.userprofile.discord_username }}</p>
+                    {% endif %}
+                    {% if user.userprofile.twitch_username %}
+                        <p><i class="bi bi-twitch text-primary me-2"></i>{{ user.userprofile.twitch_username }}</p>
+                    {% endif %}
+                    {% if user.userprofile.youtube_channel %}
+                        <p><i class="bi bi-youtube text-primary me-2"></i><a href="{{ user.userprofile.youtube_channel }}">YouTube</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Recent Activity</h5>
+                </div>
+                <div class="card-body">
+                    {% if user.community_posts.all %}
+                        {% for post in user.community_posts.all|slice:":5" %}
+                            <div class="d-flex mb-3">
+                                <div class="flex-shrink-0">
+                                    <i class="bi bi-{% if post.post_type == 'screenshot' %}camera{% elif post.post_type == 'video' %}play-circle{% else %}chat{% endif %} text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6>{{ post.title }}</h6>
+                                    <p class="text-muted small">{{ post.created_at|date:"M d, Y" }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">No recent activity. Start sharing your creations!</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5>Account Settings</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <a href="/accounts/password/change/" class="btn btn-outline-primary w-100">Change Password</a>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <a href="/accounts/email/" class="btn btn-outline-primary w-100">Update Email</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 text-center mb-5">
+            <h1>{{ page.title }}</h1>
+            {% if page.intro %}
+                <p class="lead">{{ page.intro }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Featured Team Members -->
+    {% if featured_members %}
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Featured Team Members</h2>
+        </div>
+        {% for member in featured_members %}
+        <div class="col-md-4 mb-4">
+            <div class="card team-member-card h-100 text-center">
+                {% if member.avatar %}
+                    {% image member.avatar fill-200x200 class="card-img-top rounded-circle mx-auto mt-3" style="width: 150px; height: 150px;" %}
+                {% else %}
+                    <div class="card-img-top mx-auto mt-3 bg-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
+                        <i class="bi bi-person text-white" style="font-size: 3rem;"></i>
+                    </div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ member.name }}</h5>
+                    <p class="text-muted">{{ member.get_role_display }}</p>
+                    {% if member.bio %}
+                        <p class="card-text">{{ member.bio|truncatewords:20 }}</p>
+                    {% endif %}
+                    <div class="social-links">
+                        {% if member.linkedin_url %}
+                            <a href="{{ member.linkedin_url }}" class="btn btn-outline-primary btn-sm me-1" target="_blank">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+                        {% endif %}
+                        {% if member.twitter_url %}
+                            <a href="{{ member.twitter_url }}" class="btn btn-outline-info btn-sm me-1" target="_blank">
+                                <i class="bi bi-twitter"></i>
+                            </a>
+                        {% endif %}
+                        {% if member.github_url %}
+                            <a href="{{ member.github_url }}" class="btn btn-outline-dark btn-sm" target="_blank">
+                                <i class="bi bi-github"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- All Team Members by Role -->
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Our Team</h2>
+        </div>
+        {% regroup all_members by role as members_by_role %}
+        {% for role_group in members_by_role %}
+        <div class="col-12 mb-4">
+            <h3 class="mb-3">{{ role_group.grouper|capfirst }}s</h3>
+            <div class="row">
+                {% for member in role_group.list %}
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card team-member-card-small text-center">
+                        {% if member.avatar %}
+                            {% image member.avatar fill-100x100 class="rounded-circle mx-auto mt-2" style="width: 80px; height: 80px;" %}
+                        {% else %}
+                            <div class="mx-auto mt-2 bg-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                <i class="bi bi-person text-white"></i>
+                            </div>
+                        {% endif %}
+                        <div class="card-body p-2">
+                            <h6 class="card-title mb-1">{{ member.name }}</h6>
+                            <small class="text-muted">{{ member.get_role_display }}</small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Dynamic Content -->
+    {% if page.team_content %}
+    <div class="row mt-5">
+        <div class="col-12">
+            {% for block in page.team_content %}
+                {% include_block block %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.team-member-card {
+    transition: transform 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.team-member-card:hover {
+    transform: translateY(-5px);
+}
+.team-member-card-small {
+    transition: transform 0.3s ease;
+    border: none;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+.team-member-card-small:hover {
+    transform: translateY(-2px);
+}
+.social-links a {
+    margin: 0 2px;
+}
+</style>
+{% endblock %}
