@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Checkout - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Checkout</h4>
+                </div>
+                <div class="card-body">
+                    <form id="checkout-form" method="post" action="{% url 'shop:process_order' %}">
+                        {% csrf_token %}
+                        
+                        <!-- Shipping Address -->
+                        <div class="mb-4">
+                            <h5>Shipping Address</h5>
+                            {% if shipping_addresses %}
+                                {% for address in shipping_addresses %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="shipping_address" 
+                                           value="{{ address.id }}" id="shipping_{{ address.id }}"
+                                           {% if address.is_default %}checked{% endif %}>
+                                    <label class="form-check-label" for="shipping_{{ address.id }}">
+                                        <strong>{{ address.first_name }} {{ address.last_name }}</strong><br>
+                                        {{ address.address_line_1 }}<br>
+                                        {% if address.address_line_2 %}{{ address.address_line_2 }}<br>{% endif %}
+                                        {{ address.city }}, {{ address.state }} {{ address.postal_code }}<br>
+                                        {{ address.country }}
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-muted">No shipping addresses found. <a href="{% url 'shop:manage_addresses' %}">Add one</a></p>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Billing Address -->
+                        <div class="mb-4">
+                            <h5>Billing Address</h5>
+                            {% if billing_addresses %}
+                                {% for address in billing_addresses %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="billing_address" 
+                                           value="{{ address.id }}" id="billing_{{ address.id }}"
+                                           {% if address.is_default %}checked{% endif %}>
+                                    <label class="form-check-label" for="billing_{{ address.id }}">
+                                        <strong>{{ address.first_name }} {{ address.last_name }}</strong><br>
+                                        {{ address.address_line_1 }}<br>
+                                        {% if address.address_line_2 %}{{ address.address_line_2 }}<br>{% endif %}
+                                        {{ address.city }}, {{ address.state }} {{ address.postal_code }}<br>
+                                        {{ address.country }}
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-muted">No billing addresses found. <a href="{% url 'shop:manage_addresses' %}">Add one</a></p>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Shipping Method -->
+                        <div class="mb-4">
+                            <h5>Shipping Method</h5>
+                            {% for method in shipping_methods %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="shipping_method" 
+                                       value="{{ method.id }}" id="shipping_method_{{ method.id }}"
+                                       {% if forloop.first %}checked{% endif %}>
+                                <label class="form-check-label" for="shipping_method_{{ method.id }}">
+                                    <strong>{{ method.name }}</strong> - ${{ method.base_cost }}<br>
+                                    <small class="text-muted">{{ method.description }}</small>
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- Payment Method -->
+                        <div class="mb-4">
+                            <h5>Payment Method</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment_method" 
+                                       value="card" id="payment_card" checked>
+                                <label class="form-check-label" for="payment_card">
+                                    <i class="fas fa-credit-card"></i> Credit/Debit Card
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment_method" 
+                                       value="paypal" id="payment_paypal">
+                                <label class="form-check-label" for="payment_paypal">
+                                    <i class="fab fa-paypal"></i> PayPal
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment_method" 
+                                       value="cod" id="payment_cod">
+                                <label class="form-check-label" for="payment_cod">
+                                    <i class="fas fa-money-bill"></i> Cash on Delivery
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Place Order</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Order Summary</h5>
+                </div>
+                <div class="card-body">
+                    {% for item in cart.items.all %}
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>{{ item.product.title }} x {{ item.quantity }}</span>
+                        <span>${{ item.total_price }}</span>
+                    </div>
+                    {% endfor %}
+                    
+                    <hr>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span>${{ subtotal }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tax:</span>
+                        <span>${{ tax_amount }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Shipping:</span>
+                        <span>${{ shipping_cost }}</span>
+                    </div>
+                    {% if discount_amount > 0 %}
+                    <div class="d-flex justify-content-between mb-2 text-success">
+                        <span>Discount:</span>
+                        <span>-${{ discount_amount }}</span>
+                    </div>
+                    {% endif %}
+                    <hr>
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span>Total:</span>
+                        <span>${{ total_amount }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('checkout-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = data.redirect_url;
+        } else {
+            alert('Error: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    });
+});
+</script>
+{% endblock %}

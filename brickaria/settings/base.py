@@ -59,6 +59,9 @@ THIRD_PARTY_APPS = [
     'django_otp',
     'django_otp.plugins.otp_email',
     'django_otp.plugins.otp_totp',
+    'django_countries',
+    'phonenumber_field',
+    'djmoney',
 ]
 
 LOCAL_APPS = [
@@ -229,3 +232,56 @@ X_FRAME_OPTIONS = 'DENY'
 
 # Wagtail SEO
 SEO_JS_ENABLED = True
+
+# E-commerce Settings
+# Payment Gateway Settings
+STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY', default='')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY', default='')
+PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID', default='')
+PAYPAL_CLIENT_SECRET = config('PAYPAL_CLIENT_SECRET', default='')
+
+# Currency Settings
+CURRENCIES = ('USD', 'EUR', 'GBP', 'CAD')
+DEFAULT_CURRENCY = 'USD'
+
+# Session Settings
+SESSION_COOKIE_AGE = 86400 * 30  # 30 days
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+# Cart Settings
+CART_SESSION_ID = 'cart'
+CART_TIMEOUT = 86400 * 7  # 7 days
+
+# Loyalty Settings
+LOYALTY_POINTS_PER_DOLLAR = 1
+LOYALTY_TIERS = {
+    'bronze': {'min_points': 0, 'discount': 0},
+    'silver': {'min_points': 1000, 'discount': 5},
+    'gold': {'min_points': 5000, 'discount': 10},
+    'platinum': {'min_points': 10000, 'discount': 15},
+}
+
+# Tax Settings
+DEFAULT_TAX_RATE = 0.08  # 8%
+
+# Shipping Settings
+FREE_SHIPPING_THRESHOLD = 50.00
+DEFAULT_SHIPPING_COST = 10.00
+
+# Phone Number Settings
+PHONENUMBER_DEFAULT_REGION = 'US'
+
+# Countries Settings
+COUNTRIES_FIRST = ['US', 'CA', 'GB', 'AU']
+
+# Redis/Celery (for background tasks)
+REDIS_URL = config('REDIS_URL', default='redis://localhost:6379/0')
+
+# Celery Configuration
+CELERY_BROKER_URL = REDIS_URL
+CELERY_RESULT_BACKEND = REDIS_URL
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE

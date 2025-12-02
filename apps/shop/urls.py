@@ -4,8 +4,25 @@ from . import views
 app_name = 'shop'
 
 urlpatterns = [
-    path('category/<slug:category_slug>/', views.ProductsByCategoryView.as_view(), name='products_by_category'),
-    path('brand/<slug:brand_slug>/', views.ProductsByBrandView.as_view(), name='products_by_brand'),
-    path('cart/', views.CartView.as_view(), name='cart'),
-    path('add-to-cart/<int:product_id>/', views.AddToCartView.as_view(), name='add_to_cart'),
+    # Cart URLs
+    path('cart/', views.cart_view, name='cart'),
+    path('cart/add/', views.add_to_cart, name='add_to_cart'),
+    path('cart/update/', views.update_cart_item, name='update_cart_item'),
+    path('cart/remove/', views.remove_from_cart, name='remove_from_cart'),
+    path('cart/apply-coupon/', views.apply_coupon, name='apply_coupon'),
+    
+    # Checkout URLs
+    path('checkout/', views.checkout, name='checkout'),
+    path('checkout/process/', views.process_order, name='process_order'),
+    
+    # Order URLs
+    path('order/<int:order_id>/confirmation/', views.order_confirmation, name='order_confirmation'),
+    
+    # Wishlist URLs
+    path('wishlist/', views.wishlist_view, name='wishlist'),
+    path('wishlist/add/', views.add_to_wishlist, name='add_to_wishlist'),
+    
+    # Account URLs
+    path('account/', views.account_dashboard, name='account_dashboard'),
+    path('account/addresses/', views.manage_addresses, name='manage_addresses'),
 ]

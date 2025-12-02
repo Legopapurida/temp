@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Account - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    {% if profile.avatar %}
+                        <img src="{{ profile.avatar.url }}" class="rounded-circle mb-3" width="80" height="80" alt="Avatar">
+                    {% else %}
+                        <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                            <i class="fas fa-user text-white fa-2x"></i>
+                        </div>
+                    {% endif %}
+                    <h5>{{ user.get_full_name|default:user.username }}</h5>
+                    <p class="text-muted">{{ profile.loyalty_tier|title }} Member</p>
+                    <div class="badge bg-primary">{{ profile.loyalty_points }} Points</div>
+                </div>
+            </div>
+            
+            <div class="list-group mt-3">
+                <a href="{% url 'shop:account_dashboard' %}" class="list-group-item list-group-item-action active">
+                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="fas fa-shopping-bag me-2"></i> Order History
+                </a>
+                <a href="{% url 'shop:wishlist' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-heart me-2"></i> Wishlist
+                </a>
+                <a href="{% url 'shop:manage_addresses' %}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-map-marker-alt me-2"></i> Addresses
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="fas fa-user-cog me-2"></i> Profile Settings
+                </a>
+            </div>
+        </div>
+        
+        <div class="col-lg-9">
+            <div class="row">
+                <!-- Stats Cards -->
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-shopping-bag text-primary fa-2x mb-2"></i>
+                            <h4>{{ recent_orders.count }}</h4>
+                            <p class="text-muted mb-0">Total Orders</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-star text-warning fa-2x mb-2"></i>
+                            <h4>{{ profile.loyalty_points }}</h4>
+                            <p class="text-muted mb-0">Loyalty Points</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-heart text-danger fa-2x mb-2"></i>
+                            <h4>{{ user.wishlists.first.items.count|default:0 }}</h4>
+                            <p class="text-muted mb-0">Wishlist Items</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Orders -->
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Recent Orders</h5>
+                    <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+                <div class="card-body">
+                    {% if recent_orders %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Order #</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Total</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in recent_orders %}
+                                    <tr>
+                                        <td>{{ order.order_number }}</td>
+                                        <td>{{ order.created_at|date:"M d, Y" }}</td>
+                                        <td>
+                                            <span class="badge bg-{% if order.status == 'delivered' %}success{% elif order.status == 'shipped' %}info{% elif order.status == 'processing' %}warning{% else %}secondary{% endif %}">
+                                                {{ order.get_status_display }}
+                                            </span>
+                                        </td>
+                                        <td>${{ order.total_amount }}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-sm btn-outline-primary">View</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-shopping-bag fa-3x text-muted mb-3"></i>
+                            <h6>No orders yet</h6>
+                            <p class="text-muted">Start shopping to see your orders here!</p>
+                            <a href="/shop/" class="btn btn-primary">Start Shopping</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Loyalty Points Activity -->
+            {% if loyalty_transactions %}
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Recent Points Activity</h5>
+                </div>
+                <div class="card-body">
+                    {% for transaction in loyalty_transactions %}
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div>
+                            <strong>{{ transaction.description }}</strong><br>
+                            <small class="text-muted">{{ transaction.created_at|date:"M d, Y" }}</small>
+                        </div>
+                        <div class="text-{% if transaction.type == 'earned' %}success{% else %}danger{% endif %}">
+                            {% if transaction.type == 'earned' %}+{% else %}-{% endif %}{{ transaction.points }} pts
+                        </div>
+                    </div>
+                    {% if not forloop.last %}<hr>{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

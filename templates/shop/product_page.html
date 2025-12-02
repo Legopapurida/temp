@@ -32,10 +32,33 @@
                     <span class="badge bg-success">In Stock ({{ page.stock_quantity }} available)</span>
                 </div>
                 
-                <div class="d-grid gap-2 mb-4">
-                    <button class="btn btn-primary btn-lg">Add to Cart</button>
-                    <button class="btn btn-outline-secondary">Add to Wishlist</button>
-                </div>
+                <form method="post" action="{% url 'shop:add_to_cart' %}" class="mb-3">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ page.id }}">
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <label for="quantity" class="form-label">Quantity:</label>
+                            <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="{{ page.stock_quantity }}">
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                        </button>
+                    </div>
+                </form>
+                
+                {% if user.is_authenticated %}
+                <form method="post" action="{% url 'shop:add_to_wishlist' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ page.id }}">
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-outline-secondary">
+                            <i class="fas fa-heart me-2"></i>Add to Wishlist
+                        </button>
+                    </div>
+                </form>
+                {% endif %}
             {% else %}
                 <div class="mb-3">
                     <span class="badge bg-danger">Out of Stock</span>

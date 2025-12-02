@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Order Confirmation - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <i class="fas fa-check-circle text-success fa-4x mb-3"></i>
+                <h2>Order Confirmed!</h2>
+                <p class="lead">Thank you for your order. We'll send you a confirmation email shortly.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Order #{{ order.order_number }}</h4>
+                    <small class="text-muted">Placed on {{ order.created_at|date:"F d, Y" }}</small>
+                </div>
+                <div class="card-body">
+                    <!-- Order Items -->
+                    <h5>Items Ordered</h5>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in order_items %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ item.product_name }}</strong><br>
+                                        <small class="text-muted">SKU: {{ item.product_sku }}</small>
+                                    </td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>${{ item.unit_price }}</td>
+                                    <td>${{ item.total_price }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Order Summary -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Shipping Address</h6>
+                            <address>
+                                {{ order.shipping_address.first_name }} {{ order.shipping_address.last_name }}<br>
+                                {{ order.shipping_address.address_line_1 }}<br>
+                                {% if order.shipping_address.address_line_2 %}
+                                    {{ order.shipping_address.address_line_2 }}<br>
+                                {% endif %}
+                                {{ order.shipping_address.city }}, {{ order.shipping_address.state }} {{ order.shipping_address.postal_code }}<br>
+                                {{ order.shipping_address.country }}
+                            </address>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Order Total</h6>
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Subtotal:</span>
+                                <span>${{ order.subtotal }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Tax:</span>
+                                <span>${{ order.tax_amount }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-1">
+                                <span>Shipping:</span>
+                                <span>${{ order.shipping_cost }}</span>
+                            </div>
+                            {% if order.discount_amount > 0 %}
+                            <div class="d-flex justify-content-between mb-1 text-success">
+                                <span>Discount:</span>
+                                <span>-${{ order.discount_amount }}</span>
+                            </div>
+                            {% endif %}
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold">
+                                <span>Total:</span>
+                                <span>${{ order.total_amount }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <a href="{% url 'shop:account_dashboard' %}" class="btn btn-primary">View Order History</a>
+                        <a href="/shop/" class="btn btn-outline-secondary">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
