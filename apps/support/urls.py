@@ -4,5 +4,6 @@ from . import views
 app_name = 'support'
 
 urlpatterns = [
-    # Add support-specific URLs here
+    path('contact/', views.contact_view, name='contact'),
+    path('contact/success/', views.contact_success, name='contact_success'),
 ]

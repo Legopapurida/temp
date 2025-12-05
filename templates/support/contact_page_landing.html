@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="mb-4">
+                <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+            </div>
+            
+            {% if page.thank_you_text %}
+                {{ page.thank_you_text|richtext }}
+            {% else %}
+                <h1 class="display-4 mb-4">Thank You!</h1>
+                <p class="lead">Your message has been sent successfully. We'll get back to you soon.</p>
+            {% endif %}
+            
+            <div class="mt-5">
+                <a href="/" class="btn btn-primary me-2">Back to Home</a>
+                <a href="{{ page.get_parent.url }}" class="btn btn-outline-secondary">Contact Us Again</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

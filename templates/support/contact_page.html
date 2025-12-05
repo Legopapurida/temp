@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags crispy_forms_tags %}
+{% load wagtailcore_tags %}
 
 {% block content %}
 <div class="container py-5">
@@ -10,9 +10,9 @@
                 <div class="lead mb-5">{{ page.intro|richtext }}</div>
             {% endif %}
             
-            <div class="card">
-                <div class="card-body">
-                    <form method="post">
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <form method="post" action="{% url 'support:contact' %}">
                         {% csrf_token %}
                         {% for field in form %}
                             <div class="mb-3">
@@ -26,29 +26,32 @@
                                 {% endif %}
                             </div>
                         {% endfor %}
-                        <button type="submit" class="btn btn-primary">Send Message</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
                     </form>
                 </div>
             </div>
         </div>
         
         <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Other Ways to Reach Us</h5>
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Contact Information</h5>
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
                         <i class="bi bi-envelope text-primary me-2"></i>
-                        <strong>Email:</strong> support@brickaria.com
-                    </div>
-                    <div class="mb-3">
-                        <i class="bi bi-discord text-primary me-2"></i>
-                        <strong>Discord:</strong> Join our server
+                        <strong>Email:</strong><br>
+                        support@brickaria.com
                     </div>
                     <div class="mb-3">
                         <i class="bi bi-clock text-primary me-2"></i>
-                        <strong>Response Time:</strong> Within 24 hours
+                        <strong>Response Time:</strong><br>
+                        Within 24-48 hours
+                    </div>
+                    <div class="mb-3">
+                        <i class="bi bi-discord text-primary me-2"></i>
+                        <strong>Discord:</strong><br>
+                        Join our community
                     </div>
                 </div>
             </div>
