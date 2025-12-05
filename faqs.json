@@ -1,0 +1,149 @@
+{
+  "page_intro": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about Brickaria",
+    "description": "Welcome to our FAQ section! Here you'll find answers to the most common questions about our games, shop, community features, events, and more. Can't find what you're looking for? Our support team is always ready to help."
+  },
+  "faqs": [
+    {
+      "category": "General",
+      "question": "What is Brickaria?",
+      "answer": "Brickaria is a gaming enterprise platform focused on brick/lego-style games and content. We offer a variety of games, a community hub for players, an online shop for gaming merchandise, and regular events for our community members."
+    },
+    {
+      "category": "General",
+      "question": "How do I create an account?",
+      "answer": "Click the 'Sign Up' button in the top navigation. You can register using your email address or sign in with social accounts. Once registered, you'll have access to community features, wishlists, order tracking, and more."
+    },
+    {
+      "category": "Games",
+      "question": "Are the games free to play?",
+      "answer": "We offer both free and premium games. Each game page clearly indicates whether it's free-to-play or requires purchase. Many games also offer free demos so you can try before you buy."
+    },
+    {
+      "category": "Games",
+      "question": "What platforms are your games available on?",
+      "answer": "Our games are available on multiple platforms including PC, Mobile (iOS/Android), and select consoles. Platform availability is listed on each individual game page."
+    },
+    {
+      "category": "Games",
+      "question": "How do I download a game?",
+      "answer": "Navigate to the game's page and click the 'Download' or 'Get Demo' button. For purchased games, you'll find download links in your account dashboard under 'My Games'."
+    },
+    {
+      "category": "Shop",
+      "question": "How do I place an order?",
+      "answer": "Browse our shop, add items to your cart, and proceed to checkout. You'll need to provide shipping and billing information. We accept credit/debit cards, PayPal, Apple Pay, Google Pay, and other payment methods."
+    },
+    {
+      "category": "Shop",
+      "question": "What payment methods do you accept?",
+      "answer": "We accept Credit/Debit Cards, PayPal, Apple Pay, Google Pay, Bank Transfer, and Cash on Delivery (in select regions). All payments are processed securely through encrypted gateways."
+    },
+    {
+      "category": "Shop",
+      "question": "Do you offer international shipping?",
+      "answer": "Yes, we ship to most countries worldwide. Shipping costs and delivery times vary by location and are calculated at checkout based on your address and selected shipping method."
+    },
+    {
+      "category": "Shop",
+      "question": "What is your return policy?",
+      "answer": "We accept returns within 30 days of delivery for most physical products in original condition. Digital products are non-refundable unless defective. Contact our support team to initiate a return."
+    },
+    {
+      "category": "Shop",
+      "question": "How can I track my order?",
+      "answer": "Once your order ships, you'll receive a tracking number via email. You can also track orders by logging into your account and visiting 'My Orders' section."
+    },
+    {
+      "category": "Shop",
+      "question": "Do you offer discounts or coupons?",
+      "answer": "Yes! We regularly offer promotional codes, seasonal sales, and loyalty rewards. Subscribe to our newsletter to receive exclusive discount codes and be the first to know about sales."
+    },
+    {
+      "category": "Shop",
+      "question": "What are digital products?",
+      "answer": "Digital products include downloadable content, in-game items, and digital game codes. These items don't require shipping and are delivered instantly to your account after purchase."
+    },
+    {
+      "category": "Community",
+      "question": "How do I join the community?",
+      "answer": "Simply create an account and visit the Community section. You can create a profile, share screenshots and videos, connect with other players, and participate in discussions."
+    },
+    {
+      "category": "Community",
+      "question": "Can I share my gameplay content?",
+      "answer": "Absolutely! Our community section allows you to post screenshots, videos, and stream links. Share your best builds, gameplay moments, and creative content with fellow players."
+    },
+    {
+      "category": "Community",
+      "question": "How do I connect my social accounts?",
+      "answer": "In your profile settings, you can link your Discord, Twitch, and YouTube accounts to showcase your gaming presence and connect with the community across platforms."
+    },
+    {
+      "category": "Events",
+      "question": "What types of events do you host?",
+      "answer": "We host both online and in-person events including tournaments, building competitions, community meetups, game launches, and special seasonal events."
+    },
+    {
+      "category": "Events",
+      "question": "How do I register for an event?",
+      "answer": "Visit the Events page, select the event you're interested in, and click the registration link. Some events have limited capacity, so register early!"
+    },
+    {
+      "category": "Events",
+      "question": "Are events free to attend?",
+      "answer": "Most online events are free. Some special events or tournaments may have entry fees, which will be clearly indicated on the event page."
+    },
+    {
+      "category": "Account",
+      "question": "How do I reset my password?",
+      "answer": "Click 'Forgot Password' on the login page and enter your email address. You'll receive a password reset link. If you don't receive it, check your spam folder or contact support."
+    },
+    {
+      "category": "Account",
+      "question": "Can I change my username?",
+      "answer": "Username changes can be requested through your account settings. Note that username changes may be limited to once every 30 days."
+    },
+    {
+      "category": "Account",
+      "question": "What is the loyalty program?",
+      "answer": "Our loyalty program rewards you with points for purchases and community participation. Points can be redeemed for discounts, exclusive items, and special perks. Members progress through Bronze, Silver, Gold, and Platinum tiers."
+    },
+    {
+      "category": "Account",
+      "question": "How do I earn loyalty points?",
+      "answer": "Earn points by making purchases, writing product reviews, participating in events, and engaging with the community. Bonus points are awarded during special promotions."
+    },
+    {
+      "category": "Technical",
+      "question": "What are the system requirements for your games?",
+      "answer": "System requirements vary by game. Check the individual game page for specific requirements including OS, processor, RAM, graphics card, and storage space."
+    },
+    {
+      "category": "Technical",
+      "question": "I'm having trouble downloading a game. What should I do?",
+      "answer": "First, check your internet connection and available storage space. If issues persist, try clearing your browser cache or using a different browser. Contact our support team if you need further assistance."
+    },
+    {
+      "category": "Technical",
+      "question": "Is my payment information secure?",
+      "answer": "Yes, we use industry-standard encryption and secure payment gateways. We never store complete credit card information on our servers. All transactions are PCI-DSS compliant."
+    },
+    {
+      "category": "Support",
+      "question": "How do I contact customer support?",
+      "answer": "Visit our Support page to submit a ticket, use the contact form, or access our help center. We typically respond within 24 hours during business days."
+    },
+    {
+      "category": "Support",
+      "question": "What are your support hours?",
+      "answer": "Our support team is available Monday-Friday, 9 AM - 6 PM (your local timezone). For urgent issues outside these hours, submit a ticket and we'll respond as soon as possible."
+    },
+    {
+      "category": "Support",
+      "question": "Can I get a refund for a game?",
+      "answer": "Digital game refunds are evaluated on a case-by-case basis. If you've experienced technical issues preventing gameplay, contact support with details. Refund requests must be made within 14 days of purchase."
+    }
+  ]
+}

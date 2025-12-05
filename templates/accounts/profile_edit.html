@@ -15,6 +15,11 @@
                     <form method="post">
                         {% csrf_token %}
                         {{ form|crispy }}
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-check-circle me-2"></i>Save Changes
+                            </button>
+                        </div>
                     </form>
                     
                     <hr class="my-4">
