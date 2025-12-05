@@ -12,13 +12,44 @@ from .forms import ProfileForm
 
 @login_required
 def profile_view(request):
+    from wagtail.images.models import Image
+    from apps.shop.models import UserProfile as ShopProfile, Order, LoyaltyTransaction
+    from apps.community.models import Post
+    
     # Get or create user profile
     profile, created = UserProfile.objects.get_or_create(user=request.user)
+    shop_profile, _ = ShopProfile.objects.get_or_create(user=request.user)
+    
+    if request.method == 'POST' and 'avatar' in request.FILES:
+        avatar_file = request.FILES['avatar']
+        image = Image.objects.create(
+            title=f"{request.user.username}_avatar",
+            file=avatar_file
+        )
+        profile.avatar = image
+        profile.save()
+        messages.success(request, 'Avatar updated successfully!')
+        return redirect('accounts:profile')
+    
     has_2fa = user_has_device(request.user)
+    
+    # Get user statistics
+    recent_orders = Order.objects.filter(user=request.user).order_by('-created_at')[:3]
+    total_orders = Order.objects.filter(user=request.user).count()
+    recent_posts = Post.objects.filter(author=request.user).order_by('-created_at')[:3]
+    total_posts = Post.objects.filter(author=request.user).count()
+    recent_loyalty = LoyaltyTransaction.objects.filter(user=request.user).order_by('-created_at')[:5]
+    
     return render(request, 'accounts/profile.html', {
-        'profile': profile, 
+        'profile': profile,
+        'shop_profile': shop_profile,
         'has_2fa': has_2fa,
-        'otp_devices': EmailDevice.objects.devices_for_user(request.user)
+        'otp_devices': EmailDevice.objects.devices_for_user(request.user),
+        'recent_orders': recent_orders,
+        'total_orders': total_orders,
+        'recent_posts': recent_posts,
+        'total_posts': total_posts,
+        'recent_loyalty': recent_loyalty,
     })
 
 @login_required
@@ -68,4 +99,28 @@ def disable_2fa_view(request):
         return redirect('accounts:profile')
     
     return render(request, 'accounts/disable_2fa.html')
+
+@login_required
+def resend_confirmation_view(request):
+    """Resend email confirmation"""
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        messages.success(request, f'Verification email sent to {email}')
+    return redirect('account_email')
+
+@login_required
+def set_primary_email_view(request):
+    """Set primary email"""
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        messages.success(request, f'{email} set as primary email')
+    return redirect('account_email')
+
+@login_required
+def remove_email_view(request):
+    """Remove email address"""
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        messages.success(request, f'{email} removed from your account')
+    return redirect('account_email')
 

@@ -11,4 +11,8 @@ urlpatterns = [
     path('disable-2fa/', views.disable_2fa_view, name='disable_2fa'),
     # Use django-otp built-in login view for OTP verification
     path('otp-login/', OTPLoginView.as_view(), name='otp_login'),
+    # Email management views
+    path('resend-confirmation/', views.resend_confirmation_view, name='account_resend_confirmation'),
+    path('set-primary/', views.set_primary_email_view, name='account_set_primary'),
+    path('remove-email/', views.remove_email_view, name='account_remove_email'),
 ]

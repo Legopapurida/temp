@@ -1,15 +1,28 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
+{% block title %}Edit Profile - Brickaria{% endblock %}
+
 {% block content %}
 <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h1 class="mb-4">Edit Profile</h1>
-            <div class="card">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3><i class="bi bi-pencil me-2"></i>Edit Profile</h3>
+                </div>
                 <div class="card-body">
-                    {% crispy form %}
-                    <a href="/accounts/profile/" class="btn btn-secondary mt-2">Cancel</a>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                    </form>
+                    
+                    <hr class="my-4">
+                    <div class="text-center">
+                        <a href="{% url 'accounts:profile' %}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Profile
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

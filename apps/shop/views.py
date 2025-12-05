@@ -18,6 +18,7 @@ from .models import (
     Payment, Coupon, UserProfile, Address, Wishlist, WishlistItem,
     ProductReview, ShippingMethod, LoyaltyTransaction
 )
+from django.db import models
 
 
 def get_or_create_cart(request):
@@ -108,18 +109,17 @@ def remove_from_cart(request):
     item_id = request.POST.get('item_id')
     
     cart = get_or_create_cart(request)
-    cart_item = get_object_or_404(CartItem, id=item_id, cart=cart)
-    cart_item.delete()
-    
-    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+    try:
+        cart_item = get_object_or_404(CartItem, id=item_id, cart=cart)
+        cart_item.delete()
+        
         return JsonResponse({
             'success': True,
             'cart_total_items': cart.total_items,
             'cart_subtotal': float(cart.subtotal),
         })
-    
-    messages.success(request, 'Item removed from cart')
-    return redirect('shop:cart')
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
 
 
 @require_POST
@@ -268,6 +268,32 @@ def order_confirmation(request, order_id):
 
 
 @login_required
+def order_history(request):
+    """User's order history"""
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    
+    paginator = Paginator(orders, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'shop/order_history.html', {'page_obj': page_obj})
+
+
+@login_required
+def order_detail(request, order_id):
+    """Order detail page"""
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    
+    context = {
+        'order': order,
+        'order_items': order.items.all(),
+        'shipments': order.shipments.all()
+    }
+    
+    return render(request, 'shop/order_detail.html', context)
+
+
+@login_required
 def wishlist_view(request):
     """Display user's wishlist"""
     wishlist, created = Wishlist.objects.get_or_create(
@@ -315,10 +341,32 @@ def add_to_wishlist(request):
     return redirect(request.META.get('HTTP_REFERER', 'shop:wishlist'))
 
 
+@require_POST
+def remove_from_wishlist(request):
+    """Remove item from wishlist"""
+    item_id = request.POST.get('item_id')
+    
+    if request.user.is_authenticated:
+        try:
+            wishlist_item = get_object_or_404(WishlistItem, id=item_id, wishlist__user=request.user)
+            wishlist_item.delete()
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Item removed from wishlist'
+            })
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    
+    return JsonResponse({'success': False, 'error': 'Not authenticated'})
+
+
 @login_required
 def account_dashboard(request):
     """User account dashboard"""
-    profile, created = UserProfile.objects.get_or_create(user=request.user)
+    from apps.community.models import UserProfile as CommunityProfile
+    
+    profile, created = CommunityProfile.objects.get_or_create(user=request.user)
     recent_orders = Order.objects.filter(user=request.user).order_by('-created_at')[:5]
     
     context = {
@@ -337,3 +385,241 @@ def manage_addresses(request):
         'addresses': addresses
     }
     return render(request, 'shop/manage_addresses.html', context)
+
+
+@login_required
+def add_address(request):
+    """Add new address"""
+    from .forms import AddressForm
+    
+    if request.method == 'POST':
+        form = AddressForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user = request.user
+            address.save()
+            messages.success(request, 'Address added successfully!')
+            return redirect('shop:manage_addresses')
+    else:
+        form = AddressForm()
+    
+    return render(request, 'shop/add_address.html', {'form': form})
+
+
+@login_required
+def edit_address(request, address_id):
+    """Edit address"""
+    from .forms import AddressForm
+    
+    address = get_object_or_404(Address, id=address_id, user=request.user)
+    
+    if request.method == 'POST':
+        form = AddressForm(request.POST, instance=address)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Address updated successfully!')
+            return redirect('shop:manage_addresses')
+    else:
+        form = AddressForm(instance=address)
+    
+    return render(request, 'shop/edit_address.html', {'form': form, 'address': address})
+
+
+@login_required
+def delete_address(request, address_id):
+    """Delete address"""
+    address = get_object_or_404(Address, id=address_id, user=request.user)
+    address.delete()
+    messages.success(request, 'Address deleted successfully!')
+    return redirect('shop:manage_addresses')
+
+
+@login_required
+@require_POST
+def add_review(request, product_id):
+    """Add product review"""
+    from .forms import ProductReviewForm
+    
+    product = get_object_or_404(ProductPage, id=product_id)
+    
+    # Check if user has purchased this product
+    has_purchased = OrderItem.objects.filter(
+        order__user=request.user,
+        product=product,
+        order__status='delivered'
+    ).exists()
+    
+    if request.method == 'POST':
+        form = ProductReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.product = product
+            review.user = request.user
+            review.is_verified_purchase = has_purchased
+            review.save()
+            messages.success(request, 'Review added successfully!')
+            return redirect(product.url)
+    
+    return redirect(product.url)
+
+
+@login_required
+def edit_profile(request):
+    """Edit user profile"""
+    from .forms import UserProfileForm, UserForm
+    
+    profile, created = UserProfile.objects.get_or_create(user=request.user)
+    
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('shop:account_dashboard')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = UserProfileForm(instance=profile)
+    
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form
+    }
+    
+    return render(request, 'shop/edit_profile.html', context)
+
+
+@login_required
+def loyalty_points(request):
+    """View loyalty points history"""
+    transactions = LoyaltyTransaction.objects.filter(
+        user=request.user
+    ).order_by('-created_at')
+    
+    paginator = Paginator(transactions, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    profile = getattr(request.user, 'shop_profile', None)
+    
+    context = {
+        'page_obj': page_obj,
+        'profile': profile
+    }
+    
+    return render(request, 'shop/loyalty_points.html', context)
+
+
+def calculate_shipping(request):
+    """Calculate shipping cost via AJAX"""
+    if request.method == 'POST':
+        shipping_method_id = request.POST.get('shipping_method_id')
+        
+        try:
+            shipping_method = ShippingMethod.objects.get(id=shipping_method_id)
+            cart = get_or_create_cart(request)
+            
+            shipping_cost = shipping_method.calculate_cost(cart.total_weight, cart.subtotal)
+            
+            return JsonResponse({
+                'success': True,
+                'shipping_cost': float(shipping_cost)
+            })
+        except ShippingMethod.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Invalid shipping method'})
+    
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+
+@login_required
+def remove_from_wishlist_ajax(request):
+    """Remove item from wishlist via AJAX"""
+    if request.method == 'POST':
+        item_id = request.POST.get('item_id')
+        try:
+            wishlist_item = get_object_or_404(WishlistItem, id=item_id, wishlist__user=request.user)
+            product_name = wishlist_item.product.title
+            wishlist_item.delete()
+            return JsonResponse({
+                'success': True,
+                'message': f'{product_name} removed from wishlist'
+            })
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+
+def product_reviews(request, product_id):
+    """Display product reviews"""
+    product = get_object_or_404(ProductPage, id=product_id)
+    reviews = product.reviews.filter(is_approved=True).order_by('-created_at')
+    
+    context = {
+        'product': product,
+        'reviews': reviews,
+        'average_rating': reviews.aggregate(avg=models.Avg('rating'))['avg'] or 0,
+        'total_reviews': reviews.count()
+    }
+    return render(request, 'shop/product_reviews.html', context)
+
+
+def search_products(request):
+    """Product search functionality"""
+    query = request.GET.get('q', '')
+    category = request.GET.get('category', '')
+    min_price = request.GET.get('min_price', '')
+    max_price = request.GET.get('max_price', '')
+    
+    products = ProductPage.objects.live()
+    
+    if query:
+        products = products.search(query)
+    
+    if category:
+        products = products.filter(categories__name__icontains=category)
+    
+    if min_price:
+        products = products.filter(price__gte=min_price)
+    
+    if max_price:
+        products = products.filter(price__lte=max_price)
+    
+    context = {
+        'products': products,
+        'query': query,
+        'category': category,
+        'min_price': min_price,
+        'max_price': max_price
+    }
+    return render(request, 'shop/search_results.html', context)
+
+
+@login_required
+def quick_add_to_cart(request):
+    """Quick add to cart via AJAX"""
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        quantity = int(request.POST.get('quantity', 1))
+        
+        product = get_object_or_404(ProductPage, id=product_id)
+        cart = get_or_create_cart(request)
+        
+        cart_item, created = CartItem.objects.get_or_create(
+            cart=cart,
+            product=product,
+            defaults={'quantity': quantity}
+        )
+        
+        if not created:
+            cart_item.quantity += quantity
+            cart_item.save()
+        
+        return JsonResponse({
+            'success': True,
+            'cart_total_items': cart.total_items,
+            'message': f'{product.title} added to cart'
+        })
+    
+    return JsonResponse({'success': False, 'error': 'Invalid request'})

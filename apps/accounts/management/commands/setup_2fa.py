@@ -1,6 +1,9 @@
+import logging
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from django_otp.plugins.otp_email.models import EmailDevice
+
+logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
     help = 'Setup 2FA for users'
@@ -35,6 +38,8 @@ class Command(BaseCommand):
         )
         
         if created:
+            logger.info(f'2FA enabled for user {user.username} (ID: {user.id})')
             self.stdout.write(self.style.SUCCESS(f'2FA enabled for {user.username}'))
         else:
+            logger.info(f'2FA setup attempted for user {user.username} (ID: {user.id}) - already enabled')
             self.stdout.write(self.style.WARNING(f'2FA already enabled for {user.username}'))

@@ -44,6 +44,78 @@
 .link-primary { color: #552583; }
 .link-primary:hover { color: #441f69; }
 
+/* List Group Overrides */
+.list-group-item.active { background-color: #552583; border-color: #552583; }
+.list-group-item.active:hover { background-color: #441f69; }
+.list-group-item-action:hover { background-color: rgba(85, 37, 131, 0.1); }
+
+/* Badge Overrides */
+.badge.bg-primary { background-color: #552583 !important; }
+.badge.bg-secondary { background-color: #FDB927 !important; color: #000000 !important; }
+
+/* Progress Bar Overrides */
+.progress-bar { background-color: #552583; }
+.progress-bar-striped { background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
+
+/* Pagination Overrides */
+.page-link { color: #552583; }
+.page-link:hover { background-color: rgba(85, 37, 131, 0.1); color: #441f69; }
+.page-item.active .page-link { background-color: #552583; border-color: #552583; }
+
+/* Tab Overrides */
+.nav-tabs .nav-link.active { color: #552583; border-bottom-color: #552583; }
+.nav-pills .nav-link.active { background-color: #552583; }
+
+/* Accordion Overrides */
+.accordion-button:not(.collapsed) { background-color: rgba(85, 37, 131, 0.1); color: #552583; }
+.accordion-button:focus { box-shadow: 0 0 0 0.25rem rgba(85, 37, 131, 0.25); }
+
+/* Button Focus/Active States */
+.btn-secondary { background-color: #FDB927; border-color: #FDB927; color: #000000; }
+.btn-secondary:hover { background-color: #e6a61a; border-color: #e6a61a; }
+.btn-secondary:focus { box-shadow: 0 0 0 0.2rem rgba(253, 185, 39, 0.5); }
+.btn-outline-secondary { color: #FDB927; border-color: #FDB927; }
+.btn-outline-secondary:hover { background-color: #FDB927; border-color: #FDB927; color: #000000; }
+
+/* Form Control Focus */
+.form-select:focus { border-color: #552583; box-shadow: 0 0 0 0.25rem rgba(85, 37, 131, 0.25); }
+
+/* Nav Link States */
+.nav-link:hover { color: #552583; }
+.nav-link:focus { color: #552583; }
+
+/* Dropdown Focus */
+.dropdown-item:focus { background-color: rgba(85, 37, 131, 0.1); color: #552583; }
+.dropdown-item:active { background-color: #552583; color: #FFFFFF; }
+
+/* Card Hover Enhancement */
+.card-header { border-bottom-color: rgba(85, 37, 131, 0.125); }
+
+/* Input Group Focus */
+.input-group:focus-within .form-control { border-color: #552583; box-shadow: 0 0 0 0.25rem rgba(85, 37, 131, 0.25); }
+
+/* Close Button */
+.btn-close:focus { box-shadow: 0 0 0 0.25rem rgba(85, 37, 131, 0.25); }
+
+/* Modal Focus */
+.modal-header .btn-close:focus { box-shadow: 0 0 0 0.25rem rgba(85, 37, 131, 0.25); }
+
+/* Button Active States */
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+    background-color: #441f69; border-color: #441f69; color: #FFFFFF;
+}
+.btn-check:checked+.btn-secondary, .btn-secondary.active, .btn-secondary.show, .btn-secondary:first-child:active, :not(.btn-check)+.btn-secondary:active {
+    background-color: #e6a61a; border-color: #e6a61a; color: #000000;
+}
+
+/* Button Focus-Visible States */
+.btn:focus-visible {
+    background-color: #441f69; border-color: #441f69; color: #FFFFFF; outline: 0; box-shadow: 0 0 0 0.2rem rgba(85, 37, 131, 0.5);
+}
+.btn-secondary:focus-visible {
+    background-color: #e6a61a; border-color: #e6a61a; color: #000000; box-shadow: 0 0 0 0.2rem rgba(253, 185, 39, 0.5);
+}
+
 /* Global Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

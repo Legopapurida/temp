@@ -1,148 +1,180 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static wagtailimages_tags %}
 
-{% block title %}My Account - {{ block.super }}{% endblock %}
+{% block title %}Shop Dashboard - Brickaria{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="row">
-        <div class="col-lg-3">
-            <div class="card">
-                <div class="card-body text-center">
-                    {% if profile.avatar %}
-                        <img src="{{ profile.avatar.url }}" class="rounded-circle mb-3" width="80" height="80" alt="Avatar">
-                    {% else %}
-                        <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                            <i class="fas fa-user text-white fa-2x"></i>
+<div class="container py-4">
+    <!-- Profile Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-gradient-primary text-white">
+                <div class="card-body p-4">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <div class="position-relative">
+                                {% if profile.avatar %}
+                                    {% image profile.avatar fill-100x100 class="rounded-circle border border-3 border-white shadow" style="object-fit: cover;" %}
+                                {% else %}
+                                    <img src="/static/images/default-avatar.png" 
+                                         alt="Avatar" class="rounded-circle border border-3 border-white shadow" 
+                                         width="100" height="100" style="object-fit: cover;">
+                                {% endif %}
+                            </div>
                         </div>
-                    {% endif %}
-                    <h5>{{ user.get_full_name|default:user.username }}</h5>
-                    <p class="text-muted">{{ profile.loyalty_tier|title }} Member</p>
-                    <div class="badge bg-primary">{{ profile.loyalty_points }} Points</div>
+                        <div class="col">
+                            <h2 class="mb-1">{{ user.first_name }} {{ user.last_name|default:user.username }}</h2>
+                            <p class="mb-2 opacity-75">@{{ user.username }} • {{ user.email }}</p>
+                            <div class="d-flex gap-2">
+                                <span class="badge bg-light text-dark">{{ profile.loyalty_tier|title }} Member</span>
+                                <span class="badge bg-success">{{ profile.loyalty_points }} Points</span>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{% url 'accounts:profile' %}" class="btn btn-light">
+                                <i class="bi bi-person me-1"></i>Profile
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="list-group mt-3">
-                <a href="{% url 'shop:account_dashboard' %}" class="list-group-item list-group-item-action active">
-                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <i class="fas fa-shopping-bag me-2"></i> Order History
-                </a>
-                <a href="{% url 'shop:wishlist' %}" class="list-group-item list-group-item-action">
-                    <i class="fas fa-heart me-2"></i> Wishlist
-                </a>
-                <a href="{% url 'shop:manage_addresses' %}" class="list-group-item list-group-item-action">
-                    <i class="fas fa-map-marker-alt me-2"></i> Addresses
-                </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    <i class="fas fa-user-cog me-2"></i> Profile Settings
-                </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-3 mb-4">
+            <!-- Quick Stats -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card text-center">
+                        <div class="card-body py-3">
+                            <h4 class="text-success mb-1">${{ total_spent|default:0 }}</h4>
+                            <small class="text-muted">Total Spent</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="bi bi-grid me-2"></i>Shop Menu</h6>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{% url 'shop:account_dashboard' %}" class="list-group-item list-group-item-action active">
+                        <i class="bi bi-speedometer2 me-2"></i>Dashboard
+                    </a>
+                    <a href="{% url 'shop:order_history' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-bag me-2"></i>Order History
+                    </a>
+                    <a href="{% url 'shop:wishlist' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-heart me-2"></i>Wishlist
+                    </a>
+                    <a href="{% url 'shop:manage_addresses' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-geo-alt me-2"></i>Addresses
+                    </a>
+                    <a href="{% url 'shop:edit_profile' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-gear me-2"></i>Settings
+                    </a>
+                    <a href="{% url 'shop:loyalty_points' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-star me-2"></i>Loyalty Points
+                    </a>
+                </div>
             </div>
         </div>
         
+        <!-- Main Content -->
         <div class="col-lg-9">
-            <div class="row">
-                <!-- Stats Cards -->
-                <div class="col-md-4 mb-4">
+            <!-- Stats Row -->
+            <div class="row mb-4">
+                <div class="col-md-4">
                     <div class="card text-center">
-                        <div class="card-body">
-                            <i class="fas fa-shopping-bag text-primary fa-2x mb-2"></i>
-                            <h4>{{ recent_orders.count }}</h4>
-                            <p class="text-muted mb-0">Total Orders</p>
+                        <div class="card-body py-3">
+                            <i class="bi bi-bag text-primary fs-1 mb-2"></i>
+                            <h4 class="text-primary mb-1">{{ recent_orders.count }}</h4>
+                            <small class="text-muted">Total Orders</small>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4">
                     <div class="card text-center">
-                        <div class="card-body">
-                            <i class="fas fa-star text-warning fa-2x mb-2"></i>
-                            <h4>{{ profile.loyalty_points }}</h4>
-                            <p class="text-muted mb-0">Loyalty Points</p>
+                        <div class="card-body py-3">
+                            <i class="bi bi-star-fill text-warning fs-1 mb-2"></i>
+                            <h4 class="text-warning mb-1">{{ profile.loyalty_points.first.items.count|default:0 }}</h4>
+                            <small class="text-muted">Points</small>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4">
                     <div class="card text-center">
-                        <div class="card-body">
-                            <i class="fas fa-heart text-danger fa-2x mb-2"></i>
-                            <h4>{{ user.wishlists.first.items.count|default:0 }}</h4>
-                            <p class="text-muted mb-0">Wishlist Items</p>
+                        <div class="card-body py-3">
+                            <i class="bi bi-heart-fill text-danger fs-1 mb-2"></i>
+                            <h4 class="text-danger mb-1">{{ user.wishlists.first.items.count|default:0 }}</h4>
+                            <small class="text-muted">Wishlist</small>
                         </div>
                     </div>
                 </div>
             </div>
             
             <!-- Recent Orders -->
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Recent Orders</h5>
-                    <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+                    <h6 class="mb-0"><i class="bi bi-clock-history me-2"></i>Recent Orders</h6>
+                    <a href="{% url 'shop:order_history' %}" class="btn btn-sm btn-outline-primary">View All</a>
                 </div>
                 <div class="card-body">
                     {% if recent_orders %}
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Order #</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                        <th>Total</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for order in recent_orders %}
-                                    <tr>
-                                        <td>{{ order.order_number }}</td>
-                                        <td>{{ order.created_at|date:"M d, Y" }}</td>
-                                        <td>
-                                            <span class="badge bg-{% if order.status == 'delivered' %}success{% elif order.status == 'shipped' %}info{% elif order.status == 'processing' %}warning{% else %}secondary{% endif %}">
-                                                {{ order.get_status_display }}
-                                            </span>
-                                        </td>
-                                        <td>${{ order.total_amount }}</td>
-                                        <td>
-                                            <a href="#" class="btn btn-sm btn-outline-primary">View</a>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
+                        {% for order in recent_orders %}
+                            <div class="d-flex justify-content-between align-items-center py-3 {% if not forloop.last %}border-bottom{% endif %}">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                        <i class="bi bi-bag text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1">#{{ order.order_number }}</h6>
+                                        <small class="text-muted">{{ order.created_at|date:"M d, Y" }} • ${{ order.total_amount }}</small>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="badge bg-{% if order.status == 'delivered' %}success{% elif order.status == 'shipped' %}info{% elif order.status == 'processing' %}warning{% else %}secondary{% endif %}">
+                                        {{ order.get_status_display }}
+                                    </span>
+                                    <a href="{% url 'shop:order_detail' order.id %}" class="btn btn-sm btn-outline-primary">View</a>
+                                </div>
+                            </div>
+                        {% endfor %}
                     {% else %}
-                        <div class="text-center py-4">
-                            <i class="fas fa-shopping-bag fa-3x text-muted mb-3"></i>
-                            <h6>No orders yet</h6>
-                            <p class="text-muted">Start shopping to see your orders here!</p>
-                            <a href="/shop/" class="btn btn-primary">Start Shopping</a>
+                        <div class="text-center py-5">
+                            <i class="bi bi-bag text-muted" style="font-size: 4rem;"></i>
+                            <h6 class="mt-3">No orders yet</h6>
+                            <p class="text-muted mb-3">Start shopping to see your orders here!</p>
+                            <a href="{% url 'shop:shop_index' %}" class="btn btn-primary">Start Shopping</a>
                         </div>
                     {% endif %}
                 </div>
             </div>
             
-            <!-- Loyalty Points Activity -->
+            <!-- Loyalty Activity -->
             {% if loyalty_transactions %}
-            <div class="card mt-4">
-                <div class="card-header">
-                    <h5 class="mb-0">Recent Points Activity</h5>
-                </div>
-                <div class="card-body">
-                    {% for transaction in loyalty_transactions %}
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <div>
-                            <strong>{{ transaction.description }}</strong><br>
-                            <small class="text-muted">{{ transaction.created_at|date:"M d, Y" }}</small>
-                        </div>
-                        <div class="text-{% if transaction.type == 'earned' %}success{% else %}danger{% endif %}">
-                            {% if transaction.type == 'earned' %}+{% else %}-{% endif %}{{ transaction.points }} pts
-                        </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="mb-0"><i class="bi bi-star me-2"></i>Recent Points Activity</h6>
                     </div>
-                    {% if not forloop.last %}<hr>{% endif %}
-                    {% endfor %}
+                    <div class="card-body">
+                        {% for transaction in loyalty_transactions %}
+                            <div class="d-flex justify-content-between align-items-center py-2 {% if not forloop.last %}border-bottom{% endif %}">
+                                <div>
+                                    <h6 class="mb-1">{{ transaction.description }}</h6>
+                                    <small class="text-muted">{{ transaction.created_at|date:"M d, Y" }}</small>
+                                </div>
+                                <span class="badge bg-{% if transaction.type == 'earned' %}success{% elif transaction.type == 'redeemed' %}warning{% else %}secondary{% endif %}">
+                                    {% if transaction.type == 'redeemed' %}-{% else %}+{% endif %}{{ transaction.points }}
+                                </span>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
             {% endif %}
         </div>
     </div>

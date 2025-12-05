@@ -17,7 +17,13 @@
                         <div class="row cart-item mb-3 pb-3 border-bottom">
                             <div class="col-md-2">
                                 {% if item.product.featured_image %}
-                                    <img src="{{ item.product.featured_image.url }}" class="img-fluid rounded" alt="{{ item.product.title }}">
+                                    {% load wagtailimages_tags %}
+                                    {% image item.product.featured_image fill-100x100 as thumb %}
+                                    <img src="{{ thumb.url }}" class="img-fluid rounded" alt="{{ item.product.title }}">
+                                {% else %}
+                                    <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                                        <i class="fas fa-image text-muted"></i>
+                                    </div>
                                 {% endif %}
                             </div>
                             <div class="col-md-6">
@@ -133,20 +139,22 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             const itemId = this.dataset.itemId;
             
-            fetch('{% url "shop:remove_from_cart" %}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                },
-                body: `item_id=${itemId}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    location.reload();
-                }
-            });
+            if (confirm('Remove this item from cart?')) {
+                fetch('{% url "shop:remove_from_cart" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    },
+                    body: `item_id=${itemId}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                });
+            }
         });
     });
 });

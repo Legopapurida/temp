@@ -30,6 +30,11 @@
                                     {{ address.country }}
                                     {% if address.phone %}<br>{{ address.phone }}{% endif %}
                                 </address>
+                                
+                                <div class="d-flex gap-2">
+                                    <a href="{% url 'shop:edit_address' address.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                                    <a href="{% url 'shop:delete_address' address.id %}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -44,6 +49,7 @@
             {% endif %}
             
             <div class="mt-4">
+                <a href="{% url 'shop:add_address' %}" class="btn btn-primary me-2">Add New Address</a>
                 <a href="{% url 'shop:account_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
             </div>
         </div>

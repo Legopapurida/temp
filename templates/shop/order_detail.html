@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Order #{{ order.order_number }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Order #{{ order.order_number }}</h2>
+                <span class="badge bg-{% if order.status == 'delivered' %}success{% elif order.status == 'shipped' %}info{% elif order.status == 'processing' %}warning{% else %}secondary{% endif %} fs-6">
+                    {{ order.get_status_display }}
+                </span>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Order Items -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Order Items</h5>
+                        </div>
+                        <div class="card-body">
+                            {% for item in order_items %}
+                            <div class="row mb-3 pb-3 {% if not forloop.last %}border-bottom{% endif %}">
+                                <div class="col-md-8">
+                                    <h6>{{ item.product_name }}</h6>
+                                    <small class="text-muted">SKU: {{ item.product_sku }}</small>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <span>Qty: {{ item.quantity }}</span>
+                                </div>
+                                <div class="col-md-2 text-end">
+                                    <strong>${{ item.total_price }}</strong>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Shipping Information -->
+                    {% if shipments %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Shipping Information</h5>
+                        </div>
+                        <div class="card-body">
+                            {% for shipment in shipments %}
+                            <div class="mb-3">
+                                <p><strong>Status:</strong> {{ shipment.get_status_display }}</p>
+                                {% if shipment.tracking_number %}
+                                    <p><strong>Tracking Number:</strong> {{ shipment.tracking_number }}</p>
+                                {% endif %}
+                                {% if shipment.carrier %}
+                                    <p><strong>Carrier:</strong> {{ shipment.carrier }}</p>
+                                {% endif %}
+                                {% if shipment.shipped_at %}
+                                    <p><strong>Shipped:</strong> {{ shipment.shipped_at|date:"M d, Y" }}</p>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="col-lg-4">
+                    <!-- Order Summary -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Order Summary</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal:</span>
+                                <span>${{ order.subtotal }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Tax:</span>
+                                <span>${{ order.tax_amount }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Shipping:</span>
+                                <span>${{ order.shipping_cost }}</span>
+                            </div>
+                            {% if order.discount_amount > 0 %}
+                            <div class="d-flex justify-content-between mb-2 text-success">
+                                <span>Discount:</span>
+                                <span>-${{ order.discount_amount }}</span>
+                            </div>
+                            {% endif %}
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold">
+                                <span>Total:</span>
+                                <span>${{ order.total_amount }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Addresses -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Addresses</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Shipping Address</h6>
+                            <address class="mb-3">
+                                {{ order.shipping_address.first_name }} {{ order.shipping_address.last_name }}<br>
+                                {{ order.shipping_address.address_line_1 }}<br>
+                                {% if order.shipping_address.address_line_2 %}
+                                    {{ order.shipping_address.address_line_2 }}<br>
+                                {% endif %}
+                                {{ order.shipping_address.city }}, {{ order.shipping_address.state }} {{ order.shipping_address.postal_code }}<br>
+                                {{ order.shipping_address.country }}
+                            </address>
+                            
+                            <h6>Billing Address</h6>
+                            <address>
+                                {{ order.billing_address.first_name }} {{ order.billing_address.last_name }}<br>
+                                {{ order.billing_address.address_line_1 }}<br>
+                                {% if order.billing_address.address_line_2 %}
+                                    {{ order.billing_address.address_line_2 }}<br>
+                                {% endif %}
+                                {{ order.billing_address.city }}, {{ order.billing_address.state }} {{ order.billing_address.postal_code }}<br>
+                                {{ order.billing_address.country }}
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <a href="{% url 'shop:order_history' %}" class="btn btn-secondary">Back to Orders</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

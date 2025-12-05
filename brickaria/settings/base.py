@@ -1,6 +1,11 @@
 import os
+import warnings
 from pathlib import Path
 from decouple import config
+
+# Suppress wagtailmenus warnings (third-party package issue)
+warnings.filterwarnings('ignore', message='.*content_panels will have no effect on snippets editing.*')
+warnings.filterwarnings('ignore', message='.*settings_panels will have no effect on snippets editing.*')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 PROJECT_DIR = Path(__file__).resolve().parent.parent
@@ -205,9 +210,6 @@ AUTHENTICATION_BACKENDS = [
 ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True

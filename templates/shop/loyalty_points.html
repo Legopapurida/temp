@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Loyalty Points - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <h2>Loyalty Points</h2>
+            
+            {% if profile %}
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-star text-warning fa-3x mb-2"></i>
+                            <h3>{{ profile.loyalty_points }}</h3>
+                            <p class="text-muted mb-0">Available Points</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-crown text-primary fa-3x mb-2"></i>
+                            <h3>{{ profile.get_loyalty_tier_display }}</h3>
+                            <p class="text-muted mb-0">Current Tier</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-gift text-success fa-3x mb-2"></i>
+                            <h3>$1 = 1pt</h3>
+                            <p class="text-muted mb-0">Earning Rate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Points History</h5>
+                </div>
+                <div class="card-body">
+                    {% if page_obj %}
+                        {% for transaction in page_obj %}
+                        <div class="d-flex justify-content-between align-items-center py-2 {% if not forloop.last %}border-bottom{% endif %}">
+                            <div>
+                                <strong>{{ transaction.description }}</strong><br>
+                                <small class="text-muted">{{ transaction.created_at|date:"M d, Y H:i" }}</small>
+                            </div>
+                            <div class="text-{% if transaction.type == 'earned' %}success{% else %}danger{% endif %}">
+                                {% if transaction.type == 'earned' %}+{% else %}-{% endif %}{{ transaction.points }} pts
+                            </div>
+                        </div>
+                        {% endfor %}
+                        
+                        <!-- Pagination -->
+                        {% if page_obj.has_other_pages %}
+                        <nav aria-label="Points history pagination" class="mt-3">
+                            <ul class="pagination justify-content-center">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                                    </li>
+                                {% endif %}
+                                
+                                {% for num in page_obj.paginator.page_range %}
+                                    {% if page_obj.number == num %}
+                                        <li class="page-item active">
+                                            <span class="page-link">{{ num }}</span>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        {% endif %}
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-star fa-3x text-muted mb-3"></i>
+                            <h6>No points activity yet</h6>
+                            <p class="text-muted">Start shopping to earn loyalty points!</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <a href="{% url 'shop:account_dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
