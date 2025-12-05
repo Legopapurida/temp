@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load wagtailimages_tags %}
-{% load wagtailimages_tags %}
 
 {% block title %}Profile - Brickaria{% endblock %}
 
@@ -135,7 +134,7 @@
                             </div>
                         {% endfor %}
                     {% else %}
-                        <p class="text-muted mb-0">No orders yet. <a href="{% url 'shop:shop_index' %}">Start shopping!</a></p>
+                        <p class="text-muted mb-0">No orders yet. <a href="{{ shop_index_page.url|default:'/shop/' }}">Start shopping!</a></p>
                     {% endif %}
                 </div>
             </div>

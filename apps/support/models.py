@@ -29,14 +29,29 @@ class ContactPage(AbstractEmailForm):
         submission = super().process_form_submission(form)
         
         # Create HelpTicket from form submission
+        form_data = form.cleaned_data
         HelpTicket.objects.create(
-            name=form.cleaned_data.get('name', ''),
-            email=form.cleaned_data.get('email', ''),
-            subject=form.cleaned_data.get('subject', 'Contact Form Submission'),
-            message=form.cleaned_data.get('message', ''),
+            name=form_data.get('name', form_data.get('your-name', '')),
+            email=form_data.get('email', form_data.get('your-email', '')),
+            subject=form_data.get('subject', 'Contact Form Submission'),
+            message=form_data.get('message', form_data.get('your-message', '')),
         )
         
         return submission
+    
+    def serve(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            form = self.get_form(request.POST, page=self, user=request.user)
+            if form.is_valid():
+                self.process_form_submission(form)
+                from django.shortcuts import redirect
+                return redirect(self.url + '?success=1')
+        
+        if request.GET.get('success'):
+            from django.shortcuts import render
+            return render(request, 'support/contact_page_landing.html', {'page': self})
+        
+        return super().serve(request, *args, **kwargs)
 
 
 @register_snippet
@@ -116,7 +131,7 @@ class HelpTicket(models.Model):
     message = models.TextField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new')
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default='medium')
-    assigned_to = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='assigned_tickets')
+    assigned_to = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='assigned_tickets', limit_choices_to={'is_staff': True})
     admin_notes = RichTextField(blank=True, help_text='Internal notes for staff')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
