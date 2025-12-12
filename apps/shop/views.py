@@ -469,6 +469,9 @@ def add_review(request, product_id):
 def edit_profile(request):
     """Edit user profile"""
     from .forms import UserProfileForm, UserForm
+    from wagtail.models import Page, Locale
+    
+    LANGUAGE_SESSION_KEY = '_language'
     
     profile, created = UserProfile.objects.get_or_create(user=request.user)
     
@@ -477,17 +480,28 @@ def edit_profile(request):
         profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
         
         if user_form.is_valid() and profile_form.is_valid():
+            old_language = profile.language
             user_form.save()
             saved_profile = profile_form.save()
             
             request.session['currency'] = saved_profile.currency
-            activate(saved_profile.language)
-            request.session['django_language'] = saved_profile.language
+            request.session[LANGUAGE_SESSION_KEY] = saved_profile.language
             
-            # Build redirect URL with new language prefix
-            redirect_url = reverse('shop:account_dashboard')
             messages.success(request, 'Profile updated successfully!')
-            return redirect(redirect_url)
+            
+            if old_language != saved_profile.language:
+                page_id = request.GET.get('page_id') or request.POST.get('page_id')
+                if page_id:
+                    try:
+                        page = Page.objects.get(id=page_id).specific
+                        locale = Locale.objects.get(language_code=saved_profile.language)
+                        translated = page.get_translation_or_none(locale)
+                        if translated:
+                            return redirect(translated.url)
+                    except (Page.DoesNotExist, Locale.DoesNotExist):
+                        pass
+            
+            return redirect(f'/{saved_profile.language}/shop/account/')
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=profile)

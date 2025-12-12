@@ -6,13 +6,17 @@ class UserPreferencesMiddleware(MiddlewareMixin):
     """Middleware to apply user's language and currency preferences"""
     
     def process_request(self, request):
-        if request.user.is_authenticated:
+        LANGUAGE_SESSION_KEY = '_language'
+        
+        # Priority: session language > profile language
+        language = request.session.get(LANGUAGE_SESSION_KEY)
+        
+        if not language and request.user.is_authenticated:
             try:
                 profile = request.user.userprofile
-                # Set language
                 if hasattr(profile, 'language') and profile.language:
-                    translation.activate(profile.language)
-                    request.LANGUAGE_CODE = profile.language
+                    language = profile.language
+                    request.session[LANGUAGE_SESSION_KEY] = language
                 
                 # Set currency in session
                 if hasattr(profile, 'currency') and profile.currency:
@@ -20,8 +24,6 @@ class UserPreferencesMiddleware(MiddlewareMixin):
             except:
                 pass
         
-        # Fallback to session or default
-        if not hasattr(request, 'LANGUAGE_CODE'):
-            language = request.session.get('django_language', 'en')
+        if language:
             translation.activate(language)
             request.LANGUAGE_CODE = language

@@ -10,6 +10,7 @@ from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from apps.core.views import SearchView, set_language
+from apps.home.views import switch_language
 
 # Error handlers
 handler401 = 'apps.core.views.handler401'
@@ -23,6 +24,7 @@ urlpatterns = [
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
     path('set-language/', set_language, name='set_language'),
+    path('switch-language/', switch_language, name='switch_language'),
     
     # Chrome DevTools
     path('.well-known/appspecific/com.chrome.devtools.json', lambda r: HttpResponse(status=204)),
@@ -47,7 +49,7 @@ urlpatterns += i18n_patterns(
     
     # Wagtail pages (must be last)
     path('', include(wagtail_urls)),
-    prefix_default_language=True,
+    prefix_default_language=False,
 )
 
 if settings.DEBUG:

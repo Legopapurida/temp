@@ -1,10 +1,10 @@
-{% load wagtailcore_tags navigation_tags language_tags i18n %}
+{% load wagtailcore_tags navigation_tags language_tags lang_tags i18n %}
 
 <header>
     {% get_site_root as site_root %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-lg">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{% pageurl site_root %}">
+            <a class="navbar-brand fw-bold" href="{% if request.LANGUAGE_CODE == 'en' %}{% pageurl site_root %}{% else %}/{{ request.LANGUAGE_CODE }}/{% endif %}">
                 <i class="bi bi-controller me-2"></i>Brickaria
             </a>
             
@@ -16,7 +16,7 @@
                 <ul class="navbar-nav me-auto">
                     {% for menuitem in site_root.get_children.live.in_menu %}
                         <li class="nav-item">
-                            <a class="nav-link {% if page.id == menuitem.id or menuitem in page.get_ancestors %}active{% endif %}" href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+                            <a class="nav-link {% if page.id == menuitem.id or menuitem in page.get_ancestors %}active{% endif %}" href="{% if request.LANGUAGE_CODE == 'en' %}{% pageurl menuitem %}{% else %}/{{ request.LANGUAGE_CODE }}{{ menuitem.url }}{% endif %}">{{ menuitem.title }}</a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -30,12 +30,10 @@
                             {% get_available_languages as languages %}
                             {% for lang_code, lang_name in languages %}
                             <li>
-                                <form method="post" action="{% url 'set_language' %}" style="display:inline;">
-                                    {% csrf_token %}
-                                    <input name="next" type="hidden" value="{{ request.path }}">
-                                    <input name="language" type="hidden" value="{{ lang_code }}">
-                                    <button type="submit" class="dropdown-item{% if request.LANGUAGE_CODE == lang_code %} active{% endif %}">{{ lang_name }}</button>
-                                </form>
+                                <a class="dropdown-item{% if request.LANGUAGE_CODE == lang_code %} active{% endif %}" 
+                                   href="{% url 'switch_language' %}?lang={{ lang_code }}{% if page %}&page_id={{ page.id }}{% endif %}">
+                                    {{ lang_name }}
+                                </a>
                             </li>
                             {% endfor %}
                         </ul>
