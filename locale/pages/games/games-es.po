@@ -1,0 +1,19 @@
+#
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-12-12 13:58:53.642294+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"X-WagtailLocalize-TranslationID: d2330439-fcb3-47bb-a11f-c72772f9bff4\n"
+
+msgctxt "title"
+msgid "Games"
+msgstr "Juegos"
+
+msgctxt "slug"
+msgid "games"
+msgstr "juegos"
+
+msgctxt "intro"
+msgid "Explore our collection of Brickaria games, including puzzle, strategy and adventure worlds."
+msgstr "Explora nuestra colección de juegos Brickaria, que incluye mundos de puzzles, estrategia y aventura."

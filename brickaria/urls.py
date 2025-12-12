@@ -11,6 +11,12 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 from apps.core.views import SearchView, set_language
 
+# Error handlers
+handler401 = 'apps.core.views.handler401'
+handler403 = 'apps.core.views.handler403'
+handler404 = 'apps.core.views.handler404'
+handler500 = 'apps.core.views.handler500'
+
 # Non-translatable URLs
 urlpatterns = [
     path('django-admin/', admin.site.urls),
@@ -41,6 +47,7 @@ urlpatterns += i18n_patterns(
     
     # Wagtail pages (must be last)
     path('', include(wagtail_urls)),
+    prefix_default_language=True,
 )
 
 if settings.DEBUG:

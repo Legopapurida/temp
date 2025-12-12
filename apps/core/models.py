@@ -109,3 +109,40 @@ class BasePage(Page):
     
     class Meta:
         abstract = True
+
+
+
+class ErrorPage(Page):
+    """Editable error pages for 404, 403, 500, etc."""
+    error_code = models.CharField(
+        max_length=3,
+        choices=[
+            ('401', '401 - Unauthorized'),
+            ('403', '403 - Forbidden'),
+            ('404', '404 - Not Found'),
+            ('500', '500 - Internal Server Error'),
+            ('502', '502 - Bad Gateway'),
+            ('503', '503 - Service Unavailable'),
+        ],
+        unique=True,
+        help_text="HTTP error code this page represents"
+    )
+    error_title = models.CharField(max_length=200, default="Oops! Something went wrong")
+    error_message = RichTextField(blank=True, help_text="Custom error message")
+    show_home_button = models.BooleanField(default=True)
+    show_back_button = models.BooleanField(default=True)
+    
+    content_panels = Page.content_panels + [
+        FieldPanel('error_code'),
+        FieldPanel('error_title'),
+        FieldPanel('error_message'),
+        FieldPanel('show_home_button'),
+        FieldPanel('show_back_button'),
+    ]
+    
+    class Meta:
+        verbose_name = "Error Page"
+        verbose_name_plural = "Error Pages"
+    
+    def __str__(self):
+        return f"{self.error_code} - {self.title}"

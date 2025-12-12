@@ -484,8 +484,10 @@ def edit_profile(request):
             activate(saved_profile.language)
             request.session['django_language'] = saved_profile.language
             
+            # Build redirect URL with new language prefix
+            redirect_url = reverse('shop:account_dashboard')
             messages.success(request, 'Profile updated successfully!')
-            return redirect(reverse('shop:account_dashboard'))
+            return redirect(redirect_url)
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=profile)

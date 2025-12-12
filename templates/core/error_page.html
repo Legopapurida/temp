@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="container text-center py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="error-page">
+                <h1 class="display-1 fw-bold text-primary">{{ error_code }}</h1>
+                <h2 class="mb-4">{{ page.error_title|default:error_title }}</h2>
+                
+                <div class="error-message mb-4">
+                    {% if page.error_message %}
+                        {{ page.error_message|richtext }}
+                    {% else %}
+                        <p>{{ error_message }}</p>
+                    {% endif %}
+                </div>
+                
+                <div class="error-actions mt-4">
+                    {% if page.show_home_button or show_home_button %}
+                        <a href="/" class="btn btn-primary btn-lg me-2">
+                            <i class="bi bi-house-door"></i> Go Home
+                        </a>
+                    {% endif %}
+                    
+                    {% if page.show_back_button or show_back_button %}
+                        <a href="javascript:history.back()" class="btn btn-outline-secondary btn-lg">
+                            <i class="bi bi-arrow-left"></i> Go Back
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.error-page {
+    padding: 60px 0;
+}
+.error-page h1 {
+    font-size: 8rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+</style>
+{% endblock %}

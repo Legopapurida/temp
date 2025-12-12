@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from django.utils import translation
 from wagtail.models import Page
+from .models import ErrorPage
 
 
 class SearchView(TemplateView):
@@ -39,3 +40,45 @@ def set_language(request):
             return response
     
     return redirect('/')
+
+
+def get_error_page(request, error_code):
+    """Get custom error page from Wagtail or fallback to default"""
+    try:
+        error_page = ErrorPage.objects.live().get(error_code=str(error_code))
+        return render(request, 'core/error_page.html', {
+            'page': error_page,
+            'error_code': error_code,
+        }, status=error_code)
+    except ErrorPage.DoesNotExist:
+        return render(request, 'core/error_page.html', {
+            'error_code': error_code,
+            'error_title': f'Error {error_code}',
+            'error_message': 'An error occurred. Please try again later.',
+            'show_home_button': True,
+            'show_back_button': True,
+        }, status=error_code)
+
+
+def handler401(request, exception=None):
+    return get_error_page(request, 401)
+
+
+def handler403(request, exception=None):
+    return get_error_page(request, 403)
+
+
+def handler404(request, exception=None):
+    return get_error_page(request, 404)
+
+
+def handler500(request):
+    return get_error_page(request, 500)
+
+
+def handler502(request):
+    return get_error_page(request, 502)
+
+
+def handler503(request):
+    return get_error_page(request, 503)
