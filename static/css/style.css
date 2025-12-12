@@ -125,6 +125,13 @@ body {
     padding-top: 64px;
 }
 
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: #552583; }
+::-webkit-scrollbar-thumb { background: #FDB927; border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: #e6a61a; }
+* { scrollbar-width: thin; scrollbar-color: #FDB927 #552583; }
+
 /* Navigation */
 .navbar-brand {
     font-size: 1.5rem;

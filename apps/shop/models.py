@@ -70,20 +70,56 @@ class ShopIndexPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        products = self.get_children().live().order_by('-first_published_at')
+        products = self.get_children().live().specific()
 
-        # Filter by category
+        # Filters
         category = request.GET.get('category')
-        if category:
-            products = products.filter(productpage__categories__name__iexact=category)
-
-        # Filter by brand
         brand = request.GET.get('brand')
+        min_price = request.GET.get('min_price')
+        max_price = request.GET.get('max_price')
+        in_stock = request.GET.get('in_stock')
+        on_sale = request.GET.get('on_sale')
+        featured = request.GET.get('featured')
+        sort = request.GET.get('sort', '-first_published_at')
+
+        if category:
+            products = products.filter(productpage__categories__id=category)
         if brand:
-            products = products.filter(productpage__brand__name__iexact=brand)
+            products = products.filter(productpage__brand__id=brand)
+        if min_price:
+            products = products.filter(productpage__price__gte=min_price)
+        if max_price:
+            products = products.filter(productpage__price__lte=max_price)
+        if in_stock:
+            products = products.filter(productpage__stock_quantity__gt=0)
+        if on_sale:
+            products = products.filter(productpage__sale_price__isnull=False)
+        if featured:
+            products = products.filter(productpage__is_featured=True)
+
+        # Sorting
+        sort_options = {
+            'price_asc': 'productpage__price',
+            'price_desc': '-productpage__price',
+            'name_asc': 'title',
+            'name_desc': '-title',
+            'newest': '-first_published_at',
+        }
+        products = products.order_by(sort_options.get(sort, '-first_published_at'))
 
         context['products'] = products
         context['categories'] = ProductCategory.objects.all()
+        context['brands'] = Brand.objects.all()
+        context['filters'] = {
+            'category': category,
+            'brand': brand,
+            'min_price': min_price,
+            'max_price': max_price,
+            'in_stock': in_stock,
+            'on_sale': on_sale,
+            'featured': featured,
+            'sort': sort,
+        }
         return context
 
 

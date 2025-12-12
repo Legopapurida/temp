@@ -95,6 +95,15 @@ class TermsOfServicePage(Page):
     ]
 
 
+class AboutUsPage(Page):
+    """About Us page"""
+    description = RichTextField(blank=True, help_text="Main about us content")
+    
+    content_panels = Page.content_panels + [
+        FieldPanel('description'),
+    ]
+
+
 class BasePage(Page):
     """Base page model with common fields"""
     

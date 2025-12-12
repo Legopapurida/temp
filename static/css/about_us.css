@@ -1,0 +1,61 @@
+.about-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.about-content h2 {
+    color: #552583;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    border-left: 5px solid #552583;
+    padding-left: 1rem;
+}
+
+.about-content h3 {
+    color: #FDB927;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.about-content p {
+    margin-bottom: 1.2rem;
+}
+
+.about-content b {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.about-content ul, .about-content ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+}
+
+.about-content li {
+    margin-bottom: 0.8rem;
+    line-height: 1.7;
+}
+
+.about-content ul li {
+    list-style-type: none;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.about-content ul li::before {
+    content: "🧱";
+    position: absolute;
+    left: 0;
+}
+
+.about-content ol li {
+    padding-left: 0.5rem;
+}
+
+.about-content ol li::marker {
+    color: #552583;
+    font-weight: bold;
+}
