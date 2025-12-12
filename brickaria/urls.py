@@ -9,14 +9,14 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
-from apps.core.views import SearchView
+from apps.core.views import SearchView, set_language
 
 # Non-translatable URLs
 urlpatterns = [
     path('django-admin/', admin.site.urls),
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
-    path('i18n/', include('django.conf.urls.i18n')),
+    path('set-language/', set_language, name='set_language'),
     
     # Chrome DevTools
     path('.well-known/appspecific/com.chrome.devtools.json', lambda r: HttpResponse(status=204)),
