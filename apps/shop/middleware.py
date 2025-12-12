@@ -8,14 +8,14 @@ class UserPreferencesMiddleware(MiddlewareMixin):
     def process_request(self, request):
         if request.user.is_authenticated:
             try:
-                profile = request.user.shop_profile
+                profile = request.user.userprofile
                 # Set language
-                if profile.language:
+                if hasattr(profile, 'language') and profile.language:
                     translation.activate(profile.language)
                     request.LANGUAGE_CODE = profile.language
                 
                 # Set currency in session
-                if profile.currency:
+                if hasattr(profile, 'currency') and profile.currency:
                     request.session['user_currency'] = profile.currency
             except:
                 pass

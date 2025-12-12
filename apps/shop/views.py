@@ -8,6 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from django.db.models import Q, Avg, Count
 from django.utils import timezone
+from django.utils.translation import activate
+from django.urls import reverse
 from decimal import Decimal
 import json
 import stripe
@@ -476,9 +478,14 @@ def edit_profile(request):
         
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
-            profile_form.save()
+            saved_profile = profile_form.save()
+            
+            request.session['currency'] = saved_profile.currency
+            activate(saved_profile.language)
+            request.session['django_language'] = saved_profile.language
+            
             messages.success(request, 'Profile updated successfully!')
-            return redirect('shop:account_dashboard')
+            return redirect(reverse('shop:account_dashboard'))
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=profile)
@@ -621,5 +628,32 @@ def quick_add_to_cart(request):
             'cart_total_items': cart.total_items,
             'message': f'{product.title} added to cart'
         })
+    
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+
+
+def set_currency(request):
+    """Set user's preferred currency"""
+    if request.method == 'POST':
+        currency = request.POST.get('currency', 'USD')
+        
+        if currency in ['USD', 'EUR', 'GBP', 'CAD', 'AUD']:
+            request.session['currency'] = currency
+            
+            if request.user.is_authenticated:
+                try:
+                    profile = request.user.shop_profile
+                    profile.currency = currency
+                    profile.save()
+                except:
+                    UserProfile.objects.create(user=request.user, currency=currency)
+            
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({'success': True, 'currency': currency})
+            
+            messages.success(request, f'Currency changed to {currency}')
+        
+        return redirect(request.META.get('HTTP_REFERER', '/'))
     
     return JsonResponse({'success': False, 'error': 'Invalid request'})

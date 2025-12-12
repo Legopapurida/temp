@@ -45,4 +45,7 @@ urlpatterns = [
     # AJAX URLs
     path('wishlist/remove-ajax/', views.remove_from_wishlist_ajax, name='remove_from_wishlist_ajax'),
     path('cart/quick-add/', views.quick_add_to_cart, name='quick_add_to_cart'),
+    
+    # Currency switching
+    path('set-currency/', views.set_currency, name='set_currency'),
 ]

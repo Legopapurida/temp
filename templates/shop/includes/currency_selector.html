@@ -1,0 +1,14 @@
+{% load currency_filters %}
+
+<div class="currency-selector">
+    <form method="post" action="{% url 'shop:set_currency' %}" id="currency-form">
+        {% csrf_token %}
+        <select name="currency" class="form-select form-select-sm" onchange="this.form.submit()">
+            {% for curr in available_currencies %}
+                <option value="{{ curr }}" {% if curr == user_currency %}selected{% endif %}>
+                    {{ curr|currency_symbol }} {{ curr }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+</div>

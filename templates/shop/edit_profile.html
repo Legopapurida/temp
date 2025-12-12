@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags currency_filters %}
 
 {% block title %}Edit Profile - {{ block.super }}{% endblock %}
 
@@ -9,7 +9,7 @@
         <div class="col-lg-8">
             <h2>Edit Profile</h2>
             
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" action="{% url 'shop:edit_profile' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 
                 <div class="row">
@@ -31,4 +31,35 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const languageSelect = document.querySelector('select[name="language"]');
+    
+    if (languageSelect) {
+        const originalLanguage = languageSelect.value;
+        
+        form.addEventListener('submit', function(e) {
+            const newLanguage = languageSelect.value;
+            if (newLanguage !== originalLanguage) {
+                e.preventDefault();
+                
+                // Submit form via AJAX or regular submit
+                const formData = new FormData(form);
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                }).then(() => {
+                    // Redirect to the new language URL
+                    window.location.href = '/' + newLanguage + '/shop/account/';
+                });
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

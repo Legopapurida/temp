@@ -22,6 +22,75 @@
                 </ul>
                 
                 <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-globe"></i> {% if user_language == 'en' %}EN{% elif user_language == 'es' %}ES{% elif user_language == 'fr' %}FR{% elif user_language == 'de' %}DE{% elif user_language == 'it' %}IT{% else %}EN{% endif %}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('lang-en').submit();">English</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('lang-es').submit();">Español</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('lang-fr').submit();">Français</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('lang-de').submit();">Deutsch</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('lang-it').submit();">Italiano</a></li>
+                        </ul>
+                        <form method="post" action="{% url 'set_language' %}" id="lang-en" style="display:none;">
+                            {% csrf_token %}
+                            <input name="next" type="hidden" value="{{ request.path }}">
+                            <input name="language" type="hidden" value="en">
+                        </form>
+                        <form method="post" action="{% url 'set_language' %}" id="lang-es" style="display:none;">
+                            {% csrf_token %}
+                            <input name="next" type="hidden" value="{{ request.path }}">
+                            <input name="language" type="hidden" value="es">
+                        </form>
+                        <form method="post" action="{% url 'set_language' %}" id="lang-fr" style="display:none;">
+                            {% csrf_token %}
+                            <input name="next" type="hidden" value="{{ request.path }}">
+                            <input name="language" type="hidden" value="fr">
+                        </form>
+                        <form method="post" action="{% url 'set_language' %}" id="lang-de" style="display:none;">
+                            {% csrf_token %}
+                            <input name="next" type="hidden" value="{{ request.path }}">
+                            <input name="language" type="hidden" value="de">
+                        </form>
+                        <form method="post" action="{% url 'set_language' %}" id="lang-it" style="display:none;">
+                            {% csrf_token %}
+                            <input name="next" type="hidden" value="{{ request.path }}">
+                            <input name="language" type="hidden" value="it">
+                        </form>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-cash"></i> {{ user_currency }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('curr-usd').submit();">$ USD</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('curr-eur').submit();">€ EUR</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('curr-gbp').submit();">£ GBP</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('curr-cad').submit();">CA$ CAD</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('curr-aud').submit();">A$ AUD</a></li>
+                        </ul>
+                        <form method="post" action="{% url 'shop:set_currency' %}" id="curr-usd" style="display:none;">
+                            {% csrf_token %}
+                            <input name="currency" type="hidden" value="USD">
+                        </form>
+                        <form method="post" action="{% url 'shop:set_currency' %}" id="curr-eur" style="display:none;">
+                            {% csrf_token %}
+                            <input name="currency" type="hidden" value="EUR">
+                        </form>
+                        <form method="post" action="{% url 'shop:set_currency' %}" id="curr-gbp" style="display:none;">
+                            {% csrf_token %}
+                            <input name="currency" type="hidden" value="GBP">
+                        </form>
+                        <form method="post" action="{% url 'shop:set_currency' %}" id="curr-cad" style="display:none;">
+                            {% csrf_token %}
+                            <input name="currency" type="hidden" value="CAD">
+                        </form>
+                        <form method="post" action="{% url 'shop:set_currency' %}" id="curr-aud" style="display:none;">
+                            {% csrf_token %}
+                            <input name="currency" type="hidden" value="AUD">
+                        </form>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'search' %}">
                             <i class="bi bi-search"></i>
@@ -41,13 +110,13 @@
                                 {{ user.username }}
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/accounts/profile/">Profile</a></li>
-                                <li><a class="dropdown-item" href="/accounts/logout/">Logout</a></li>
+                                <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
                             </ul>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/accounts/login/">Login</a>
+                            <a class="nav-link" href="{% url 'account_login' %}">Login</a>
                         </li>
                     {% endif %}
                 </ul>

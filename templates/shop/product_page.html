@@ -1,8 +1,11 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags currency_filters %}
 
 {% block content %}
 <div class="container py-5">
+    <div class="d-flex justify-content-end mb-3">
+        {% include 'shop/includes/currency_selector.html' %}
+    </div>
     <div class="row">
         <div class="col-lg-6">
             {% if page.featured_image %}
@@ -18,12 +21,12 @@
             <div class="mb-4">
                 {% if page.is_on_sale %}
                     <div class="d-flex align-items-center gap-3 mb-2">
-                        <span class="h3 text-danger mb-0">${{ page.sale_price }}</span>
-                        <span class="text-decoration-line-through text-muted">${{ page.price }}</span>
+                        <span class="h3 text-danger mb-0">{{ currency_symbol }}{% get_sale_price page user_currency %}</span>
+                        <span class="text-decoration-line-through text-muted">{{ currency_symbol }}{% get_price page user_currency %}</span>
                         <span class="badge bg-danger">{{ page.discount_percentage }}% OFF</span>
                     </div>
                 {% else %}
-                    <span class="h3">${{ page.price }}</span>
+                    <span class="h3">{{ currency_symbol }}{% get_price page user_currency %}</span>
                 {% endif %}
             </div>
             

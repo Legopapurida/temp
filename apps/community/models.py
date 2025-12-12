@@ -29,6 +29,13 @@ class UserProfile(models.Model):
     twitch_username = models.CharField(max_length=100, blank=True)
     youtube_channel = models.URLField(blank=True)
     
+    # Preferences
+    currency = models.CharField(max_length=3, default='USD')
+    language = models.CharField(max_length=5, default='en')
+    phone = models.CharField(max_length=20, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    newsletter_subscribed = models.BooleanField(default=True)
+    
     def __str__(self):
         return f"{self.user.username}'s Profile"
 

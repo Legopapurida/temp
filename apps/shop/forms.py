@@ -109,7 +109,7 @@ class UserProfileForm(forms.ModelForm):
     
     class Meta:
         model = UserProfile
-        fields = ['phone', 'date_of_birth', 'currency', 'language', 'newsletter_subscribed']
+        fields = ['phone', 'date_of_birth', 'avatar', 'currency', 'language', 'newsletter_subscribed']
         widgets = {
             'phone': forms.TextInput(attrs={'class': 'form-control'}),
             'date_of_birth': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),

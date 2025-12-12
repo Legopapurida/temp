@@ -16,6 +16,7 @@ urlpatterns = [
     path('django-admin/', admin.site.urls),
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
+    path('i18n/', include('django.conf.urls.i18n')),
     
     # Chrome DevTools
     path('.well-known/appspecific/com.chrome.devtools.json', lambda r: HttpResponse(status=204)),

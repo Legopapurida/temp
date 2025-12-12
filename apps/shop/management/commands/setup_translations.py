@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-import os
+from django.core.management import call_command
 
 
 class Command(BaseCommand):
@@ -11,7 +11,7 @@ class Command(BaseCommand):
         languages = ['es', 'fr', 'de', 'it']
         
         for lang in languages:
-            os.system(f'django-admin makemessages -l {lang}')
+            call_command('makemessages', '-l', lang, '--ignore=venv')
             self.stdout.write(f'Created messages for {lang}')
         
         self.stdout.write(

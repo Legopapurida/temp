@@ -133,6 +133,14 @@ class ProductPage(Page):
     # Pricing
     price = models.DecimalField(max_digits=10, decimal_places=2)
     sale_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    price_eur = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    price_gbp = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    price_cad = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    price_aud = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    sale_price_eur = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    sale_price_gbp = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    sale_price_cad = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    sale_price_aud = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
     # Product details
     sku = models.CharField(max_length=50, unique=True)
@@ -164,6 +172,14 @@ class ProductPage(Page):
         MultiFieldPanel([
             FieldPanel('price'),
             FieldPanel('sale_price'),
+            FieldPanel('price_eur'),
+            FieldPanel('price_gbp'),
+            FieldPanel('price_cad'),
+            FieldPanel('price_aud'),
+            FieldPanel('sale_price_eur'),
+            FieldPanel('sale_price_gbp'),
+            FieldPanel('sale_price_cad'),
+            FieldPanel('sale_price_aud'),
         ], heading="Pricing"),
         MultiFieldPanel([
             FieldPanel('sku'),
@@ -183,10 +199,27 @@ class ProductPage(Page):
 
     parent_page_types = ['shop.ShopIndexPage']
 
+    def get_price(self, currency='USD'):
+        """Get price in specified currency"""
+        if currency == 'USD':
+            return self.price
+        return getattr(self, f'price_{currency.lower()}', None) or self.price
+    
+    def get_sale_price(self, currency='USD'):
+        """Get sale price in specified currency"""
+        if currency == 'USD':
+            return self.sale_price
+        return getattr(self, f'sale_price_{currency.lower()}', None)
+    
     @property
     def current_price(self):
         """Return sale price if available, otherwise regular price"""
         return self.sale_price if self.sale_price else self.price
+    
+    def get_current_price(self, currency='USD'):
+        """Get current price in specified currency"""
+        sale = self.get_sale_price(currency)
+        return sale if sale else self.get_price(currency)
 
     @property
     def is_on_sale(self):
@@ -324,6 +357,14 @@ class ProductVariant(models.Model):
 
     price = models.DecimalField(max_digits=10, decimal_places=2)
     sale_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    price_eur = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    price_gbp = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    price_cad = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    price_aud = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    sale_price_eur = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    sale_price_gbp = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    sale_price_cad = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    sale_price_aud = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     stock_quantity = models.PositiveIntegerField(default=0)
     weight = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
 
@@ -333,9 +374,26 @@ class ProductVariant(models.Model):
         attrs = ', '.join([str(attr) for attr in self.attributes.all()])
         return f"{self.product.title} - {attrs}"
 
+    def get_price(self, currency='USD'):
+        """Get price in specified currency"""
+        if currency == 'USD':
+            return self.price
+        return getattr(self, f'price_{currency.lower()}', None) or self.price
+    
+    def get_sale_price(self, currency='USD'):
+        """Get sale price in specified currency"""
+        if currency == 'USD':
+            return self.sale_price
+        return getattr(self, f'sale_price_{currency.lower()}', None)
+    
     @property
     def current_price(self):
         return self.sale_price if self.sale_price else self.price
+    
+    def get_current_price(self, currency='USD'):
+        """Get current price in specified currency"""
+        sale = self.get_sale_price(currency)
+        return sale if sale else self.get_price(currency)
 
 
 # ============================================================================
@@ -379,6 +437,12 @@ class CartItem(models.Model):
     @property
     def unit_price(self):
         return self.variant.current_price if self.variant else self.product.current_price
+    
+    def get_unit_price(self, currency='USD'):
+        """Get unit price in specified currency"""
+        if self.variant:
+            return self.variant.get_current_price(currency)
+        return self.product.get_current_price(currency)
 
     @property
     def total_price(self):

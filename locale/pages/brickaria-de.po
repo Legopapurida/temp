@@ -1,0 +1,182 @@
+#
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-12-12 10:54:48.919333+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-WagtailLocalize-TranslationID: b0da47c3-7356-48a3-84a1-d107d1ab2393\n"
+
+msgctxt "title"
+msgid "Brickaria"
+msgstr "Brickaria"
+
+msgctxt "slug"
+msgid "brickaria"
+msgstr "brickaria"
+
+msgctxt "hero_slides.8642da8f-01c7-4b11-8860-ad151ec2766d.title"
+msgid "Build Your Imagination"
+msgstr "Baue deine Fantasie"
+
+msgctxt "hero_slides.8642da8f-01c7-4b11-8860-ad151ec2766d.subtitle"
+msgid "Explore our universe of brick-inspired games and stories"
+msgstr "Entdecke unser Universum aus brick-inspirierten Spielen und Geschichten"
+
+msgctxt "hero_slides.8642da8f-01c7-4b11-8860-ad151ec2766d.cta_text"
+msgid "Play Now"
+msgstr "Jetzt spielen"
+
+msgctxt "hero_slides.1adcefff-e13e-43a2-95f0-7563e9bec55d.title"
+msgid "Experience the Future of Brick Worlds"
+msgstr "Erlebe die Zukunft der Brick-Welten"
+
+msgctxt "hero_slides.1adcefff-e13e-43a2-95f0-7563e9bec55d.subtitle"
+msgid "Advanced AI-powered adventures for all ages"
+msgstr "Fortgeschrittene KI-gestützte Abenteuer für alle Altersgruppen"
+
+msgctxt "hero_slides.1adcefff-e13e-43a2-95f0-7563e9bec55d.cta_text"
+msgid "Discover"
+msgstr "Entdecken"
+
+msgctxt "featured_games.e90ce08b-995d-4330-8279-f7e4ab25ce90.title"
+msgid "Brick Galaxy Adventures"
+msgstr "Brick Galaxy Abenteuer"
+
+msgctxt "featured_games.e90ce08b-995d-4330-8279-f7e4ab25ce90.description"
+msgid "Travel through space, build starbases, and fight cosmic threats."
+msgstr "Reise durch den Weltraum, baue Sternenbasen und bekämpfe kosmische Bedrohungen."
+
+msgctxt "featured_games.758d5889-27e9-4ec5-8f7d-3a6da762d327.title"
+msgid "Brick Tower Builder"
+msgstr "Brick Tower Builder"
+
+msgctxt "featured_games.758d5889-27e9-4ec5-8f7d-3a6da762d327.description"
+msgid "Test your creativity and physics skills by building impossible towers."
+msgstr "Teste deine Kreativität und Physik-Kenntnisse, indem du unmögliche Türme baust."
+
+msgctxt "achievements.9da7bbe5-697e-404e-8f0f-7db090603946.title"
+msgid "5M+ Downloads"
+msgstr "5M+ Downloads"
+
+msgctxt "achievements.9da7bbe5-697e-404e-8f0f-7db090603946.description"
+msgid "Our games reached over 5 million global installs."
+msgstr "Unsere Spiele haben weltweit über 5 Millionen Installationen erreicht."
+
+msgctxt "achievements.9da7bbe5-697e-404e-8f0f-7db090603946.icon"
+msgid "bi-bar-chart-fill"
+msgstr "bi-bar-chart-fill"
+
+msgctxt "achievements.fb1eb04a-2123-4353-8d0d-ad1e2d27b360.title"
+msgid "Global Community"
+msgstr "Globale Community"
+
+msgctxt "achievements.fb1eb04a-2123-4353-8d0d-ad1e2d27b360.description"
+msgid "Players from 40+ countries are part of our brick universe."
+msgstr "Spieler aus über 40 Ländern sind Teil unseres Brick-Universums."
+
+msgctxt "achievements.fb1eb04a-2123-4353-8d0d-ad1e2d27b360.icon"
+msgid "bi-globe"
+msgstr "bi-globe"
+
+msgctxt "achievements.be41635a-fddd-4366-a278-64be021e6fc1.title"
+msgid "Award Winning Studio"
+msgstr "Preisgekröntes Studio"
+
+msgctxt "achievements.be41635a-fddd-4366-a278-64be021e6fc1.description"
+msgid "Recognized for innovation in creative gameplay."
+msgstr "Anerkannt für Innovationen im kreativen Gameplay."
+
+msgctxt "achievements.be41635a-fddd-4366-a278-64be021e6fc1.icon"
+msgid "bi-award-fill"
+msgstr "bi-award-fill"
+
+msgctxt "vision_content.ee702f5e-e2a5-4e6e-9071-a1df79383475.title"
+msgid "Our Vision"
+msgstr "Unsere Vision"
+
+msgctxt "vision_content.ee702f5e-e2a5-4e6e-9071-a1df79383475.description"
+msgid "We aim to build the most immersive brick-based gaming ecosystem powered by AI and creativity."
+msgstr "Wir streben danach, das immersivste brick-basierte Gaming-Ökosystem aufzubauen, angetrieben von KI und Kreativität."
+
+msgctxt "vision_content.8866407e-88f1-4303-bb77-f074ed79c0ef.title"
+msgid "Roadmap 2025"
+msgstr "Roadmap 2025"
+
+msgctxt "vision_content.8866407e-88f1-4303-bb77-f074ed79c0ef.description"
+msgid "Expanding into animations, AI-driven worlds, and interactive storytelling."
+msgstr "Erweiterung um Animationen, KI-gesteuerte Welten und interaktives Storytelling."
+
+msgctxt "community_metrics.35974ce2-df7d-4b2c-bcf4-42272d6e108f.value"
+msgid "5M+"
+msgstr "5M+"
+
+msgctxt "community_metrics.35974ce2-df7d-4b2c-bcf4-42272d6e108f.label"
+msgid "Players"
+msgstr "Spieler"
+
+msgctxt "community_metrics.35974ce2-df7d-4b2c-bcf4-42272d6e108f.icon"
+msgid "bi-person-fill"
+msgstr "bi-person-fill"
+
+msgctxt "community_metrics.4c7c7356-4a0c-4be6-8fff-70f914cc4954.value"
+msgid "250K"
+msgstr "250K"
+
+msgctxt "community_metrics.4c7c7356-4a0c-4be6-8fff-70f914cc4954.label"
+msgid "Daily Active Users"
+msgstr "Täglich aktive Nutzer"
+
+msgctxt "community_metrics.4c7c7356-4a0c-4be6-8fff-70f914cc4954.icon"
+msgid "bi-graph-up"
+msgstr "bi-graph-up"
+
+msgctxt "community_metrics.51b37fee-70a2-4417-8761-d62c2898c7dc.value"
+msgid "12"
+msgstr "12"
+
+msgctxt "community_metrics.51b37fee-70a2-4417-8761-d62c2898c7dc.label"
+msgid "Published Games"
+msgstr "Veröffentlichte Spiele"
+
+msgctxt "community_metrics.51b37fee-70a2-4417-8761-d62c2898c7dc.icon"
+msgid "bi-controller"
+msgstr "bi-controller"
+
+msgctxt "community_metrics.35082b72-7cd3-4870-bce4-5fdd789a7f08.value"
+msgid "54%"
+msgstr "54%"
+
+msgctxt "community_metrics.35082b72-7cd3-4870-bce4-5fdd789a7f08.label"
+msgid "Newblood Stickiness"
+msgstr "Newblood-Stickiness"
+
+msgctxt "community_metrics.35082b72-7cd3-4870-bce4-5fdd789a7f08.icon"
+msgid "bi bi-fire"
+msgstr "bi bi-fire"
+
+msgctxt "coming_soon_games.75b665ea-d286-466f-abe1-0e7d5615d3d1.title"
+msgid "Brick Legends: Origins"
+msgstr "Brick Legends: Origins"
+
+msgctxt "coming_soon_games.75b665ea-d286-466f-abe1-0e7d5615d3d1.description"
+msgid "Epic origin saga with quests, puzzles, and cinematic battles."
+msgstr "Epische Ursprungssaga mit Quests, Rätseln und filmischen Schlachten."
+
+msgctxt "coming_soon_games.0d4f114b-df86-40cc-8830-71a41475e714.title"
+msgid "AI Brick Lab"
+msgstr "AI Brick Lab"
+
+msgctxt "coming_soon_games.0d4f114b-df86-40cc-8830-71a41475e714.description"
+msgid "Build and experiment with AI-powered brick creatures in sandbox mode."
+msgstr "Baue und experimentiere mit KI-gestützten Brick-Kreaturen im Sandbox-Modus."
+
+msgctxt "newsletter_title"
+msgid "Join Our Brick Community"
+msgstr "Tritt unserer Brick-Community bei"
+
+msgctxt "newsletter_description"
+msgid "Subscribe to receive updates about new games, events, and exclusive behind-the-scenes content."
+msgstr "Abonniere, um Updates zu neuen Spielen, Events und exklusiven Behind-the-Scenes-Inhalten zu erhalten."

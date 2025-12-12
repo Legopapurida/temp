@@ -1,8 +1,11 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags currency_filters %}
 
 {% block content %}
 <div class="container py-5">
+    <div class="d-flex justify-content-end mb-3">
+        {% include 'shop/includes/currency_selector.html' %}
+    </div>
     <div class="row">
         <div class="col-lg-3">
             <div class="card mb-3">
@@ -123,11 +126,11 @@
                                     <div class="mb-2">
                                         {% if product.is_on_sale %}
                                             <div>
-                                                <span class="text-decoration-line-through text-muted small">${{ product.price }}</span>
-                                                <span class="fw-bold text-danger">${{ product.sale_price }}</span>
+                                                <span class="text-decoration-line-through text-muted small">{{ currency_symbol }}{% get_price product user_currency %}</span>
+                                                <span class="fw-bold text-danger">{{ currency_symbol }}{% get_sale_price product user_currency %}</span>
                                             </div>
                                         {% else %}
-                                            <span class="fw-bold">${{ product.price }}</span>
+                                            <span class="fw-bold">{{ currency_symbol }}{% get_price product user_currency %}</span>
                                         {% endif %}
                                     </div>
                                     {% if not product.is_in_stock %}
