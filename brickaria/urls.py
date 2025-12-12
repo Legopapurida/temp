@@ -2,6 +2,7 @@ from django.conf import settings
 from django.urls import path, include
 from django.contrib import admin
 from django.conf.urls.static import static
+from django.conf.urls.i18n import i18n_patterns
 from django.http import HttpResponse
 
 from wagtail.admin import urls as wagtailadmin_urls
@@ -10,14 +11,19 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 from apps.core.views import SearchView
 
+# Non-translatable URLs
 urlpatterns = [
     path('django-admin/', admin.site.urls),
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
-    path('search/', SearchView.as_view(), name='search'),
     
     # Chrome DevTools
     path('.well-known/appspecific/com.chrome.devtools.json', lambda r: HttpResponse(status=204)),
+]
+
+# Translatable URLs with language prefix
+urlpatterns += i18n_patterns(
+    path('search/', SearchView.as_view(), name='search'),
     
     # App URLs
     path('games/', include('apps.games.urls')),
@@ -32,16 +38,9 @@ urlpatterns = [
     # Authentication
     path('accounts/', include('allauth.urls')),
     
-
-    
-    # Support/Helpdesk (commented out until helpdesk is properly configured)
-    # path('helpdesk/', include('helpdesk.urls')),
-    
-    # For anything not caught by a more specific rule above, hand over to
-    # Wagtail's page serving mechanism. This should be the last pattern in
-    # the list:
+    # Wagtail pages (must be last)
     path('', include(wagtail_urls)),
-]
+)
 
 if settings.DEBUG:
     from django.conf.urls.static import static

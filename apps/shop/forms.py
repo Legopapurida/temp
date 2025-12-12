@@ -88,14 +88,31 @@ class ProductReviewForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     """Form for user profile"""
     
+    CURRENCY_CHOICES = [
+        ('USD', 'US Dollar'),
+        ('EUR', 'Euro'),
+        ('GBP', 'British Pound'),
+        ('CAD', 'Canadian Dollar'),
+        ('AUD', 'Australian Dollar'),
+    ]
+    
+    LANGUAGE_CHOICES = [
+        ('en', 'English'),
+        ('es', 'Spanish'),
+        ('fr', 'French'),
+        ('de', 'German'),
+        ('it', 'Italian'),
+    ]
+    
+    currency = forms.ChoiceField(choices=CURRENCY_CHOICES, widget=forms.Select(attrs={'class': 'form-select'}))
+    language = forms.ChoiceField(choices=LANGUAGE_CHOICES, widget=forms.Select(attrs={'class': 'form-select'}))
+    
     class Meta:
         model = UserProfile
         fields = ['phone', 'date_of_birth', 'currency', 'language', 'newsletter_subscribed']
         widgets = {
             'phone': forms.TextInput(attrs={'class': 'form-control'}),
             'date_of_birth': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'currency': forms.Select(attrs={'class': 'form-select'}),
-            'language': forms.Select(attrs={'class': 'form-select'}),
             'newsletter_subscribed': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 

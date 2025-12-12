@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
+from django.utils import translation
 from .models import UserProfile, Order, Payment, LoyaltyTransaction
 
 
@@ -47,13 +48,29 @@ def payment_completed(sender, instance, created, **kwargs):
 
 def send_order_confirmation_email(order):
     """Send order confirmation email"""
+    # Get user language preference
+    user_language = 'en'
+    if hasattr(order.user, 'shop_profile'):
+        user_language = order.user.shop_profile.language or 'en'
+    
+    # Activate user's language
+    translation.activate(user_language)
+    
+    # Get user currency
+    currency = 'USD'
+    if hasattr(order.user, 'shop_profile'):
+        currency = order.user.shop_profile.currency or 'USD'
+    
+    symbols = {'USD': '$', 'EUR': '€', 'GBP': '£', 'CAD': 'CA$', 'AUD': 'A$'}
+    symbol = symbols.get(currency, '$')
+    
     subject = f'Order Confirmation - #{order.order_number}'
     message = f'''
     Dear {order.user.get_full_name() or order.user.username},
     
     Thank you for your order! Your order #{order.order_number} has been confirmed.
     
-    Order Total: ${order.total_amount}
+    Order Total: {symbol}{order.total_amount}
     
     We'll send you another email when your order ships.
     
@@ -68,10 +85,18 @@ def send_order_confirmation_email(order):
         [order.user.email],
         fail_silently=True,
     )
+    
+    translation.deactivate()
 
 
 def send_order_shipped_email(order):
     """Send order shipped email"""
+    user_language = 'en'
+    if hasattr(order.user, 'shop_profile'):
+        user_language = order.user.shop_profile.language or 'en'
+    
+    translation.activate(user_language)
+    
     subject = f'Your Order Has Shipped - #{order.order_number}'
     message = f'''
     Dear {order.user.get_full_name() or order.user.username},
@@ -91,10 +116,18 @@ def send_order_shipped_email(order):
         [order.user.email],
         fail_silently=True,
     )
+    
+    translation.deactivate()
 
 
 def send_order_delivered_email(order):
     """Send order delivered email"""
+    user_language = 'en'
+    if hasattr(order.user, 'shop_profile'):
+        user_language = order.user.shop_profile.language or 'en'
+    
+    translation.activate(user_language)
+    
     subject = f'Order Delivered - #{order.order_number}'
     message = f'''
     Dear {order.user.get_full_name() or order.user.username},
@@ -116,6 +149,8 @@ def send_order_delivered_email(order):
         [order.user.email],
         fail_silently=True,
     )
+    
+    translation.deactivate()
 
 
 def award_loyalty_points(order):
