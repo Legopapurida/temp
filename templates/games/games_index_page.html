@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags i18n %}
 
 {% block content %}
 <div class="container py-5">
@@ -22,7 +22,7 @@
                                 <h5 class="card-title">{{ game.title }}</h5>
                                 <p class="card-text">{{ game.specific.short_description|truncatewords:20 }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <a href="{{ game.url }}" class="btn btn-primary">Play Now</a>
+                                    <a href="{% if request.LANGUAGE_CODE == 'en' %}{{ game.url }}{% else %}/{{ request.LANGUAGE_CODE }}{{ game.url }}{% endif %}" class="btn btn-primary">{% trans "Play Now" %}</a>
                                     {% if game.specific.platforms %}
                                         <small class="text-muted">{{ game.specific.platforms }}</small>
                                     {% endif %}
@@ -37,7 +37,7 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <h5>Categories</h5>
+                    <h5>{% trans "Categories" %}</h5>
                 </div>
                 <div class="card-body">
                     {% for category in categories %}

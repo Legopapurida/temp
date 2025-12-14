@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-12 16:57+0330\n"
+"POT-Creation-Date: 2025-12-12 22:09+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,22 +18,486 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\brickaria\settings\base.py:171
+#: .\brickaria\settings\base.py:170
 msgid "English"
 msgstr ""
 
-#: .\brickaria\settings\base.py:172
+#: .\brickaria\settings\base.py:171
 msgid "Spanish"
 msgstr ""
 
-#: .\brickaria\settings\base.py:173
+#: .\brickaria\settings\base.py:172
 msgid "French"
 msgstr ""
 
-#: .\brickaria\settings\base.py:174
+#: .\brickaria\settings\base.py:173
 msgid "German"
 msgstr ""
 
-#: .\brickaria\settings\base.py:175
+#: .\brickaria\settings\base.py:174
 msgid "Italian"
 msgstr ""
+
+#: .\templates\account\login.html:4 .\templates\account\login.html:20
+#: .\templates\accounts\login.html:4 .\templates\accounts\login.html:20
+#: .\templates\includes\header.html:98
+msgid "Login"
+msgstr "Accedi"
+
+#: .\templates\account\login.html:12 .\templates\accounts\login.html:12
+msgid "Login to Brickaria"
+msgstr "Accedi a Brickaria"
+
+#: .\templates\account\login.html:27 .\templates\accounts\login.html:27
+msgid "Don't have an account?"
+msgstr "Non hai un account?"
+
+#: .\templates\account\login.html:27 .\.templates\accounts\login.html:27
+msgid "Sign up here"
+msgstr "Registrati qui"
+
+#: .\templates\account\login.html:28 .\templates\accounts\login.html:28
+msgid "Forgot your password?"
+msgstr "Password dimenticata?"
+
+#: .\templates\accounts\profile.html:4 .\templates\includes\header.html:92
+msgid "Profile"
+msgstr "Profilo"
+
+#: .\templates\accounts\profile.html:33
+msgid "Member"
+msgstr "Membro"
+
+#: .\templates\accounts\profile脱.html:34
+msgid "2FA Enabled"
+msgstr "Autenticazione a due fattori attiva"
+
+#: .\templates\accounts\profile.html:39
+msgid "Edit"
+msgstr "Modifica"
+
+#: .\templates\accounts\profile.html:57
+msgid "Orders"
+msgstr "Ordini"
+
+#: .\templates\accounts\profile.html:65
+msgid "Points"
+msgstr "Punti"
+
+#: .\templates\accounts\profile.html:74
+msgid "Quick Actions"
+msgstr "Azioni rapide"
+
+#: .\templates\accounts\profile.html:78
+msgid "Shop Dashboard"
+msgstr "Pannello negozio"
+
+#: .\templates\accounts\profile.html:81
+msgid "Manage Emails"
+msgstr "Gestisci email"
+
+#: .\templates\accounts\profile.html:85
+msgid "Enable 2FA"
+msgstr "Attiva autenticazione a due fattori"
+
+#: .\templates\accounts\profile.html:89
+msgid "Disable 2FA"
+msgstr "Disattiva autenticazione a due fattori"
+
+#: .\templates\accounts\profile.html:98
+msgid "Profile Info"
+msgstr "Informazioni profilo"
+
+#: .\templates\accounts\profile.html:122
+msgid "Recent Orders"
+msgstr "Ordini recenti"
+
+#: .\templates\accounts\profile.html:123
+msgid "View All"
+msgstr "Vedi tutti"
+
+#: .\templates\accounts\profile.html:137
+msgid "No orders yet."
+msgstr "Nessun ordine ancora."
+
+#: .\templates\accounts\profile.html:137
+msgid "Start shopping!"
+msgstr "Inizia a fare shopping!"
+
+#: .\templates\accounts\profile.html:145
+msgid "Recent Posts"
+msgstr "Post recenti"
+
+#: .\templates\accounts\profile.html:162
+msgid "No posts yet. Share your creations with the community!"
+msgstr "Ancora nessun post. Condividi le tue creazioni con la community!"
+
+#: .\templates\accounts\profile.html:171
+msgid "Recent Loyalty Activity"
+msgstr "Attività fedeltà recente"
+
+#: .\templates\base.html:50
+msgid ""
+"Building amazing gaming experiences with creativity and community at heart."
+msgstr "Creiamo esperienze di gioco straordinarie con creatività e community al centro."
+
+#: .\templates\base.html:53
+msgid "Games"
+msgstr "Giochi"
+
+#: .\templates\base.html:61
+msgid "Shop"
+msgstr "Negozio"
+
+#: .\templates\base.html:69
+msgid "Company"
+msgstr "Azienda"
+
+#: .\templates\base.html:77
+msgid "Follow Us"
+msgstr "Seguici"
+
+#: .\templates\base.html:88
+msgid "All rights reserved."
+msgstr "Tutti i diritti riservati."
+
+#: .\templates\base.html:92
+msgid "Privacy Policy"
+msgstr "Informativa sulla privacy"
+
+#: .\templates\base.html:95
+msgid "Terms of Service"
+msgstr "Termini di servizio"
+
+#: .\templates\blog\blog_index_page.html:29
+msgid "Read More"
+msgstr "Leggi tutto"
+
+#: .\templates\blog\blog_index_page.html:42
+#: .\templates\games\games_index_page.html:40
+#: .\templates\shop\product_page.html:100
+msgid "Categories"
+msgstr "Categorie"
+
+#: .\templates\events\events_index_page.html:33
+msgid "Online Event"
+msgstr "Evento online"
+
+#: .\templates\events\events_index_page.html:37
+msgid "Learn More"
+msgstr "Scopri di più"
+
+#: .\templates\events\events_index_page.html:39
+msgid "Register"
+msgstr "Registrati"
+
+#: .\templates\events\events_index_page.html:49
+msgid "No Events Scheduled"
+msgstr "Nessun evento in programma"
+
+#: .\templates\events\events_index_page.html:50
+msgid "Check back soon for upcoming events!"
+msgstr "Torna presto per scoprire i prossimi eventi!"
+
+#: .\templates\games\games_index_page.html:25
+msgid "Play Now"
+msgstr "Gioca ora"
+
+#: .\templates\includes\header.html:74 .\templates\search\search.html:4
+#: .\templates\search\search.html:10 .\templates\search\search.html:17
+msgid "Search"
+msgstr "Cerca"
+
+#: .\templates\includes\header.html:79
+msgid "Cart"
+msgstr "Carrello"
+
+#: .\templates\includes\header.html:93
+msgid "Logout"
+msgstr "Esci"
+
+#: .\templates\search\search.html:15
+msgid "Search games, products, articles..."
+msgstr "Cerca giochi, prodotti, articoli..."
+
+#: .\templates\search\search.html:23
+#, python-format
+msgid "Search results for \"%(search_query)s\""
+msgstr "Risultati di ricerca per \"%(search_query)s\""
+
+#: .\templates\search\search.html:48
+msgid "No results found"
+msgstr "Nessun risultato trovato"
+
+#: .\templates\search\search.html:49
+msgid "Try searching with different keywords."
+msgstr "Prova a cercare con parole chiave diverse."
+
+#: .\templates\search\search.html:55
+msgid "Search our site"
+msgstr "Cerca nel nostro sito"
+
+#: .\templates\search\search.html:56
+msgid "Find games, products, articles, and more."
+msgstr "Trova giochi, prodotti, articoli e altro ancora."
+
+#: .\templates\shop\cart.html:4
+msgid "Shopping Cart"
+msgstr "Carrello"
+
+#: .\templates\shop\cart.html:15
+#, python-format
+msgid "Shopping Cart (%(counter)s item)"
+msgid_plural "Shopping Cart (%(counter)s items)"
+msgstr[0] "Carrello (%(counter)s articolo)"
+msgstr[1] "Carrello (%(counter)s articoli)"
+
+#: .\templates\shop\cart.html:41 .\templates\shop\product_page.html:76
+msgid "SKU"
+msgstr "COD"
+
+#: .\templates\shop\cart.html:54
+msgid "Remove"
+msgstr "Rimuovi"
+
+#: .\templates\shop\cart.html:61
+msgid "Your cart is empty"
+msgstr "Il tuo carrello è vuoto"
+
+#: .\templates\shop\cart.html:62
+msgid "Add some products to get started!"
+msgstr "Aggiungi qualche prodotto per iniziare!"
+
+#: .\templates\shop\cart.html:63 .\templates\shop\cart.html:106
+msgid "Continue Shopping"
+msgstr "Continua gli acquisti"
+
+#: .\templates\shop\cart.html:74 .\templates\shop\checkout.html:117
+msgid "Order Summary"
+msgstr "Riepilogo ordine"
+
+#: .\templates\shop\cart.html:78 .\templates\shop\checkout.html:129
+msgid "Subtotal"
+msgstr "Subtotale"
+
+#: .\templates\shop\cart.html:82 .\templates\shop\checkout.html:137
+msgid "Shipping"
+msgstr "Spedizione"
+
+#: .\templates\shop\cart.html:83
+msgid "Calculated at checkout"
+msgstr "Calcolato al checkout"
+
+#: .\templates\shop\cart.html:87 .\templates\shop\checkout.html:148
+msgid "Total"
+msgstr "Totale"
+
+#: .\templates\shop\cart.html:95
+msgid "Coupon code"
+msgstr "Codice sconto"
+
+#: .\templates\shop\cart.html:96
+msgid "Apply"
+msgstr "Applica"
+
+#: .\templates\shop\cart.html:102
+msgid "Proceed to Checkout"
+msgstr "Vai al pagamento"
+
+#: .\templates\shop\cart.html:104
+msgid "Login to Checkout"
+msgstr "Accedi per il pagamento"
+
+#: .\templates\shop\checkout.html:4 .\templates\shop\checkout.html:12
+msgid "Checkout"
+msgstr "Cassa"
+
+#: .\templates\shop\checkout.html:20
+msgid "Shipping Address"
+msgstr "Indirizzo di spedizione"
+
+#: .\templates\shop\checkout.html:37
+msgid "No shipping addresses found."
+msgstr "Nessun indirizzo di spedizione trovato."
+
+#: .\templates\shop\checkout.html:37 .\templates\shop\checkout.html:60
+msgid "Add one"
+msgstr "Aggiungine uno"
+
+#: .\templates\shop\checkout.html:43
+msgid "Billing Address"
+msgstr "Indirizzo di fatturazione"
+
+#: .\templates\shop\checkout.html:60
+msgid "No billing addresses found."
+msgstr "Nessun indirizzo di fatturazione trovato."
+
+#: .\templates\shop\checkout.html:66
+msgid "Shipping Method"
+msgstr "Metodo di spedizione"
+
+#: .\templates\shop\checkout.html:82
+msgid "Payment Method"
+msgstr "Metodo di pagamento"
+
+#: .\templates\shop\checkout.html:87
+msgid "Credit/Debit Card"
+msgstr "Carta di credito/debito"
+
+#: .\templates\shop\checkout.html:101
+msgid "Cash on Delivery"
+msgstr "Pagamento alla consegna"
+
+#: .\templates\shop\checkout.html:107
+msgid "Place Order"
+msgstr "Effettua l'ordine"
+
+#: .\templates\shop\checkout.html:133
+msgid "Tax"
+msgstr "IVA"
+
+#: .\templates\shop\checkout.html:142
+msgid "Discount"
+msgstr "Sconto"
+
+#: .\templates\shop\product_page.html:26
+#: .\templates\shop\shop_index_page.html:114
+msgid "OFF"
+msgstr "OFF"
+
+#: .\templates\shop\product_page.html:35
+#, python-format
+msgid "In Stock (%(counter)s available)"
+msgid_plural "In Stock (%(counter)s available)"
+msgstr[0] "In stock (%(counter)s disponibile)"
+msgstr[1] "In stock (%(counter)s disponibili)"
+
+#: .\templates\shop\product_page.html:43
+msgid "Quantity"
+msgstr "Quantità"
+
+#: .\templates\shop\product_page.html:49
+msgid "Add to Cart"
+msgstr "Aggiungi al carrello"
+
+#: .\templates\shop\product_page.html:60
+msgid "Add to Wishlist"
+msgstr "Aggiungi alla lista desideri"
+
+#: .\templates\shop\product_page.html:67
+#: .\templates\shop\shop_index_page.html:137
+msgid "Out of Stock"
+msgstr "Esaurito"
+
+#: .\templates\shop\product_page.html:73
+msgid "Product Details"
+msgstr "Dettagli prodotto"
+
+#: .\templates\shop\product_page.html:78
+#: .\templates\shop\shop_index_page.html:35
+msgid "Brand"
+msgstr "Marca"
+
+#: .\templates\shop\product_page.html:81
+msgid "Weight"
+msgstr "Peso"
+
+#: .\templates\shop\product_page.html:84
+msgid "Dimensions"
+msgstr "Dimensioni"
+
+#: .\templates\shop\product_page.html:87
+msgid "Digital Product"
+msgstr "Prodotto digitale"
+
+#: .\templates\shop\product_page.html:96
+msgid "Description"
+msgstr "Descrizione"
+
+#: .\templates\shop\shop_index_page.html:13
+msgid "Filters"
+msgstr "Filtri"
+
+#: .\templates\shop\shop_index_page.html:15
+msgid "Clear"
+msgstr "Pulisci"
+
+#: .\templates\shop\shop_index_page.html:22
+msgid "Category"
+msgstr "Categoria"
+
+#: .\templates\shop\shop_index_page.html:24
+msgid "All Categories"
+msgstr "Tutte le categorie"
+
+#: .\templates\shop\shop_index_page.html:37
+msgid "All Brands"
+msgstr "Tutte le marche"
+
+#: .\templates\shop\shop_index_page.html:48
+msgid "Price Range"
+msgstr "Fascia di prezzo"
+
+#: .\templates\shop\shop_index_page.html:51
+msgid "Min"
+msgstr "Min"
+
+#: .\templates\shop\shop_index_page.html:54
+msgid "Max"
+msgstr "Max"
+
+#: .\templates\shop\shop_index_page.html:61
+msgid "Quick Filters"
+msgstr "Filtri rapidi"
+
+#: .\templates\shop\shop_index_page.html:64
+msgid "In Stock Only"
+msgstr "Solo disponibili"
+
+#: .\templates\shop\shop_index_page.html:68
+msgid "On Sale"
+msgstr "In offerta"
+
+#: .\templates\shop\shop_index_page.html:72
+#: .\templates\shop\shop_index_page.html:117
+msgid "Featured"
+msgstr "In evidenza"
+
+#: .\templates\shop\shop_index_page.html:76
+msgid "Apply Filters"
+msgstr "Applica filtri"
+
+#: .\templates\shop\shop_index_page.html:86
+#, python-format
+msgid "%(counter)s product"
+msgid_plural "%(counter)s products"
+msgstr[0] "%(counter)s prodotto"
+msgstr[1] "%(counter)s prodotti"
+
+#: .\templates\shop\shop_index_page.html:90
+msgid "Newest"
+msgstr "Più recenti"
+
+#: .\templates\shop\shop_index_page.html:91
+msgid "Price: Low to High"
+msgstr "Prezzo: crescente"
+
+#: .\templates\shop\shop_index_page.html:92
+msgid "Price: High to Low"
+msgstr "Prezzo: decrescente"
+
+#: .\templates\shop\shop_index_page.html:93
+msgid "Name: A-Z"
+msgstr "Nome: A-Z"
+
+#: .\templates\shop\shop_index_page.html:94
+msgid "Name: Z-A"
+msgstr "Nome: Z-A"
+
+#: .\templates\shop\shop_index_page.html:140
+msgid "View Details"
+msgstr "Vedi dettagli"
+
+#: .\templates\shop\shop_index_page.html:150
+msgid "No products found matching your filters."
+msgstr "Nessun prodotto trovato con i filtri selezionati."

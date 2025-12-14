@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-12 16:57+0330\n"
+"POT-Creation-Date: 2025-12-12 22:09+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,22 +18,346 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\brickaria\settings\base.py:171
+#: .\brickaria\settings\base.py:170
 msgid "English"
 msgstr ""
 
-#: .\brickaria\settings\base.py:172
+#: .\brickaria\settings\base.py:171
 msgid "Spanish"
 msgstr ""
 
-#: .\brickaria\settings\base.py:173
+#: .\brickaria\settings\base.py:172
 msgid "French"
 msgstr ""
 
-#: .\brickaria\settings\base.py:174
+#: .\brickaria\settings\base.py:173
 msgid "German"
 msgstr ""
 
-#: .\brickaria\settings\base.py:175
+#: .\brickaria\settings\base.py:174
 msgid "Italian"
 msgstr ""
+
+msgid "Login"
+msgstr "Anmelden"
+
+msgid "Login to Brickaria"
+msgstr "Bei Brickaria anmelden"
+
+msgid "Don't have an account?"
+msgstr "Noch kein Konto?"
+
+msgid "Sign up here"
+msgstr "Hier registrieren"
+
+msgid "Forgot your password?"
+msgstr "Passwort vergessen?"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Member"
+msgstr "Mitglied"
+
+msgid "2FA Enabled"
+msgstr "2FA aktiviert"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Orders"
+msgstr "Bestellungen"
+
+msgid "Points"
+msgstr "Punkte"
+
+msgid "Quick Actions"
+msgstr "Schnellaktionen"
+
+msgid "Shop Dashboard"
+msgstr "Shop-Dashboard"
+
+msgid "Manage Emails"
+msgstr "E-Mails verwalten"
+
+msgid "Enable 2FA"
+msgstr "2FA aktivieren"
+
+msgid "Disable 2FA"
+msgstr "2FA deaktivieren"
+
+msgid "Profile Info"
+msgstr "Profilinformationen"
+
+msgid "Recent Orders"
+msgstr "Letzte Bestellungen"
+
+msgid "View All"
+msgstr "Alle anzeigen"
+
+msgid "No orders yet."
+msgstr "Noch keine Bestellungen."
+
+msgid "Start shopping!"
+msgstr "Jetzt einkaufen!"
+
+msgid "Recent Posts"
+msgstr "Neueste Beiträge"
+
+msgid "No posts yet. Share your creations with the community!"
+msgstr "Noch keine Beiträge. Teile deine Kreationen mit der Community!"
+
+msgid "Recent Loyalty Activity"
+msgstr "Aktuelle Treueaktivitäten"
+
+msgid "Games"
+msgstr "Spiele"
+
+msgid "Shop"
+msgstr "Shop"
+
+msgid "Company"
+msgstr "Unternehmen"
+
+msgid "Follow Us"
+msgstr "Folge uns"
+
+msgid "All rights reserved."
+msgstr "Alle Rechte vorbehalten."
+
+msgid "Privacy Policy"
+msgstr "Datenschutzrichtlinie"
+
+msgid "Terms of Service"
+msgstr "Nutzungsbedingungen"
+
+msgid "Read More"
+msgstr "Mehr lesen"
+
+msgid "Categories"
+msgstr "Kategorien"
+
+msgid "Online Event"
+msgstr "Online-Event"
+
+msgid "Learn More"
+msgstr "Mehr erfahren"
+
+msgid "Register"
+msgstr "Anmelden"
+
+msgid "No Events Scheduled"
+msgstr "Keine Events geplant"
+
+msgid "Check back soon for upcoming events!"
+msgstr "Schau bald wieder vorbei für kommende Events!"
+
+msgid "Play Now"
+msgstr "Jetzt spielen"
+
+msgid "Search"
+msgstr "Suche"
+
+msgid "Cart"
+msgstr "Warenkorb"
+
+msgid "Logout"
+msgstr "Abmelden"
+
+msgid "Search games, products, articles..."
+msgstr "Spiele, Produkte, Artikel durchsuchen…"
+
+msgid "Search results for \"%(search_query)s\""
+msgstr "Suchergebnisse für „%(search_query)s“"
+
+msgid "No results found"
+msgstr "Keine Ergebnisse gefunden"
+
+msgid "Try searching with different keywords."
+msgstr "Versuche es mit anderen Suchbegriffen."
+
+msgid "Shopping Cart"
+msgstr "Warenkorb"
+
+#, python-format
+msgid "Shopping Cart (%(counter)s item)"
+msgid_plural "Shopping Cart (%(counter)s items)"
+msgstr[0] "Warenkorb (%(counter)s Artikel)"
+msgstr[1] "Warenkorb (%(counter)s Artikel)"
+
+msgid "SKU"
+msgstr "Artikelnummer"
+
+msgid "Remove"
+msgstr "Entfernen"
+
+msgid "Your cart is empty"
+msgstr "Dein Warenkorb ist leer"
+
+msgid "Add some products to get started!"
+msgstr "Lege ein paar Produkte hinein, um loszulegen!"
+
+msgid "Continue Shopping"
+msgstr "Weiter einkaufen"
+
+msgid "Order Summary"
+msgstr "Bestellübersicht"
+
+msgid "Subtotal"
+msgstr "Zwischensumme"
+
+msgid "Shipping"
+msgstr "Versand"
+
+msgid "Calculated at checkout"
+msgstr "Wird an der Kasse berechnet"
+
+msgid "Total"
+msgstr "Gesamt"
+
+msgid "Coupon code"
+msgstr "Gutscheincode"
+
+msgid "Apply"
+msgstr "Einlösen"
+
+msgid "Proceed to Checkout"
+msgstr "Zur Kasse"
+
+msgid "Login to Checkout"
+msgstr "Anmelden zum Bezahlen"
+
+msgid "Checkout"
+msgstr "Kasse"
+
+msgid "Shipping Address"
+msgstr "Lieferadresse"
+
+msgid "Billing Address"
+msgstr "Rechnungsadresse"
+
+msgid "Shipping Method"
+msgstr "Versandart"
+
+msgid "Payment Method"
+msgstr "Zahlungsart"
+
+msgid "Credit/Debit Card"
+msgstr "Kredit-/Debitkarte"
+
+msgid "Cash on Delivery"
+msgstr "Nachnahme"
+
+msgid "Place Order"
+msgstr "Bestellung abschließen"
+
+msgid "Tax"
+msgstr "Steuer"
+
+msgid "Discount"
+msgstr "Rabatt"
+
+msgid "OFF"
+msgstr "RABATT"
+
+#, python-format
+msgid "In Stock (%(counter)s available)"
+msgid_plural "In Stock (%(counter)s available)"
+msgstr[0] "Auf Lager (%(counter)s verfügbar)"
+msgstr[1] "Auf Lager (%(counter)s verfügbar)"
+
+msgid "Quantity"
+msgstr "Menge"
+
+msgid "Add to Cart"
+msgstr "In den Warenkorb"
+
+msgid "Add to Wishlist"
+msgstr "Auf die Wunschliste"
+
+msgid "Out of Stock"
+msgstr "Ausverkauft"
+
+msgid "Product Details"
+msgstr "Produktdetails"
+
+msgid "Brand"
+msgstr "Marke"
+
+msgid "Weight"
+msgstr "Gewicht"
+
+msgid "Dimensions"
+msgstr "Maße"
+
+msgid "Digital Product"
+msgstr "Digitales Produkt"
+
+msgid "Description"
+msgstr "Beschreibung"
+
+msgid "Filters"
+msgstr "Filter"
+
+msgid "Clear"
+msgstr "Zurücksetzen"
+
+msgid "Category"
+msgstr "Kategorie"
+
+msgid "All Categories"
+msgstr "Alle Kategorien"
+
+msgid "All Brands"
+msgstr "Alle Marken"
+
+msgid "Price Range"
+msgstr "Preisspanne"
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Quick Filters"
+msgstr "Schnellfilter"
+
+msgid "In Stock Only"
+msgstr "Nur auf Lager"
+
+msgid "On Sale"
+msgstr "Im Angebot"
+
+msgid "Featured"
+msgstr "Empfohlen"
+
+msgid "Apply Filters"
+msgstr "Filter anwenden"
+
+#, python-format
+msgid "%(counter)s product"
+msgid_plural "%(counter)s products"
+msgstr[0] "%(counter)s Produkt"
+msgstr[1] "%(counter)s Produkte"
+
+msgid "Newest"
+msgstr "Neueste"
+
+msgid "Price: Low to High"
+msgstr "Preis: niedrig bis hoch"
+
+msgid "Price: High to Low"
+msgstr "Preis: hoch bis niedrig"
+
+msgid "Name: A-Z"
+msgstr "Name: A–Z"
+
+msgid "Name: Z-A"
+msgstr "Name: Z–A"
+
+msgid "View Details"
+msgstr "Details anzeigen"
+
+msgid "No products found matching your filters."
+msgstr "Keine Produkte gefunden, die deinen Filtern entsprechen."

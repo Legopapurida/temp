@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags currency_filters %}
+{% load wagtailcore_tags wagtailimages_tags currency_filters i18n %}
 
 {% block content %}
 <div class="container py-5">
@@ -23,7 +23,7 @@
                     <div class="d-flex align-items-center gap-3 mb-2">
                         <span class="h3 text-danger mb-0">{{ currency_symbol }}{% get_sale_price page user_currency %}</span>
                         <span class="text-decoration-line-through text-muted">{{ currency_symbol }}{% get_price page user_currency %}</span>
-                        <span class="badge bg-danger">{{ page.discount_percentage }}% OFF</span>
+                        <span class="badge bg-danger">{{ page.discount_percentage }}% {% trans "OFF" %}</span>
                     </div>
                 {% else %}
                     <span class="h3">{{ currency_symbol }}{% get_price page user_currency %}</span>
@@ -32,7 +32,7 @@
             
             {% if page.stock_quantity > 0 %}
                 <div class="mb-3">
-                    <span class="badge bg-success">In Stock ({{ page.stock_quantity }} available)</span>
+                    <span class="badge bg-success">{% blocktrans count counter=page.stock_quantity %}In Stock ({{ counter }} available){% plural %}In Stock ({{ counter }} available){% endblocktrans %}</span>
                 </div>
                 
                 <form method="post" action="{% url 'shop:add_to_cart' %}" class="mb-3">
@@ -40,13 +40,13 @@
                     <input type="hidden" name="product_id" value="{{ page.id }}">
                     <div class="row mb-3">
                         <div class="col-4">
-                            <label for="quantity" class="form-label">Quantity:</label>
+                            <label for="quantity" class="form-label">{% trans "Quantity" %}:</label>
                             <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="{{ page.stock_quantity }}">
                         </div>
                     </div>
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-primary btn-lg">
-                            <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                            <i class="fas fa-shopping-cart me-2"></i>{% trans "Add to Cart" %}
                         </button>
                     </div>
                 </form>
@@ -57,34 +57,34 @@
                     <input type="hidden" name="product_id" value="{{ page.id }}">
                     <div class="d-grid">
                         <button type="submit" class="btn btn-outline-secondary">
-                            <i class="fas fa-heart me-2"></i>Add to Wishlist
+                            <i class="fas fa-heart me-2"></i>{% trans "Add to Wishlist" %}
                         </button>
                     </div>
                 </form>
                 {% endif %}
             {% else %}
                 <div class="mb-3">
-                    <span class="badge bg-danger">Out of Stock</span>
+                    <span class="badge bg-danger">{% trans "Out of Stock" %}</span>
                 </div>
             {% endif %}
             
             <div class="card mt-3">
                 <div class="card-header">
-                    <h5>Product Details</h5>
+                    <h5>{% trans "Product Details" %}</h5>
                 </div>
                 <div class="card-body">
-                    <p><strong>SKU:</strong> {{ page.sku }}</p>
+                    <p><strong>{% trans "SKU" %}:</strong> {{ page.sku }}</p>
                     {% if page.brand %}
-                        <p><strong>Brand:</strong> {{ page.brand.name }}</p>
+                        <p><strong>{% trans "Brand" %}:</strong> {{ page.brand.name }}</p>
                     {% endif %}
                     {% if page.weight %}
-                        <p><strong>Weight:</strong> {{ page.weight }} lbs</p>
+                        <p><strong>{% trans "Weight" %}:</strong> {{ page.weight }} lbs</p>
                     {% endif %}
                     {% if page.dimensions %}
-                        <p><strong>Dimensions:</strong> {{ page.dimensions }}</p>
+                        <p><strong>{% trans "Dimensions" %}:</strong> {{ page.dimensions }}</p>
                     {% endif %}
                     {% if page.is_digital %}
-                        <p><span class="badge bg-info">Digital Product</span></p>
+                        <p><span class="badge bg-info">{% trans "Digital Product" %}</span></p>
                     {% endif %}
                 </div>
             </div>
@@ -93,11 +93,11 @@
     
     <div class="row mt-5">
         <div class="col-12">
-            <h3>Description</h3>
+            <h3>{% trans "Description" %}</h3>
             <div class="mb-4">{{ page.description|richtext }}</div>
             
             {% if page.categories.all %}
-                <h5>Categories</h5>
+                <h5>{% trans "Categories" %}</h5>
                 <div class="mb-3">
                     {% for category in page.categories.all %}
                         <span class="badge bg-secondary me-1">{{ category.name }}</span>

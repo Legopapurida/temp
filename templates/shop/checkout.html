@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Checkout - {{ block.super }}{% endblock %}
+{% block title %}{% trans "Checkout" %} - {{ block.super }}{% endblock %}
 
 {% block content %}
 <div class="container py-5">
@@ -9,7 +9,7 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="mb-0">Checkout</h4>
+                    <h4 class="mb-0">{% trans "Checkout" %}</h4>
                 </div>
                 <div class="card-body">
                     <form id="checkout-form" method="post" action="{% url 'shop:process_order' %}">
@@ -17,7 +17,7 @@
                         
                         <!-- Shipping Address -->
                         <div class="mb-4">
-                            <h5>Shipping Address</h5>
+                            <h5>{% trans "Shipping Address" %}</h5>
                             {% if shipping_addresses %}
                                 {% for address in shipping_addresses %}
                                 <div class="form-check">
@@ -34,13 +34,13 @@
                                 </div>
                                 {% endfor %}
                             {% else %}
-                                <p class="text-muted">No shipping addresses found. <a href="{% url 'shop:manage_addresses' %}">Add one</a></p>
+                                <p class="text-muted">{% trans "No shipping addresses found." %} <a href="{% url 'shop:manage_addresses' %}">{% trans "Add one" %}</a></p>
                             {% endif %}
                         </div>
                         
                         <!-- Billing Address -->
                         <div class="mb-4">
-                            <h5>Billing Address</h5>
+                            <h5>{% trans "Billing Address" %}</h5>
                             {% if billing_addresses %}
                                 {% for address in billing_addresses %}
                                 <div class="form-check">
@@ -57,13 +57,13 @@
                                 </div>
                                 {% endfor %}
                             {% else %}
-                                <p class="text-muted">No billing addresses found. <a href="{% url 'shop:manage_addresses' %}">Add one</a></p>
+                                <p class="text-muted">{% trans "No billing addresses found." %} <a href="{% url 'shop:manage_addresses' %}">{% trans "Add one" %}</a></p>
                             {% endif %}
                         </div>
                         
                         <!-- Shipping Method -->
                         <div class="mb-4">
-                            <h5>Shipping Method</h5>
+                            <h5>{% trans "Shipping Method" %}</h5>
                             {% for method in shipping_methods %}
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="shipping_method" 
@@ -79,12 +79,12 @@
                         
                         <!-- Payment Method -->
                         <div class="mb-4">
-                            <h5>Payment Method</h5>
+                            <h5>{% trans "Payment Method" %}</h5>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="payment_method" 
                                        value="card" id="payment_card" checked>
                                 <label class="form-check-label" for="payment_card">
-                                    <i class="fas fa-credit-card"></i> Credit/Debit Card
+                                    <i class="fas fa-credit-card"></i> {% trans "Credit/Debit Card" %}
                                 </label>
                             </div>
                             <div class="form-check">
@@ -98,13 +98,13 @@
                                 <input class="form-check-input" type="radio" name="payment_method" 
                                        value="cod" id="payment_cod">
                                 <label class="form-check-label" for="payment_cod">
-                                    <i class="fas fa-money-bill"></i> Cash on Delivery
+                                    <i class="fas fa-money-bill"></i> {% trans "Cash on Delivery" %}
                                 </label>
                             </div>
                         </div>
                         
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-lg">Place Order</button>
+                            <button type="submit" class="btn btn-primary btn-lg">{% trans "Place Order" %}</button>
                         </div>
                     </form>
                 </div>
@@ -114,7 +114,7 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Order Summary</h5>
+                    <h5 class="mb-0">{% trans "Order Summary" %}</h5>
                 </div>
                 <div class="card-body">
                     {% for item in cart.items.all %}
@@ -126,26 +126,26 @@
                     
                     <hr>
                     <div class="d-flex justify-content-between mb-2">
-                        <span>Subtotal:</span>
+                        <span>{% trans "Subtotal" %}:</span>
                         <span>${{ subtotal }}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
-                        <span>Tax:</span>
+                        <span>{% trans "Tax" %}:</span>
                         <span>${{ tax_amount }}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
-                        <span>Shipping:</span>
+                        <span>{% trans "Shipping" %}:</span>
                         <span>${{ shipping_cost }}</span>
                     </div>
                     {% if discount_amount > 0 %}
                     <div class="d-flex justify-content-between mb-2 text-success">
-                        <span>Discount:</span>
+                        <span>{% trans "Discount" %}:</span>
                         <span>-${{ discount_amount }}</span>
                     </div>
                     {% endif %}
                     <hr>
                     <div class="d-flex justify-content-between fw-bold">
-                        <span>Total:</span>
+                        <span>{% trans "Total" %}:</span>
                         <span>${{ total_amount }}</span>
                     </div>
                 </div>

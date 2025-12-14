@@ -1,7 +1,7 @@
+from django.http import HttpResponseBadRequest
 from django.shortcuts import redirect
 from django.utils import translation
 from wagtail.models import Page, Locale
-from django.http import HttpResponseBadRequest
 
 LANGUAGE_SESSION_KEY = '_language'
 
@@ -16,6 +16,12 @@ def switch_language(request):
     translation.activate(lang_code)
     request.session[LANGUAGE_SESSION_KEY] = lang_code
 
+    if request.user.is_authenticated and hasattr(request.user, 'userprofile'):
+        request.user.userprofile.language = lang_code
+        request.user.shop_profile.language = lang_code
+        request.user.userprofile.save(update_fields=['language'])
+        request.user.shop_profile.save(update_fields=['language'])
+
     if page_id:
         try:
             page = Page.objects.get(id=page_id).specific
@@ -25,5 +31,5 @@ def switch_language(request):
                 return redirect(translated.url)
         except (Page.DoesNotExist, Locale.DoesNotExist):
             pass
-    
-    return redirect(f"/{lang_code}/")
+
+    return redirect(f"/{lang_code}/" if lang_code != 'en' else "/")

@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: .\brickaria\settings\base.py:170
 msgid "English"
@@ -42,462 +42,462 @@ msgstr ""
 #: .\templates\accounts\login.html:4 .\templates\accounts\login.html:20
 #: .\templates\includes\header.html:98
 msgid "Login"
-msgstr "Iniciar sesión"
+msgstr ""
 
 #: .\templates\account\login.html:12 .\templates\accounts\login.html:12
 msgid "Login to Brickaria"
-msgstr "Iniciar sesión en Brickaria"
+msgstr ""
 
 #: .\templates\account\login.html:27 .\templates\accounts\login.html:27
 msgid "Don't have an account?"
-msgstr "¿No tienes una cuenta?"
+msgstr ""
 
 #: .\templates\account\login.html:27 .\templates\accounts\login.html:27
 msgid "Sign up here"
-msgstr "Regístrate aquí"
+msgstr ""
 
 #: .\templates\account\login.html:28 .\templates\accounts\login.html:28
 msgid "Forgot your password?"
-msgstr "¿Olvidaste tu contraseña?"
+msgstr ""
 
 #: .\templates\accounts\profile.html:4 .\templates\includes\header.html:92
 msgid "Profile"
-msgstr "Perfil"
+msgstr ""
 
 #: .\templates\accounts\profile.html:33
 msgid "Member"
-msgstr "Miembro"
+msgstr ""
 
 #: .\templates\accounts\profile.html:34
 msgid "2FA Enabled"
-msgstr "Autenticación en dos pasos activada"
+msgstr ""
 
 #: .\templates\accounts\profile.html:39
 msgid "Edit"
-msgstr "Editar"
+msgstr ""
 
 #: .\templates\accounts\profile.html:57
 msgid "Orders"
-msgstr "Pedidos"
+msgstr ""
 
 #: .\templates\accounts\profile.html:65
 msgid "Points"
-msgstr "Puntos"
+msgstr ""
 
 #: .\templates\accounts\profile.html:74
 msgid "Quick Actions"
-msgstr "Acciones rápidas"
+msgstr ""
 
 #: .\templates\accounts\profile.html:78
 msgid "Shop Dashboard"
-msgstr "Panel de la tienda"
+msgstr ""
 
 #: .\templates\accounts\profile.html:81
 msgid "Manage Emails"
-msgstr "Gestionar correos"
+msgstr ""
 
 #: .\templates\accounts\profile.html:85
 msgid "Enable 2FA"
-msgstr "Activar autenticación en dos pasos"
+msgstr ""
 
 #: .\templates\accounts\profile.html:89
 msgid "Disable 2FA"
-msgstr "Desactivar autenticación en dos pasos"
+msgstr ""
 
 #: .\templates\accounts\profile.html:98
 msgid "Profile Info"
-msgstr "Información del perfil"
+msgstr ""
 
 #: .\templates\accounts\profile.html:122
 msgid "Recent Orders"
-msgstr "Pedidos recientes"
+msgstr ""
 
 #: .\templates\accounts\profile.html:123
 msgid "View All"
-msgstr "Ver todos"
+msgstr ""
 
 #: .\templates\accounts\profile.html:137
 msgid "No orders yet."
-msgstr "Aún no hay pedidos."
+msgstr ""
 
 #: .\templates\accounts\profile.html:137
 msgid "Start shopping!"
-msgstr "¡Empieza a comprar!"
+msgstr ""
 
 #: .\templates\accounts\profile.html:145
 msgid "Recent Posts"
-msgstr "Publicaciones recientes"
+msgstr ""
 
 #: .\templates\accounts\profile.html:162
 msgid "No posts yet. Share your creations with the community!"
-msgstr "Aún no hay publicaciones. ¡Comparte tus creaciones con la comunidad!"
+msgstr ""
 
 #: .\templates\accounts\profile.html:171
 msgid "Recent Loyalty Activity"
-msgstr "Actividad reciente del programa de fidelidad"
+msgstr ""
 
 #: .\templates\base.html:50
 msgid ""
 "Building amazing gaming experiences with creativity and community at heart."
-msgstr "Creando experiencias de juego increíbles con creatividad y comunidad en el corazón."
+msgstr ""
 
 #: .\templates\base.html:53
 msgid "Games"
-msgstr "Juegos"
+msgstr ""
 
 #: .\templates\base.html:61
 msgid "Shop"
-msgstr "Tienda"
+msgstr ""
 
 #: .\templates\base.html:69
 msgid "Company"
-msgstr "Empresa"
+msgstr ""
 
 #: .\templates\base.html:77
 msgid "Follow Us"
-msgstr "Síguenos"
+msgstr ""
 
 #: .\templates\base.html:88
 msgid "All rights reserved."
-msgstr "Todos los derechos reservados."
+msgstr ""
 
 #: .\templates\base.html:92
 msgid "Privacy Policy"
-msgstr "Política de privacidad"
+msgstr ""
 
 #: .\templates\base.html:95
 msgid "Terms of Service"
-msgstr "Términos del servicio"
+msgstr ""
 
 #: .\templates\blog\blog_index_page.html:29
 msgid "Read More"
-msgstr "Leer más"
+msgstr ""
 
 #: .\templates\blog\blog_index_page.html:42
 #: .\templates\games\games_index_page.html:40
 #: .\templates\shop\product_page.html:100
 msgid "Categories"
-msgstr "Categorías"
+msgstr ""
 
 #: .\templates\events\events_index_page.html:33
 msgid "Online Event"
-msgstr "Evento en línea"
+msgstr ""
 
 #: .\templates\events\events_index_page.html:37
 msgid "Learn More"
-msgstr "Saber más"
+msgstr ""
 
 #: .\templates\events\events_index_page.html:39
 msgid "Register"
-msgstr "Registrarse"
+msgstr ""
 
 #: .\templates\events\events_index_page.html:49
 msgid "No Events Scheduled"
-msgstr "No hay eventos programados"
+msgstr ""
 
 #: .\templates\events\events_index_page.html:50
 msgid "Check back soon for upcoming events!"
-msgstr "¡Vuelve pronto para ver los próximos eventos!"
+msgstr ""
 
 #: .\templates\games\games_index_page.html:25
 msgid "Play Now"
-msgstr "Jugar ahora"
+msgstr ""
 
 #: .\templates\includes\header.html:74 .\templates\search\search.html:4
 #: .\templates\search\search.html:10 .\templates\search\search.html:17
 msgid "Search"
-msgstr "Buscar"
+msgstr ""
 
 #: .\templates\includes\header.html:79
 msgid "Cart"
-msgstr "Carrito"
+msgstr ""
 
 #: .\templates\includes\header.html:93
 msgid "Logout"
-msgstr "Cerrar sesión"
+msgstr ""
 
 #: .\templates\search\search.html:15
 msgid "Search games, products, articles..."
-msgstr "Buscar juegos, productos, artículos..."
+msgstr ""
 
 #: .\templates\search\search.html:23
 #, python-format
 msgid "Search results for \"%(search_query)s\""
-msgstr "Resultados de búsqueda para \"%(search_query)s\""
+msgstr ""
 
 #: .\templates\search\search.html:48
 msgid "No results found"
-msgstr "No se encontraron resultados"
+msgstr ""
 
 #: .\templates\search\search.html:49
 msgid "Try searching with different keywords."
-msgstr "Prueba buscando con otras palabras clave."
+msgstr ""
 
 #: .\templates\search\search.html:55
 msgid "Search our site"
-msgstr "Busca en nuestro sitio"
+msgstr ""
 
 #: .\templates\search\search.html:56
 msgid "Find games, products, articles, and more."
-msgstr "Encuentra juegos, productos, artículos y más."
+msgstr ""
 
 #: .\templates\shop\cart.html:4
 msgid "Shopping Cart"
-msgstr "Carrito de compras"
+msgstr ""
 
 #: .\templates\shop\cart.html:15
 #, python-format
 msgid "Shopping Cart (%(counter)s item)"
 msgid_plural "Shopping Cart (%(counter)s items)"
-msgstr[0] "Carrito de compras (%(counter)s artículo)"
-msgstr[1] "Carrito de compras (%(counter)s artículos)"
+msgstr[0] ""
+msgstr[1] ""
 
 #: .\templates\shop\cart.html:41 .\templates\shop\product_page.html:76
 msgid "SKU"
-msgstr "SKU"
+msgstr ""
 
 #: .\templates\shop\cart.html:54
 msgid "Remove"
-msgstr "Eliminar"
+msgstr ""
 
 #: .\templates\shop\cart.html:61
 msgid "Your cart is empty"
-msgstr "Tu carrito está vacío"
+msgstr ""
 
 #: .\templates\shop\cart.html:62
 msgid "Add some products to get started!"
-msgstr "¡Añade algunos productos para comenzar!"
+msgstr ""
 
 #: .\templates\shop\cart.html:63 .\templates\shop\cart.html:106
 msgid "Continue Shopping"
-msgstr "Seguir comprando"
+msgstr ""
 
 #: .\templates\shop\cart.html:74 .\templates\shop\checkout.html:117
 msgid "Order Summary"
-msgstr "Resumen del pedido"
+msgstr ""
 
 #: .\templates\shop\cart.html:78 .\templates\shop\checkout.html:129
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr ""
 
 #: .\templates\shop\cart.html:82 .\templates\shop\checkout.html:137
 msgid "Shipping"
-msgstr "Envío"
+msgstr ""
 
 #: .\templates\shop\cart.html:83
 msgid "Calculated at checkout"
-msgstr "Calculado en el pago"
+msgstr ""
 
 #: .\templates\shop\cart.html:87 .\templates\shop\checkout.html:148
 msgid "Total"
-msgstr "Total"
+msgstr ""
 
 #: .\templates\shop\cart.html:95
 msgid "Coupon code"
-msgstr "Código de cupón"
+msgstr ""
 
 #: .\templates\shop\cart.html:96
 msgid "Apply"
-msgstr "Aplicar"
+msgstr ""
 
 #: .\templates\shop\cart.html:102
 msgid "Proceed to Checkout"
-msgstr "Ir al pago"
+msgstr ""
 
 #: .\templates\shop\cart.html:104
 msgid "Login to Checkout"
-msgstr "Inicia sesión para pagar"
+msgstr ""
 
 #: .\templates\shop\checkout.html:4 .\templates\shop\checkout.html:12
 msgid "Checkout"
-msgstr "Finalizar compra"
+msgstr ""
 
 #: .\templates\shop\checkout.html:20
 msgid "Shipping Address"
-msgstr "Dirección de envío"
+msgstr ""
 
 #: .\templates\shop\checkout.html:37
 msgid "No shipping addresses found."
-msgstr "No se encontraron direcciones de envío."
+msgstr ""
 
 #: .\templates\shop\checkout.html:37 .\templates\shop\checkout.html:60
 msgid "Add one"
-msgstr "Añadir una"
+msgstr ""
 
 #: .\templates\shop\checkout.html:43
 msgid "Billing Address"
-msgstr "Dirección de facturación"
+msgstr ""
 
 #: .\templates\shop\checkout.html:60
 msgid "No billing addresses found."
-msgstr "No se encontraron direcciones de facturación."
+msgstr ""
 
 #: .\templates\shop\checkout.html:66
 msgid "Shipping Method"
-msgstr "Método de envío"
+msgstr ""
 
 #: .\templates\shop\checkout.html:82
 msgid "Payment Method"
-msgstr "Método de pago"
+msgstr ""
 
 #: .\templates\shop\checkout.html:87
 msgid "Credit/Debit Card"
-msgstr "Tarjeta de crédito/débito"
+msgstr ""
 
 #: .\templates\shop\checkout.html:101
 msgid "Cash on Delivery"
-msgstr "Pago contra reembolso"
+msgstr ""
 
 #: .\templates\shop\checkout.html:107
 msgid "Place Order"
-msgstr "Realizar pedido"
+msgstr ""
 
 #: .\templates\shop\checkout.html:133
 msgid "Tax"
-msgstr "Impuestos"
+msgstr ""
 
 #: .\templates\shop\checkout.html:142
 msgid "Discount"
-msgstr "Descuento"
+msgstr ""
 
 #: .\templates\shop\product_page.html:26
 #: .\templates\shop\shop_index_page.html:114
 msgid "OFF"
-msgstr "DTO"
+msgstr ""
 
 #: .\templates\shop\product_page.html:35
 #, python-format
 msgid "In Stock (%(counter)s available)"
 msgid_plural "In Stock (%(counter)s available)"
-msgstr[0] "En stock (%(counter)s disponible)"
-msgstr[1] "En stock (%(counter)s disponibles)"
+msgstr[0] ""
+msgstr[1] ""
 
 #: .\templates\shop\product_page.html:43
 msgid "Quantity"
-msgstr "Cantidad"
+msgstr ""
 
 #: .\templates\shop\product_page.html:49
 msgid "Add to Cart"
-msgstr "Añadir al carrito"
+msgstr ""
 
 #: .\templates\shop\product_page.html:60
 msgid "Add to Wishlist"
-msgstr "Añadir a la lista de deseos"
+msgstr ""
 
 #: .\templates\shop\product_page.html:67
 #: .\templates\shop\shop_index_page.html:137
 msgid "Out of Stock"
-msgstr "Sin stock"
+msgstr ""
 
 #: .\templates\shop\product_page.html:73
 msgid "Product Details"
-msgstr "Detalles del producto"
+msgstr ""
 
 #: .\templates\shop\product_page.html:78
 #: .\templates\shop\shop_index_page.html:35
 msgid "Brand"
-msgstr "Marca"
+msgstr ""
 
 #: .\templates\shop\product_page.html:81
 msgid "Weight"
-msgstr "Peso"
+msgstr ""
 
 #: .\templates\shop\product_page.html:84
 msgid "Dimensions"
-msgstr "Dimensiones"
+msgstr ""
 
 #: .\templates\shop\product_page.html:87
 msgid "Digital Product"
-msgstr "Producto digital"
+msgstr ""
 
 #: .\templates\shop\product_page.html:96
 msgid "Description"
-msgstr "Descripción"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:13
 msgid "Filters"
-msgstr "Filtros"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:15
 msgid "Clear"
-msgstr "Limpiar"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:22
 msgid "Category"
-msgstr "Categoría"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:24
 msgid "All Categories"
-msgstr "Todas las categorías"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:37
 msgid "All Brands"
-msgstr "Todas las marcas"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:48
 msgid "Price Range"
-msgstr "Rango de precios"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:51
 msgid "Min"
-msgstr "Mín"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:54
 msgid "Max"
-msgstr "Máx"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:61
 msgid "Quick Filters"
-msgstr "Filtros rápidos"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:64
 msgid "In Stock Only"
-msgstr "Solo en stock"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:68
 msgid "On Sale"
-msgstr "En oferta"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:72
 #: .\templates\shop\shop_index_page.html:117
 msgid "Featured"
-msgstr "Destacados"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:76
 msgid "Apply Filters"
-msgstr "Aplicar filtros"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:86
 #, python-format
 msgid "%(counter)s product"
 msgid_plural "%(counter)s products"
-msgstr[0] "%(counter)s producto"
-msgstr[1] "%(counter)s productos"
+msgstr[0] ""
+msgstr[1] ""
 
 #: .\templates\shop\shop_index_page.html:90
 msgid "Newest"
-msgstr "Más nuevos"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:91
 msgid "Price: Low to High"
-msgstr "Precio: de menor a mayor"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:92
 msgid "Price: High to Low"
-msgstr "Precio: de mayor a menor"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:93
 msgid "Name: A-Z"
-msgstr "Nombre: A-Z"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:94
 msgid "Name: Z-A"
-msgstr "Nombre: Z-A"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:140
 msgid "View Details"
-msgstr "Ver detalles"
+msgstr ""
 
 #: .\templates\shop\shop_index_page.html:150
 msgid "No products found matching your filters."
-msgstr "No se encontraron productos que coincidan con tus filtros."
+msgstr ""

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags currency_filters %}
+{% load wagtailcore_tags wagtailimages_tags currency_filters i18n %}
 
 {% block content %}
 <div class="container py-5">
@@ -10,18 +10,18 @@
         <div class="col-lg-3">
             <div class="card mb-3">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Filters</h5>
+                    <h5 class="mb-0">{% trans "Filters" %}</h5>
                     {% if filters.category or filters.brand or filters.min_price or filters.max_price or filters.in_stock or filters.on_sale or filters.featured %}
-                        <a href="{{ page.url }}" class="btn btn-sm btn-outline-secondary">Clear</a>
+                        <a href="{% if request.LANGUAGE_CODE == 'en' %}{{ page.url }}{% else %}/{{ request.LANGUAGE_CODE }}{{ page.url }}{% endif %}" class="btn btn-sm btn-outline-secondary">{% trans "Clear" %}</a>
                     {% endif %}
                 </div>
                 <div class="card-body">
                     <form method="get" id="filter-form">
                         <!-- Categories -->
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Category</label>
+                            <label class="form-label fw-bold">{% trans "Category" %}</label>
                             <select name="category" class="form-select form-select-sm" onchange="this.form.submit()">
-                                <option value="">All Categories</option>
+                                <option value="">{% trans "All Categories" %}</option>
                                 {% for category in categories %}
                                     <option value="{{ category.id }}" {% if filters.category == category.id|stringformat:"s" %}selected{% endif %}>
                                         {{ category.name }}
@@ -32,9 +32,9 @@
 
                         <!-- Brands -->
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Brand</label>
+                            <label class="form-label fw-bold">{% trans "Brand" %}</label>
                             <select name="brand" class="form-select form-select-sm" onchange="this.form.submit()">
-                                <option value="">All Brands</option>
+                                <option value="">{% trans "All Brands" %}</option>
                                 {% for brand in brands %}
                                     <option value="{{ brand.id }}" {% if filters.brand == brand.id|stringformat:"s" %}selected{% endif %}>
                                         {{ brand.name }}
@@ -45,35 +45,35 @@
 
                         <!-- Price Range -->
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Price Range</label>
+                            <label class="form-label fw-bold">{% trans "Price Range" %}</label>
                             <div class="row g-2">
                                 <div class="col-6">
-                                    <input type="number" name="min_price" class="form-control form-control-sm" placeholder="Min" value="{{ filters.min_price }}" min="0" step="0.01">
+                                    <input type="number" name="min_price" class="form-control form-control-sm" placeholder="{% trans 'Min' %}" value="{{ filters.min_price }}" min="0" step="0.01">
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="max_price" class="form-control form-control-sm" placeholder="Max" value="{{ filters.max_price }}" min="0" step="0.01">
+                                    <input type="number" name="max_price" class="form-control form-control-sm" placeholder="{% trans 'Max' %}" value="{{ filters.max_price }}" min="0" step="0.01">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Quick Filters -->
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Quick Filters</label>
+                            <label class="form-label fw-bold">{% trans "Quick Filters" %}</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="in_stock" value="1" id="in_stock" {% if filters.in_stock %}checked{% endif %} onchange="this.form.submit()">
-                                <label class="form-check-label" for="in_stock">In Stock Only</label>
+                                <label class="form-check-label" for="in_stock">{% trans "In Stock Only" %}</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="on_sale" value="1" id="on_sale" {% if filters.on_sale %}checked{% endif %} onchange="this.form.submit()">
-                                <label class="form-check-label" for="on_sale">On Sale</label>
+                                <label class="form-check-label" for="on_sale">{% trans "On Sale" %}</label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="featured" value="1" id="featured" {% if filters.featured %}checked{% endif %} onchange="this.form.submit()">
-                                <label class="form-check-label" for="featured">Featured</label>
+                                <label class="form-check-label" for="featured">{% trans "Featured" %}</label>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-sm w-100">Apply Filters</button>
+                        <button type="submit" class="btn btn-primary btn-sm w-100">{% trans "Apply Filters" %}</button>
                     </form>
                 </div>
             </div>
@@ -83,15 +83,15 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h1 class="h3 mb-1">{{ page.title }}</h1>
-                    <small class="text-muted">{{ products.count }} product{{ products.count|pluralize }}</small>
+                    <small class="text-muted">{% blocktrans count counter=products.count %}{{ counter }} product{% plural %}{{ counter }} products{% endblocktrans %}</small>
                 </div>
                 <div>
                     <select name="sort" class="form-select form-select-sm" style="width: auto;" onchange="window.location.href='?sort=' + this.value{% if filters.category %}&category={{ filters.category }}{% endif %}{% if filters.brand %}&brand={{ filters.brand }}{% endif %}{% if filters.min_price %}&min_price={{ filters.min_price }}{% endif %}{% if filters.max_price %}&max_price={{ filters.max_price }}{% endif %}{% if filters.in_stock %}&in_stock=1{% endif %}{% if filters.on_sale %}&on_sale=1{% endif %}{% if filters.featured %}&featured=1{% endif %}">
-                        <option value="newest" {% if filters.sort == 'newest' %}selected{% endif %}>Newest</option>
-                        <option value="price_asc" {% if filters.sort == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
-                        <option value="price_desc" {% if filters.sort == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
-                        <option value="name_asc" {% if filters.sort == 'name_asc' %}selected{% endif %}>Name: A-Z</option>
-                        <option value="name_desc" {% if filters.sort == 'name_desc' %}selected{% endif %}>Name: Z-A</option>
+                        <option value="newest" {% if filters.sort == 'newest' %}selected{% endif %}>{% trans "Newest" %}</option>
+                        <option value="price_asc" {% if filters.sort == 'price_asc' %}selected{% endif %}>{% trans "Price: Low to High" %}</option>
+                        <option value="price_desc" {% if filters.sort == 'price_desc' %}selected{% endif %}>{% trans "Price: High to Low" %}</option>
+                        <option value="name_asc" {% if filters.sort == 'name_asc' %}selected{% endif %}>{% trans "Name: A-Z" %}</option>
+                        <option value="name_desc" {% if filters.sort == 'name_desc' %}selected{% endif %}>{% trans "Name: Z-A" %}</option>
                     </select>
                 </div>
             </div>
@@ -111,10 +111,10 @@
                             {% if product.is_on_sale or product.is_featured %}
                                 <div class="position-absolute top-0 end-0 p-2">
                                     {% if product.is_on_sale %}
-                                        <span class="badge bg-danger">{{ product.discount_percentage }}% OFF</span>
+                                        <span class="badge bg-danger">{{ product.discount_percentage }}% {% trans "OFF" %}</span>
                                     {% endif %}
                                     {% if product.is_featured %}
-                                        <span class="badge bg-warning text-dark">Featured</span>
+                                        <span class="badge bg-warning text-dark">{% trans "Featured" %}</span>
                                     {% endif %}
                                 </div>
                             {% endif %}
@@ -134,10 +134,10 @@
                                         {% endif %}
                                     </div>
                                     {% if not product.is_in_stock %}
-                                        <span class="badge bg-secondary mb-2">Out of Stock</span>
+                                        <span class="badge bg-secondary mb-2">{% trans "Out of Stock" %}</span>
                                     {% endif %}
                                     <div class="d-grid">
-                                        <a href="{{ product.url }}" class="btn btn-primary btn-sm">View Details</a>
+                                        <a href="{% if request.LANGUAGE_CODE == 'en' %}{{ product.url }}{% else %}/{{ request.LANGUAGE_CODE }}{{ product.url }}{% endif %}" class="btn btn-primary btn-sm">{% trans "View Details" %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +147,7 @@
                     <div class="col-12">
                         <div class="alert alert-warning text-center">
                             <i class="bi bi-search"></i>
-                            <p class="mb-0">No products found matching your filters.</p>
+                            <p class="mb-0">{% trans "No products found matching your filters." %}</p>
                         </div>
                     </div>
                 {% endfor %}
